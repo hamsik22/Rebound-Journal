@@ -7,18 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		586F228C2A33861C004C7410 /* Rebound_JournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F228B2A33861C004C7410 /* Rebound_JournalApp.swift */; };
-		586F228E2A33861C004C7410 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F228D2A33861C004C7410 /* ContentView.swift */; };
+		586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F228B2A33861C004C7410 /* ReboundJournalApp.swift */; };
+		586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F228D2A33861C004C7410 /* DashboardContentView.swift */; };
 		586F22902A33861D004C7410 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586F228F2A33861D004C7410 /* Assets.xcassets */; };
 		586F22932A33861D004C7410 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586F22922A33861D004C7410 /* Preview Assets.xcassets */; };
+		586F229B2A3387AF004C7410 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229A2A3387AF004C7410 /* DataManager.swift */; };
+		586F229D2A3388C4004C7410 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229C2A3388C4004C7410 /* HomeView.swift */; };
+		586F22A02A338990004C7410 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229F2A338990004C7410 /* AppConfig.swift */; };
+		586F22A22A3389CD004C7410 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A12A3389CD004C7410 /* PhotoDetailView.swift */; };
+		586F22A42A338A31004C7410 /* QuotesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A32A338A31004C7410 /* QuotesList.swift */; };
+		586F22A62A338BFF004C7410 /* PremiumContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A52A338BFF004C7410 /* PremiumContentView.swift */; };
+		586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A72A3390B4004C7410 /* Database.xcdatamodeld */; };
+		586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */; };
+		586F22AD2A3392A5004C7410 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AC2A3392A5004C7410 /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		586F22882A33861C004C7410 /* Rebound Journal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rebound Journal.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		586F228B2A33861C004C7410 /* Rebound_JournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rebound_JournalApp.swift; sourceTree = "<group>"; };
-		586F228D2A33861C004C7410 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		586F228B2A33861C004C7410 /* ReboundJournalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReboundJournalApp.swift; sourceTree = "<group>"; };
+		586F228D2A33861C004C7410 /* DashboardContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContentView.swift; sourceTree = "<group>"; };
 		586F228F2A33861D004C7410 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		586F22922A33861D004C7410 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		586F229A2A3387AF004C7410 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		586F229C2A3388C4004C7410 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		586F229F2A338990004C7410 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		586F22A12A3389CD004C7410 /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
+		586F22A32A338A31004C7410 /* QuotesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesList.swift; sourceTree = "<group>"; };
+		586F22A52A338BFF004C7410 /* PremiumContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumContentView.swift; sourceTree = "<group>"; };
+		586F22A82A3390B4004C7410 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
+		586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryCreatorView.swift; sourceTree = "<group>"; };
+		586F22AC2A3392A5004C7410 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +69,13 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
-				586F228B2A33861C004C7410 /* Rebound_JournalApp.swift */,
-				586F228D2A33861C004C7410 /* ContentView.swift */,
+				589D5F432A3EE15A00DB3CCF /* Notyet */,
+				586F229E2A338981004C7410 /* AppConfig */,
+				586F22992A338793004C7410 /* Model */,
+				589D5F412A3EDBD100DB3CCF /* Screen */,
+				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
+				586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */,
+				586F22AC2A3392A5004C7410 /* PhotoPicker.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
 			);
@@ -65,6 +88,50 @@
 				586F22922A33861D004C7410 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		586F22992A338793004C7410 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				586F229A2A3387AF004C7410 /* DataManager.swift */,
+				586F22A32A338A31004C7410 /* QuotesList.swift */,
+				586F22A72A3390B4004C7410 /* Database.xcdatamodeld */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		586F229E2A338981004C7410 /* AppConfig */ = {
+			isa = PBXGroup;
+			children = (
+				586F229F2A338990004C7410 /* AppConfig.swift */,
+			);
+			path = AppConfig;
+			sourceTree = "<group>";
+		};
+		589D5F412A3EDBD100DB3CCF /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				589D5F422A3EDC1300DB3CCF /* Tabs */,
+				586F228D2A33861C004C7410 /* DashboardContentView.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		589D5F422A3EDC1300DB3CCF /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				586F229C2A3388C4004C7410 /* HomeView.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		589D5F432A3EE15A00DB3CCF /* Notyet */ = {
+			isa = PBXGroup;
+			children = (
+				586F22A12A3389CD004C7410 /* PhotoDetailView.swift */,
+				586F22A52A338BFF004C7410 /* PremiumContentView.swift */,
+			);
+			path = Notyet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +204,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				586F228E2A33861C004C7410 /* ContentView.swift in Sources */,
-				586F228C2A33861C004C7410 /* Rebound_JournalApp.swift in Sources */,
+				586F22A62A338BFF004C7410 /* PremiumContentView.swift in Sources */,
+				586F22AD2A3392A5004C7410 /* PhotoPicker.swift in Sources */,
+				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
+				586F22A42A338A31004C7410 /* QuotesList.swift in Sources */,
+				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
+				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
+				586F229D2A3388C4004C7410 /* HomeView.swift in Sources */,
+				586F22A22A3389CD004C7410 /* PhotoDetailView.swift in Sources */,
+				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
+				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
+				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +346,7 @@
 				DEVELOPMENT_TEAM = QGAQ3AY3R3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -280,11 +357,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.leeo.Rebound-Journal";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -299,6 +379,7 @@
 				DEVELOPMENT_TEAM = QGAQ3AY3R3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -309,11 +390,14 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.leeo.Rebound-Journal";
+				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -339,6 +423,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		586F22A72A3390B4004C7410 /* Database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				586F22A82A3390B4004C7410 /* Database.xcdatamodel */,
+			);
+			currentVersion = 586F22A82A3390B4004C7410 /* Database.xcdatamodel */;
+			path = Database.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 586F22802A33861C004C7410 /* Project object */;
 }
