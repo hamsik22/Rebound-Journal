@@ -62,7 +62,7 @@ struct JournalDetailView: View {
                 Spacer()
             }
             .multilineTextAlignment(.leading)
-            .background(Color("DarkColor"))
+            .background(Color("ListColor"))
             .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.1), radius: 10)
             
@@ -76,7 +76,7 @@ struct JournalDetailView: View {
                 Spacer()
             }
             .multilineTextAlignment(.leading)
-            .background(Color("DarkColor"))
+            .background(Color("ListColor"))
             .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.1), radius: 10)
             
