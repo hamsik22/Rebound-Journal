@@ -39,6 +39,14 @@ struct HomeTabView: View {
                                         manager.seledtedEntry = entry
                                     }
                             }
+                            
+                            ForEach(entries.filter { $0.isRebounded == true }) { entry in
+                                JournalEntryItem(model: entry)
+                                    .onTapGesture {
+                                        manager.fullScreenMode = .readJournalView
+                                        manager.seledtedEntry = entry
+                                    }
+                            }
                         }
                         Spacer(minLength: 100)
                     }

@@ -78,11 +78,12 @@ class DataManager: NSObject, ObservableObject {
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
     /// Save journal entries to Core Data
-    func saveEntry(text: String, moodLevel: Int, moodText: String, reboundText: String, reasons: [MoodReason], images: [UIImage]) {
+    func saveEntry(text: String, moodLevel: Int, moodText: String, reboundText: String, reasons: [MoodReason],isRebounded: Bool = false, images: [UIImage]) {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
         entryModel.text = text
+        entryModel.isRebounded = isRebounded
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
         entryModel.reboundText = reboundText

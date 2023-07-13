@@ -100,6 +100,7 @@ struct JournalEntryCreatorView: View {
     @State private var moodLevel: MoodLevel?
     @State private var todayText: String = ""
     @State private var reboundText: String = ""
+    @State private var isRebounded: Bool = false
     @State private var reasons: [MoodReason] = [MoodReason]()
     @State private var images: [UIImage] = [UIImage]()
     
@@ -215,8 +216,16 @@ struct JournalEntryCreatorView: View {
         VStack(spacing: 20) {
             HStack {
                 ForEach(MoodLevel.allCases) { level in
-                    Image("\(level)").opacity(moodLevel == level ? 1 : 0.3)
-                        .onTapGesture { moodLevel = level }
+                    Image("\(level)")
+                        .opacity(moodLevel == level ? 1 : 0.3)
+                        .onTapGesture {
+                            moodLevel = level
+                            if moodLevel == .level1 {
+                                isRebounded = false
+                            } else if moodLevel == .level2 {
+                                isRebounded = true
+                            }
+                        }
                 }.frame(maxWidth: .infinity)
             }
             ZStack {
