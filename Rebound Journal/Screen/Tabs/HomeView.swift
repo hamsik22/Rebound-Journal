@@ -43,7 +43,8 @@ struct HomeTabView: View {
                         Spacer(minLength: 100)
                     }
                     .onAppear {
-                        entries.append(contentsOf: results.filter({ $0.moodLevel == 2 }))
+                        //entries.append(contentsOf: results.filter({ $0.moodLevel == 2 }))
+                        entries.append(contentsOf: results.filter({ $0.isRebounded == true }))
                     }
                 } else {
                     CheckInBannerView.padding(.top, 6)
