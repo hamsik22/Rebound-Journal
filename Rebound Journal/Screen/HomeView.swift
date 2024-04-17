@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// Main home tab for the app
-struct HomeTabView: View {
+struct HomeView: View {
     
     @EnvironmentObject var manager: DataManager
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
@@ -17,21 +17,17 @@ struct HomeTabView: View {
     var body: some View {
         ZStack {
             RoundedCorner(radius: 30, corners: [.topLeft, .topRight])
-                .foregroundColor(Color("ListColor"))
+                .foregroundStyle(Color("ListColor"))
                 .ignoresSafeArea()
+            
             VStack(spacing: 0) {
-                #warning("색상이상")
-                Capsule()
-                    .frame(width: 50, height: 5)
-                    .padding(12)
-                    .foregroundColor(.white)
-                
                 var entries = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat })
                 if  entries.count > 0 {
                     ScrollView(.vertical, showsIndicators: false) {
-                        Spacer(minLength: 6)
-                        LazyVStack(spacing: 0) {
+//                        Spacer(minLength: 6)
+                        LazyVStack {
                             CheckInBannerView
+                                .padding(.top, 20)
                             ForEach(entries.sorted(by: { $0.date ?? Date() > $1.date ?? Date() })) { entry in
                                 JournalEntryItem(model: entry)
                                     .onTapGesture {
@@ -47,7 +43,8 @@ struct HomeTabView: View {
                         entries.append(contentsOf: results.filter({ $0.isRebounded == true }))
                     }
                 } else {
-                    CheckInBannerView.padding(.top, 6)
+                    CheckInBannerView
+                        .padding(.top, 20)
                     EmptyListView
                 }
             }
@@ -59,14 +56,16 @@ struct HomeTabView: View {
         let disableCheckIn = Date().longFormat != manager.selectedDate.longFormat
         let isPastDate = Date() > manager.selectedDate
         return ZStack {
-            Color("BackgroundColor").cornerRadius(16)
+            Color("BackgroundColor")
+                .cornerRadius(16)
             HStack {
                 VStack(alignment: .leading) {
-                    Text(disableCheckIn ? "Oops!" : "Rebound Shoot-In")
+                    Text(disableCheckIn ? Constants.Strings.oops : Constants.Strings.reboundShootIn)
                         .font(.system(size: 20, weight: .semibold))
-                    Text(disableCheckIn ? "\(isPastDate ? "Past" : "Future") Shoot-In is disabled" : "How is your day so far?")
+                    Text(disableCheckIn ? "\(isPastDate ? Constants.Strings.past : Constants.Strings.future) \(Constants.Strings.shootInIsDisabled)" : " \(Constants.Strings.howIsYourDaySoFar)")
                 }
                 .foregroundColor(Color("LightColor"))
+                
                 
                 Spacer()
                 
@@ -76,7 +75,7 @@ struct HomeTabView: View {
                     ZStack {
                         Color("LightColor")
                             .cornerRadius(10)
-                        Text("Shoot-In")
+                        Text(Constants.Strings.shootIn)
                             .font(.system(size: 14, weight: .semibold))
                             .foregroundColor(Color("BackgroundColor"))
                     }
@@ -85,7 +84,8 @@ struct HomeTabView: View {
                 .disabled(disableCheckIn)
             }.padding()
         }
-        .frame(height: 72).padding([.horizontal, .bottom])
+        .frame(height: 72)
+        .padding([.horizontal, .bottom])
         .opacity(disableCheckIn ? 0.8 : 1)
     }
     
@@ -139,17 +139,16 @@ struct HomeTabView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 50, height: 50, alignment: .center)
             VStack(alignment: .leading, spacing: 0) {
-                Text("YOUR MOOD").font(.system(size: 8, weight: .light))
+                Text(Constants.Strings.myMood)
+                    .font(.system(size: 16, weight: .light))
                 if let mood = model.moodText?.uppercased() {
-                    Text(mood).font(.system(size: 14, weight: .bold))
+                    Text(mood)
+                        .font(.system(size: 20, weight: .bold))
                 }
             }
             Spacer()
-            #warning("시간 필요할까?")
-//            if let date = model.date {
-//                Text(date.string(format: "h:mm a")).font(.system(size: 12, weight: .medium)).opacity(0.5)
-//            }
-        }.foregroundColor(Color("TextColor"))
+        }
+        .foregroundColor(Color("TextColor"))
     }
     
     /// Photos grid for a journal entry
@@ -227,20 +226,25 @@ struct HomeTabView: View {
         VStack {
             Spacer()
             Image(systemName: "list.star")
-                .font(.largeTitle).padding(2)
-            Text("No Entries Yet")
-                .font(.title3).bold()
-            Text("You don't have any entries for today\nTap the 'Shoot-In' button to add an entry")
-                .font(.subheadline).opacity(0.6)
+                .font(.largeTitle)
+                .padding(2)
+            Text(Constants.Strings.noEntriesYet)
+                .font(.title3)
+                .bold()
+            Text(Constants.Strings.noEntriesYetDiscription)
+                .font(.subheadline)
+                .opacity(0.6)
             Spacer()
             Spacer()
-        }.multilineTextAlignment(.center).foregroundColor(Color("TextColor"))
+        }
+        .multilineTextAlignment(.center)
+        .foregroundColor(Color("TextColor"))
     }
 }
 
 // MARK: - Preview UI
 struct HomeTabView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTabView().environmentObject(DataManager(preview: true))
+        HomeView().environmentObject(DataManager(preview: true))
     }
 }

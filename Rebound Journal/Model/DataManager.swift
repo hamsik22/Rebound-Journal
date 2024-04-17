@@ -12,7 +12,7 @@ import Foundation
 
 /// Full Screen flow
 enum FullScreenMode: Int, Identifiable {
-    case entryCreator, premium, passcodeView, setupPasscodeView, readJournalView
+    case entryCreator, readJournalView//premium, passcodeView, setupPasscodeView, 
     var id: Int { hashValue }
 }
 
@@ -147,119 +147,6 @@ extension DataManager {
         }
         return images
     }
-}
-
-// MARK: - Core Data Stats data
-extension DataManager {
-    /// Get stats data based on highlights type
-//    func fetchStats(type: HighlightType) -> String {
-//        let fetchRequest: NSFetchRequest<JournalEntry> = JournalEntry.fetchRequest()
-//
-//        /// Get all core data results for current year
-//        if let results = try? container.viewContext.fetch(fetchRequest) {
-//            let items = results.filter({ $0.date?.year == Date().year }).filter({ $0.date?.longFormat != Date().longFormat })
-//            var journalEntryDays: String = ""
-//            var monthlyEntries: [String: Int] = [String: Int]()
-//            var moodMonthlyEntries: [String: Double] = [String: Double]()
-//            let uniqueEntries = Set(items.map({ $0.date?.longFormat ?? "" })).sorted(by: > )
-//
-//            /// Iterate through all entries and find gaps between dasy
-//            uniqueEntries.enumerated().forEach { index, entry in
-//                if let entryDate = entry.date {
-//                    journalEntryDays.append("<\(entry)>")
-//                    if index < (uniqueEntries.count-1) {
-//                        if let nextEntryDate = uniqueEntries[index+1].date {
-//                            if Calendar.current.numberOfDaysBetween(nextEntryDate, and: entryDate) > 1 {
-//                                journalEntryDays.append("-")
-//                            }
-//                        }
-//                    }
-//
-//                    /// Calculate total number of entries for a month
-//                    let entries = items.filter({ $0.date?.month == entryDate.month }).count
-//                    if monthlyEntries[entryDate.month] == nil { monthlyEntries[entryDate.month] = entries }
-//
-//                    /// Calculate the mood average for a month
-//                    let mood = items.filter({ $0.date?.month == entryDate.month }).map({ $0.moodLevel })
-//                    if moodMonthlyEntries[entryDate.month] == nil {
-//                        moodMonthlyEntries[entryDate.month] = Double(mood.reduce(0, +)) / Double(mood.count)
-//                    }
-//                }
-//            }
-//
-//            /// If yesterday the user had no entries, then break the current streak
-//            if !uniqueEntries.contains(Calendar.current.yesterday.longFormat) {
-//                journalEntryDays.insert("-", at: journalEntryDays.startIndex)
-//            }
-//
-//            /// Get the streak values from formatted journalEntryDays string
-//            switch type {
-//            case .currentStreak:
-//                if let first = journalEntryDays.components(separatedBy: "-")
-//                    .filter({ !$0.isEmpty }).first, !journalEntryDays.starts(with: "-") {
-//                    return "\(first.components(separatedBy: "<").filter({ !$0.isEmpty }).count) Days"
-//                }
-//            case .longestStreak:
-//                if let sorted = journalEntryDays.components(separatedBy: "-")
-//                    .filter({ !$0.isEmpty }).sorted(by: { $0.count > $1.count }).first {
-//                    return "\(sorted.components(separatedBy: "<").filter({ !$0.isEmpty }).count) Days"
-//                }
-//            case .mostEntries:
-//                if let month = monthlyEntries.sorted(by: { $0.value > $1.value }).first?.key {
-//                    return month
-//                }
-//            case .theHappiest:
-//                if let month = moodMonthlyEntries.sorted(by: { $0.value > $1.value }).first?.key {
-//                    return month
-//                }
-//            }
-//        }
-//
-//        return "- -"
-//    }
-//
-//    /// Fetch mood data for current week only
-//    func fetchWeeklyMoodData() {
-//        let currentWeek = Array(calendarDays.dropLast().sorted().suffix(7)).compactMap({ $0.longFormat })
-//        let oneWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
-//        let datePredicate = NSPredicate(format: "date > %@", oneWeekAgo as NSDate)
-//        let fetchRequest: NSFetchRequest<JournalEntry> = JournalEntry.fetchRequest()
-//        fetchRequest.predicate = datePredicate
-//
-//        /// Get all core data results for current week
-//        if let results = try? container.viewContext.fetch(fetchRequest) {
-//            var performanceData = [String: MoodLevel]()
-//            currentWeek.forEach { date in
-//                let mood = results.filter({ $0.date?.longFormat == date }).map({ $0.moodLevel })
-//                if mood.count > 0 {
-//                    performanceData[date] = MoodLevel(rawValue: Int(mood.reduce(0, +)) / mood.count)
-//                }
-//            }
-//            DispatchQueue.main.async {
-//                self.performance = performanceData
-//            }
-//        }
-//    }
-//
-//    /// Fetch mood levels and entries by reason
-//    func fetchMoodLevels(forReason reason: MoodReason) -> (levels: [MoodLevel], count: Int) {
-//        let reasonPredicate = NSPredicate(format: "reasons CONTAINS[c] %@", reason.rawValue)
-//        let fetchRequest: NSFetchRequest<JournalEntry> = JournalEntry.fetchRequest()
-//        fetchRequest.predicate = reasonPredicate
-//
-//        /// Get all core data results matching a given reason
-//        if let results = try? container.viewContext.fetch(fetchRequest) {
-//            var moodLevels = [MoodLevel]()
-//            results.forEach { entry in
-//                if let level = MoodLevel(rawValue: Int(entry.moodLevel)) {
-//                    moodLevels.append(level)
-//                }
-//            }
-//            return (Array(Set(moodLevels)).sorted(by: { $0.rawValue < $1.rawValue }), moodLevels.count)
-//        }
-//
-//        return ([], 0)
-//    }
 }
 
 // MARK: - Schedule daily reminders

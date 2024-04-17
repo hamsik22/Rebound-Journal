@@ -15,10 +15,9 @@ enum EntryCreationStep: CaseIterable, Identifiable {
     /// Step question
     var question: String {
         switch self {
-        case .text: return "What shot did you shoot today?"
-        case .shoot: return "Hello, how do you feel today?"
-        case .rebound: return "How can you rebound?"
-        //case .reasons: return "What makes you feel this way?"
+        case .text: return Constants.Strings.todayShoot
+        case .shoot: return Constants.Strings.feelToday
+        case .rebound: return Constants.Strings.howToRebound
         }
     }
     
@@ -53,7 +52,7 @@ struct JournalDetailView: View {
                 .scaledToFit()
                 .frame(width: 50)
             
-            Text("What I shoot")
+            Text(Constants.Strings.whatIshoot)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
             HStack {
@@ -66,7 +65,7 @@ struct JournalDetailView: View {
             .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.1), radius: 10)
             
-            Text("My rebound plan")
+            Text(Constants.Strings.myReboundPlan)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
             HStack {
@@ -140,11 +139,15 @@ struct JournalEntryCreatorView: View {
     /// Top progress bar view
     private var TopProgressBarView: some View {
         VStack(alignment: .leading, spacing: 20) {
+            // X button
             HStack {
                 Spacer()
                 Button {
                     if !text.isEmpty || moodLevel != nil || images.count > 0 {
-                        presentAlert(title: "Exit Flow", message: "Are you sure you want to leave this flow? You will lose your current progress", primaryAction: .Cancel, secondaryAction: .init(title: "Exit", style: .destructive, handler: { _ in
+                        presentAlert(title: "Exit Flow", 
+                                     message: "Are you sure you want to leave this flow? You will lose your current progress",
+                                     primaryAction: .Cancel,
+                                     secondaryAction: .init(title: "Exit", style: .destructive, handler: { _ in
                             manager.fullScreenMode = nil
                         }))
                     } else {
@@ -155,6 +158,7 @@ struct JournalEntryCreatorView: View {
                         .font(.system(size: 20, weight: .semibold))
                 }
             }
+            // progress bar
             HStack(spacing: 10) {
                 ForEach(EntryCreationStep.allCases) { step in
                     Capsule()
@@ -166,12 +170,15 @@ struct JournalEntryCreatorView: View {
                                 print("??")
                             }
                         }
+                        .foregroundStyle(Color("BackgroundColor"))
                 }
             }
             Text(currentStep.question)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
-        }.foregroundColor(Color("TextColor")).padding(.horizontal)
+        }
+        .foregroundColor(Color("TextColor"))
+        .padding(.horizontal)
     }
     
     /// Next button
@@ -194,7 +201,7 @@ struct JournalEntryCreatorView: View {
             ZStack {
                 Color("TabBarColor")
                     .cornerRadius(30).opacity(disabled ? 0.5 : 1)
-                Text(currentStep == .rebound ? "Submit Entry" : "Next Step")
+                Text(currentStep == .rebound ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(Color("Secondary"))
             }
@@ -289,10 +296,12 @@ struct JournalEntryCreatorView: View {
     private var EntryTextInputView: some View {
         VStack(spacing: 20) {
             ZStack {
-                Color("Primary").cornerRadius(20)
+                Color("Primary")
+                    .cornerRadius(20)
                     .opacity(colorScheme == .dark ? 1 : 0.1)
                 if #available(iOS 16.0, *) {
-                    TextEditorView.scrollContentBackground(.hidden)
+                    TextEditorView
+                        .scrollContentBackground(.hidden)
                 } else {
                     TextEditorView
                 }
@@ -302,8 +311,11 @@ struct JournalEntryCreatorView: View {
             } else {
                 if !text.trimmingCharacters(in: .whitespaces).isEmpty {
                     Button { hideKeyboard() } label: {
-                        Text("Done Editing").font(.system(size: 20, weight: .medium))
-                    }.padding(.bottom).foregroundColor(Color("TextColor"))
+                        Text(Constants.Strings.doneEditing)
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .padding(.bottom)
+                    .foregroundColor(Color("TextColor"))
                 } else {
                     Color.clear.frame(height: 1)
                 }
@@ -327,8 +339,11 @@ struct JournalEntryCreatorView: View {
             } else {
                 if !reboundText.trimmingCharacters(in: .whitespaces).isEmpty {
                     Button { hideKeyboard() } label: {
-                        Text("Done Editing").font(.system(size: 20, weight: .medium))
-                    }.padding(.bottom).foregroundColor(Color("TextColor"))
+                        Text(Constants.Strings.doneEditing)
+                            .font(.system(size: 20, weight: .medium))
+                    }
+                    .padding(.bottom)
+                    .foregroundColor(Color("BackgroundColor"))
                 } else {
                     Color.clear.frame(height: 1)
                 }
@@ -342,7 +357,7 @@ struct JournalEntryCreatorView: View {
             .overlay(
             VStack {
                 HStack {
-                    Text("Describe how was your day so far...")
+                    Text(Constants.Strings.describeShoot)
                     Spacer()
                 }
                 .opacity(text.isEmpty ? 0.5 : 0)
@@ -361,7 +376,7 @@ struct JournalEntryCreatorView: View {
             .overlay(
             VStack {
                 HStack {
-                    Text("Describe how was your day so far...")
+                    Text(Constants.Strings.whatWillNext)
                     Spacer()
                 }
                 .opacity(reboundText.isEmpty ? 0.5 : 0)
