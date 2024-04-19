@@ -10,6 +10,7 @@ import SwiftUI
 struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
+    @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     
     var body: some View {
         ZStack {
@@ -81,6 +82,7 @@ struct DashboardContentView: View {
     
     // MARK: 06. 뷰를 따로 떼어놓는 것에 대한 방법2 -> 변수를 받기
     private func CalendarItem(atIndex index: Int) -> some View {
+        let entries = results.filter({ $0.date?.longFormat == manager.calendarDays[index].longFormat })
         let date = manager.calendarDays[index]
         // MARK: 07. 날짜를 비교하는 간단한 방법
         let isTodayItem = date.longFormat == Date().longFormat
@@ -94,7 +96,8 @@ struct DashboardContentView: View {
                     .opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
                 Text(date.string(format: "d"))
                     .font(.system(size: 22, weight: .semibold))
-                    .foregroundColor(isTodayItem || isSelectedItem ? .lightColor : .diaryPrimary)
+                    //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
+                    .foregroundStyle(entries.count > 0 ? .diaryPrimary : .light)
             }
             // MARK: 09. 요일을 한국어로 표기하는 방법
             Text(DateFormatter.koreanWeekdayFormatter()

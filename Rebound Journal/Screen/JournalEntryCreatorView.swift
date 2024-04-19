@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum EntryCreationStep: CaseIterable, Identifiable {
-    case text, shoot, rebound   //reasons,
+    case text, shoot, rebound
     var id: Int { hashValue }
     
     var question: String {
@@ -81,34 +81,23 @@ struct JournalEntryCreatorView: View {
                 Button {
                     if !text.isEmpty || moodLevel != nil || images.count > 0 {
                         showAlert.toggle()
-                        // MARK: 13. Alert 만들기
-//                        presentAlert(title: Constants.Strings.exitFlow,
-//                                     message: "Are you sure you want to leave this flow? You will lose your current progress",
-//                                     primaryAction: .Cancel,
-//                                     secondaryAction: .init(title: "Exit", style: .destructive, handler: { _ in
-//                            manager.fullScreenMode = nil
-//                        }))
                     } else {
                         manager.fullScreenMode = nil
                     }
                 } label: {
-                    Image(systemName: "xmark")
+                    Image(systemName: Constants.ImageStrings.xMark)
                         .font(.system(size: 20, weight: .semibold))
                 }
+                // MARK: 13. Alert 만들기
                 .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Confirm Your Choice"),
-                                  message: Text("Please choose one of the options."),
-                                  primaryButton: .default(Text("OK"), action: {
-                                        manager.fullScreenMode = nil
-                                      //alertResult = "OK pressed"
-                                  }),
-                                  secondaryButton: .cancel(Text("Cancel"))
-//                                  ,
-//                                  tertiaryButton: .destructive(Text("Delete"), action: {
-//                                      //alertResult = "Delete pressed"
-//                                  }))
-                                  )
-                        }
+                    Alert(title: Text(Constants.Strings.exitFlow),
+                          message: Text(Constants.Strings.exitDescription),
+                          primaryButton: .default(Text("OK"), action: {
+                        manager.fullScreenMode = nil
+                    }),
+                          secondaryButton: .cancel(Text("Cancel"))
+                    )
+                }
             }
             // progress bar
             HStack(spacing: 10) {
@@ -119,7 +108,6 @@ struct JournalEntryCreatorView: View {
                         .onTapGesture {
                             if step.process < currentStep.process {
                                 currentStep = step
-                                print("??")
                             }
                         }
                         .foregroundStyle(.diaryBackground)
@@ -129,7 +117,7 @@ struct JournalEntryCreatorView: View {
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
         }
-        .foregroundColor(Color("TextColor"))
+        .foregroundColor(.text)
         .padding(.horizontal)
     }
     
@@ -137,8 +125,7 @@ struct JournalEntryCreatorView: View {
     private func NextButtonView(disabled: Bool) -> some View {
         Button {
             if currentStep == .rebound {
-                if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, //reasons.count > 0, !text.isEmpty {
-                   !text.isEmpty {
+                if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
                     manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
                     manager.fullScreenMode = nil
                 } else {
@@ -151,26 +138,15 @@ struct JournalEntryCreatorView: View {
             }
         } label: {
             ZStack {
-                Color("TabBarColor")
+                Color(.tabBar)
                     .cornerRadius(30).opacity(disabled ? 0.5 : 1)
                 Text(currentStep == .rebound ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
                     .font(.system(size: 20, weight: .semibold))
-                    .foregroundColor(Color("Secondary"))
+                    .foregroundColor(.diarySecondary)
             }
         }.frame(height: 60).disabled(disabled)
     }
     
-    /// Handle selected photo
-    private func handleSelectedPhoto(_ photo: UIImage?) {
-        guard let image = photo, let currentIndex = selectedPhotoIndex else { return }
-        if images.count > currentIndex {
-            images[currentIndex] = image
-        } else {
-            images.append(image)
-        }
-    }
-    
-    // MARK: - Mood Level selector
     private var MoodLevelSelectorView: some View {
         VStack(spacing: 20) {
             HStack {
@@ -187,23 +163,23 @@ struct JournalEntryCreatorView: View {
                         }
                 }.frame(maxWidth: .infinity)
             }
+            
             ZStack {
-                Color("Primary").cornerRadius(20)
-                    .opacity(colorScheme == .dark ? 1 : 0.1)
+                Color.diaryPrimary.cornerRadius(20).opacity(colorScheme == .dark ? 1 : 0.1)
                 if let mood = moodLevel {
-                    /// List of mood options
+                    
                     ScrollView(.vertical, showsIndicators: false) {
-                        ForEach(0..<mood.moodOptions.count, id: \.self) { index in
+                        ForEach(mood.moodOptions, id: \.self) { myMood in
                             HStack {
-                                Text(mood.moodOptions[index])
+                                Text(myMood)
                                 Spacer()
-                                Image(systemName: todayText == mood.moodOptions[index] ? "circle.fill" : "circle")
+                                Image(systemName: todayText == myMood ? "circle.fill" : "circle")
                                     .font(.system(size: 20))
                             }
-                            .padding().background(Color("ListColor"))
-                            .opacity(todayText == mood.moodOptions[index] ? 0.5 : 1)
+                            .padding().background(.list)
+                            .opacity(todayText == myMood ? 0.5 : 1)
                             .contentShape(Rectangle()).onTapGesture {
-                                todayText = mood.moodOptions[index]
+                                todayText = myMood
                             }
                         }.cornerRadius(10).padding()
                     }
@@ -213,11 +189,10 @@ struct JournalEntryCreatorView: View {
         }.padding(.horizontal)
     }
     
-    // MARK: - Mood Reasons list
     private var MoodReasonsListView: some View {
         VStack(spacing: 20) {
             ZStack {
-                Color("Primary").cornerRadius(20)
+                Color.diaryPrimary.cornerRadius(20)
                     .opacity(colorScheme == .dark ? 1 : 0.1)
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(MoodReason.allCases) { reason in
@@ -228,7 +203,7 @@ struct JournalEntryCreatorView: View {
                             Spacer()
                             Image(systemName: reasons.contains(reason) ? "checkmark.square.fill" : "square").font(.system(size: 20))
                         }
-                        .padding().background(Color("ListColor"))
+                        .padding().background(.list)
                         .opacity(reasons.contains(reason) ? 0.5 : 1)
                         .contentShape(Rectangle()).onTapGesture {
                             if reasons.contains(reason) {
@@ -244,33 +219,32 @@ struct JournalEntryCreatorView: View {
         }.padding(.horizontal)
     }
     
-    // MARK: - Entry TextView
     private var EntryTextInputView: some View {
         VStack(spacing: 20) {
             ZStack {
-                Color("Primary")
+                Color.diaryPrimary
                     .cornerRadius(20)
                     .opacity(colorScheme == .dark ? 1 : 0.1)
-                if #available(iOS 16.0, *) {
-                    TextEditorView
-                        .scrollContentBackground(.hidden)
-                } else {
-                    TextEditorView
-                }
+                TextEditorView
+                    .scrollContentBackground(.hidden)
             }
-            if showDoneButton == false {
-                NextButtonView(disabled: text.trimmingCharacters(in: .whitespaces).isEmpty)
-            } else {
-                if !text.trimmingCharacters(in: .whitespaces).isEmpty {
-                    Button { hideKeyboard() } label: {
+            
+            if showDoneButton {
+                if text.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Color.clear.frame(height: 1)
+                } else {
+                    Button {
+                        hideKeyboard()
+                    } label: {
                         Text(Constants.Strings.doneEditing)
                             .font(.system(size: 20, weight: .medium))
                     }
                     .padding(.bottom)
                     .foregroundColor(.text)
-                } else {
-                    Color.clear.frame(height: 1)
+                    
                 }
+            } else {
+                NextButtonView(disabled: text.trimmingCharacters(in: .whitespaces).isEmpty)
             }
         }.padding(.horizontal)
     }
@@ -278,27 +252,24 @@ struct JournalEntryCreatorView: View {
     private var ReboundTextInputView: some View {
         VStack(spacing: 20) {
             ZStack {
-                Color("Primary").cornerRadius(20)
+                Color.diaryPrimary.cornerRadius(20)
                     .opacity(colorScheme == .dark ? 1 : 0.1)
-                if #available(iOS 16.0, *) {
-                    ReboundTextEditorView.scrollContentBackground(.hidden)
-                } else {
-                    ReboundTextEditorView
-                }
+                ReboundTextEditorView.scrollContentBackground(.hidden)
             }
             if showDoneButton == false {
-                NextButtonView(disabled: reboundText.trimmingCharacters(in: .whitespaces).isEmpty)
-            } else {
-                if !reboundText.trimmingCharacters(in: .whitespaces).isEmpty {
+                if reboundText.trimmingCharacters(in: .whitespaces).isEmpty {
+                    Color.clear.frame(height: 1)
+                } else {
                     Button { hideKeyboard() } label: {
                         Text(Constants.Strings.doneEditing)
                             .font(.system(size: 20, weight: .medium))
                     }
                     .padding(.bottom)
                     .foregroundColor(.diaryBackground)
-                } else {
-                    Color.clear.frame(height: 1)
                 }
+            } else {
+                NextButtonView(disabled: reboundText.trimmingCharacters(in: .whitespaces).isEmpty)
+                
             }
         }.padding(.horizontal)
     }
@@ -307,117 +278,43 @@ struct JournalEntryCreatorView: View {
         TextEditor(text: $text)
             .padding(.leading, -5)
             .overlay(
-            VStack {
-                HStack {
-                    Text(Constants.Strings.describeShoot)
+                VStack {
+                    HStack {
+                        Text(Constants.Strings.describeShoot)
+                        Spacer()
+                    }
+                    .opacity(text.isEmpty ? 0.5 : 0)
+                    .allowsHitTesting(false)
                     Spacer()
-                }
-                .opacity(text.isEmpty ? 0.5 : 0)
-                .allowsHitTesting(false)
-                Spacer()
-            }.padding(.top, 7)
-        )
-        .padding(.top, 10)
-        .foregroundColor(Color("TextColor"))
-        .padding(.horizontal, 20)
+                }.padding(.top, 7)
+            )
+            .padding(.top, 10)
+            .foregroundColor(.text)
+            .padding(.horizontal, 20)
     }
     
     private var ReboundTextEditorView: some View {
         TextEditor(text: $reboundText)
             .padding(.leading, -5)
             .overlay(
-            VStack {
-                HStack {
-                    Text(Constants.Strings.whatWillNext)
+                VStack {
+                    HStack {
+                        Text(Constants.Strings.whatWillNext)
+                        Spacer()
+                    }
+                    .opacity(reboundText.isEmpty ? 0.5 : 0)
+                    .allowsHitTesting(false)
                     Spacer()
-                }
-                .opacity(reboundText.isEmpty ? 0.5 : 0)
-                .allowsHitTesting(false)
-                Spacer()
-            }.padding(.top, 7)
-        )
-        .padding(.top, 10)
-        .foregroundColor(Color("TextColor"))
-        .padding(.horizontal, 20)
-    }
-    
-    // MARK: - Photos container view
-    private var PhotosContainerView: some View {
-        let width = UIScreen.main.bounds.width-35
-        func presentPhotoPickerAlert(_ index: Int) {
-            selectedPhotoIndex = index
-            showPhotoPicker = true
-//            if manager.isPremiumUser {
-//                showPhotoPicker = true
-//            } else {
-//                presentAlert(title: "Premium Feature", message: "You must upgrade to the premium version if you want to add photos to your journal check-ins")
-//            }
-        }
-        let placeholder = UIImage(named: "image-placeholder")!
-        return VStack(spacing: 20) {
-            ZStack {
-                if images.count == 0 {
-                    PhotoContainer(image: placeholder, index: 0, width: width, height: width)
-                } else if images.count == 1 {
-                    HStack(spacing: 5) {
-                        PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
-                        PhotoContainer(image: placeholder, index: 1, width: width/2-5, height: width/2-5)
-                    }
-                } else if images.count == 2 {
-                    HStack(spacing: 5) {
-                        VStack(spacing: 5) {
-                            PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
-                            PhotoContainer(image: images[1], index: 1, width: width/2-5, height: width/2-5)
-                        }
-                        PhotoContainer(image: placeholder, index: 2, width: width/2-5, height: width-2.5)
-                    }
-                } else if images.count == 3 || images.count == 4 {
-                    HStack(spacing: 5) {
-                        VStack(spacing: 5) {
-                            PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
-                            PhotoContainer(image: images[1], index: 1, width: width/2-5, height: width/2-5)
-                        }
-                        if images.count == 3 {
-                            VStack(spacing: 5) {
-                                PhotoContainer(image: images[2], index: 2, width: width/2-5, height: width/2-5)
-                                PhotoContainer(image: placeholder, index: 3, width: width/2-5, height: width/2-5)
-                            }
-                        } else {
-                            VStack(spacing: 5) {
-                                PhotoContainer(image: images[2], index: 2, width: width/2-5, height: width/2-5)
-                                PhotoContainer(image: images[3], index: 3, width: width/2-5, height: width/2-5)
-                            }
-                        }
-                    }
-                }
-            }.cornerRadius(20)
-            Spacer()
-            NextButtonView(disabled: false)
-        }.padding(.horizontal)
-    }
-    
-    /// Photo container view
-    private func PhotoContainer(image: UIImage, index: Int, width: CGFloat, height: CGFloat) -> some View {
-        func presentPhotoPickerAlert(_ index: Int) {
-            selectedPhotoIndex = index
-            showPhotoPicker = true
-//            if manager.isPremiumUser {
-//                showPhotoPicker = true
-//            } else {
-//                presentAlert(title: "Premium Feature", message: "You must upgrade to the premium version if you want to add photos to your journal check-ins")
-//            }
-        }
-        return Image(uiImage: image.resizeImage(newWidth: width)).resizable().aspectRatio(contentMode: .fill)
-            .frame(width: width, height: height, alignment: .center).clipped()
-            .contentShape(Rectangle()).onTapGesture { presentPhotoPickerAlert(index) }
+                }.padding(.top, 7)
+            )
+            .padding(.top, 10)
+            .foregroundColor(.text)
+            .padding(.horizontal, 20)
     }
 }
 
-// MARK: - Preview UI
-struct JournalEntryCreatorView_Previews: PreviewProvider {
-    static var previews: some View {
-        JournalEntryCreatorView()
-            .environmentObject(DataManager(preview: true))
-            .preferredColorScheme(.dark)
-    }
+#Preview {
+    JournalEntryCreatorView()
+        .environmentObject(DataManager(preview: true))
+        .preferredColorScheme(.dark)
 }

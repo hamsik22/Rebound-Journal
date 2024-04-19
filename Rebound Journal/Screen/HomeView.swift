@@ -17,14 +17,14 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             RoundedCorner(radius: 30, corners: [.topLeft, .topRight])
-                .foregroundStyle(Color("ListColor"))
+                .foregroundStyle(.list)
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                var entries = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat })
+                let disableCheckIn = Date().longFormat != manager.selectedDate.longFormat
+                var entries = disableCheckIn ? results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat }) : results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat || $0.moodLevel == 2 })
                 if  entries.count > 0 {
                     ScrollView(.vertical, showsIndicators: false) {
-//                        Spacer(minLength: 6)
                         LazyVStack {
                             CheckInBannerView
                                 .padding(.top, 20)
@@ -39,7 +39,6 @@ struct HomeView: View {
                         Spacer(minLength: 100)
                     }
                     .onAppear {
-                        //entries.append(contentsOf: results.filter({ $0.moodLevel == 2 }))
                         entries.append(contentsOf: results.filter({ $0.isRebounded == true }))
                     }
                 } else {
@@ -62,7 +61,7 @@ struct HomeView: View {
                 VStack(alignment: .leading) {
                     Text(disableCheckIn ? Constants.Strings.oops : Constants.Strings.reboundShootIn)
                         .font(.system(size: 20, weight: .semibold))
-                    Text(disableCheckIn ? "\(isPastDate ? Constants.Strings.past : Constants.Strings.future) \(Constants.Strings.shootInIsDisabled)" : " \(Constants.Strings.howIsYourDaySoFar)")
+                    Text(disableCheckIn ? "\(isPastDate ? Constants.Strings.past : Constants.Strings.future) \(Constants.Strings.shootInIsDisabled)" : "\(Constants.Strings.howIsYourDaySoFar)")
                 }
                 .foregroundColor(.light)
                 
@@ -98,40 +97,39 @@ struct HomeView: View {
                     Text(entryText)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 20, weight: .regular))
-                        .foregroundColor(Color("TextColor"))
+                        .foregroundColor(.text)
                 }
-                Color("DarkColor")
-                    .frame(height: 1)
-                    .opacity(0.5)
+                
+                Color.dark.frame(height: 1).opacity(0.5)
+                
                 if let entryText = model.reboundText {
                     Text(entryText)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 20, weight: .regular))
                         .padding(.bottom, 10)
-                        .foregroundColor(Color("TextColor"))
+                        .foregroundColor(.text)
                 }
             }
             .padding([.top, .horizontal])
             
             JournaEntryPhotosView(model: model)
             // divider
-            Color("DarkColor")
+            Color.dark
                 .frame(height: 1)
                 .padding(.horizontal)
                 .opacity(0.5)
             JournaEntryFooterView(model: model)
         }
         .background(
-            Color("ListColor").cornerRadius(16)
+            Color.list.cornerRadius(16)
                 .shadow(color: Color.black.opacity(0.1), radius: 10)
         )
         .overlay(RoundedRectangle(cornerRadius: 16)
-            .stroke(Color("DarkColor"), lineWidth: 1))
+            .stroke(.dark, lineWidth: 1))
         .padding(.horizontal)
         .padding(.vertical, 10)
     }
     
-    /// Entry header view with the mood icon and time
     private func JournalEntryHeaderView(model: JournalEntry) -> some View {
         HStack(alignment: .top) {
             Image("level\(model.moodLevel)")
@@ -147,8 +145,26 @@ struct HomeView: View {
                 }
             }
             Spacer()
+            // MARK: 리바운드 해줘!
+            if model.moodLevel == 2 {
+                Spacer()
+                Button {
+                    manager.fullScreenMode = .entryCreator
+                } label: {
+                    ZStack {
+                        Color.diaryBackground
+                            .cornerRadius(10)
+                        Text(Constants.Strings.reShootIn)
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.light)
+                    }
+                }
+                .frame(width: 88, height: 42)
+                
+            }
+            
         }
-        .foregroundColor(Color("TextColor"))
+        .foregroundColor(.text)
     }
     
     /// Photos grid for a journal entry
@@ -202,20 +218,6 @@ struct HomeView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 Spacer(minLength: 0)
-//                if let reasons = model.reasons?.components(separatedBy: ";") {
-//                    ForEach(0..<reasons.count, id: \.self) { index in
-//                        HStack {
-//                            if let image = UIImage(named: reasons[index]) {
-//                                Image(uiImage: image).resizable().aspectRatio(contentMode: .fit)
-//                                    .frame(width: 18, height: 18, alignment: .center)
-//                            }
-//                            Text(reasons[index].capitalized).font(.system(size: 12))
-//                        }
-//                        .foregroundColor(Color("TextColor")).padding(.horizontal, 10).padding(.vertical, 5)
-//                        .background(RoundedRectangle(cornerRadius: 20).stroke(Color("TextColor"), lineWidth: 1))
-//                        .padding(.vertical, 5)
-//                    }
-//                }
                 Spacer(minLength: 0)
             }
         }.padding(.bottom, 10).opacity(0.7)
@@ -238,7 +240,7 @@ struct HomeView: View {
             Spacer()
         }
         .multilineTextAlignment(.center)
-        .foregroundColor(Color("TextColor"))
+        .foregroundColor(.text)
     }
 }
 

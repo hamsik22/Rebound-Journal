@@ -30,7 +30,7 @@ class AppConfig {
 
 // MARK: - Mood Level Configurations
 enum MoodLevel: Int, CaseIterable, Identifiable {
-    case level1 = 1, level2//, level3, level4, level5
+    case level1 = 1, level2
     var id: Int { hashValue }
     
     /// Mood text options
@@ -49,9 +49,6 @@ enum MoodLevel: Int, CaseIterable, Identifiable {
         switch self {
         case .level1: return 15
         case .level2: return 25
-//        case .level3: return 50
-//        case .level4: return 75
-//        case .level5: return 95
         }
     }
     
@@ -60,9 +57,6 @@ enum MoodLevel: Int, CaseIterable, Identifiable {
         switch self {
         case .level1: return [Color(#colorLiteral(red: 0.9837132096, green: 0.4513888955, blue: 0.4547883272, alpha: 1))][0]
         case .level2: return [Color(#colorLiteral(red: 0.9979071021, green: 0.6928624511, blue: 0.4608915448, alpha: 1))][0]
-//        case .level3: return [Color(#colorLiteral(red: 0.7912710309, green: 0.7962428927, blue: 0.7918474674, alpha: 1))][0]
-//        case .level4: return [Color(#colorLiteral(red: 0.4645724893, green: 0.8924402595, blue: 0.8699511886, alpha: 1))][0]
-//        case .level5: return [Color(#colorLiteral(red: 0.3809461594, green: 0.6858740449, blue: 1, alpha: 1))][0]
         }
     }
 }

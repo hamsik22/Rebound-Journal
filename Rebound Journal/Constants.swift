@@ -19,6 +19,7 @@ struct Constants {
         static let shootInIsDisabled = "슛은 쏠 수 없어요"
         static let howIsYourDaySoFar = "오늘 하루 어때요?"
         static let shootIn = "슛-쏘기"
+        static let reShootIn = "다시-쏘기"
         
         static let noEntriesYet = "아직 슈팅 기록이 없어요"
         static let noEntriesYetDiscription = "한 번도 쓧을 쏘지 않았는데\n슛-쏘기 버튼을 눌러서 슛 쏴보는건 어때요?"
@@ -38,6 +39,7 @@ struct Constants {
         static let myMood = "지금 내 기분은"
         
         static let exitFlow = "정말 나가시나요?"// "Exit Flow"
+        static let exitDescription = "지금 그만두시면 진행정보를 모두 잃게됩니다."//"Are you sure you want to leave this flow? You will lose your current progress"
     }
     
     struct ImageStrings {

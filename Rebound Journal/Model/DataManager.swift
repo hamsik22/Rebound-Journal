@@ -12,7 +12,7 @@ import Foundation
 
 /// Full Screen flow
 enum FullScreenMode: Int, Identifiable {
-    case entryCreator, readJournalView//premium, passcodeView, setupPasscodeView, 
+    case entryCreator, readJournalView
     var id: Int { hashValue }
 }
 
