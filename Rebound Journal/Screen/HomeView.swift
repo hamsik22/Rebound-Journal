@@ -56,7 +56,7 @@ struct HomeView: View {
         let disableCheckIn = Date().longFormat != manager.selectedDate.longFormat
         let isPastDate = Date() > manager.selectedDate
         return ZStack {
-            Color("BackgroundColor")
+            Color(.diaryBackground)
                 .cornerRadius(16)
             HStack {
                 VStack(alignment: .leading) {
@@ -64,7 +64,7 @@ struct HomeView: View {
                         .font(.system(size: 20, weight: .semibold))
                     Text(disableCheckIn ? "\(isPastDate ? Constants.Strings.past : Constants.Strings.future) \(Constants.Strings.shootInIsDisabled)" : " \(Constants.Strings.howIsYourDaySoFar)")
                 }
-                .foregroundColor(Color("LightColor"))
+                .foregroundColor(.light)
                 
                 
                 Spacer()
@@ -73,11 +73,11 @@ struct HomeView: View {
                     manager.fullScreenMode = .entryCreator
                 } label: {
                     ZStack {
-                        Color("LightColor")
+                        Color.light
                             .cornerRadius(10)
                         Text(Constants.Strings.shootIn)
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(Color("BackgroundColor"))
+                            .foregroundColor(.diaryBackground)
                     }
                 }
                 .frame(width: 88, height: 42)

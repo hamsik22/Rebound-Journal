@@ -28,6 +28,8 @@
 		58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670762BD01F0400F581E2 /* Binding+Extension.swift */; };
 		58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */; };
 		58D6707B2BD0275600F581E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6707A2BD0275600F581E2 /* Constants.swift */; };
+		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
+		9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		58D670762BD01F0400F581E2 /* Binding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extension.swift"; sourceTree = "<group>"; };
 		58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
 		58D6707A2BD0275600F581E2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,10 +94,11 @@
 				586F229E2A338981004C7410 /* AppConfig */,
 				586F22992A338793004C7410 /* Model */,
 				589D5F412A3EDBD100DB3CCF /* Screen */,
-				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
 				586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */,
+				9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */,
 				586F22AC2A3392A5004C7410 /* PhotoPicker.swift */,
 				58D6707A2BD0275600F581E2 /* Constants.swift */,
+				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
 			);
@@ -154,6 +159,7 @@
 				58D670742BD01ED900F581E2 /* UIImage+Extension.swift */,
 				58D670762BD01F0400F581E2 /* Binding+Extension.swift */,
 				58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */,
+				9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -186,7 +192,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					586F22872A33861C004C7410 = {
 						CreatedOnToolsVersion = 14.3;
@@ -230,6 +236,7 @@
 			files = (
 				586F22A62A338BFF004C7410 /* PremiumContentView.swift in Sources */,
 				58D6707B2BD0275600F581E2 /* Constants.swift in Sources */,
+				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
 				586F22AD2A3392A5004C7410 /* PhotoPicker.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
@@ -239,6 +246,7 @@
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
 				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
+				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
 				586F229D2A3388C4004C7410 /* HomeView.swift in Sources */,
 				586F22A22A3389CD004C7410 /* PhotoDetailView.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
@@ -257,6 +265,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -289,6 +298,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -317,6 +327,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -349,6 +360,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct ReboundJournalApp: App {
+    // 데이터를 전체에서 쓸 방법
     @StateObject private var manager: DataManager = DataManager(preview: false)
     
     var body: some Scene {

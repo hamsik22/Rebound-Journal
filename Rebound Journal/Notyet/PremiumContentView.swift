@@ -68,7 +68,7 @@ struct PremiumContentView: View {
                 HStack {
                     Image(systemName: "checkmark.circle").resizable()
                         .frame(width: 25, height: 25)
-                    Text(self.features[index]).font(.system(size: 22))
+                    Text(features[index]).font(.system(size: 22))
                     Spacer()
                 }
             }.padding(.leading, 30).padding(.trailing, 30)

@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-/// Journal Entry Creation steps
 enum EntryCreationStep: CaseIterable, Identifiable {
     case text, shoot, rebound   //reasons,
     var id: Int { hashValue }
     
-    /// Step question
     var question: String {
         switch self {
         case .text: return Constants.Strings.todayShoot
@@ -21,7 +19,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         }
     }
     
-    var level: Int {
+    var process: Int {
         switch self {
         case .text: return 1
         case .shoot: return 2
@@ -30,63 +28,6 @@ enum EntryCreationStep: CaseIterable, Identifiable {
     }
 }
 
-struct JournalDetailView: View {
-    @EnvironmentObject var manager: DataManager
-    @State private var todayText: String = ""
-    //@State private var reboundText: String = ""
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                Spacer()
-                Button {
-                    manager.fullScreenMode = nil
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 20, weight: .semibold))
-                }
-            }
-            
-            Image("level\(manager.seledtedEntry!.moodLevel)")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 50)
-            
-            Text(Constants.Strings.whatIshoot)
-                .multilineTextAlignment(.leading)
-                .font(.system(size: 28, weight: .semibold))
-            HStack {
-                Text(manager.seledtedEntry?.text ?? "empty")
-                    .padding()
-                Spacer()
-            }
-            .multilineTextAlignment(.leading)
-            .background(Color("ListColor"))
-            .cornerRadius(15)
-            .shadow(color: Color.black.opacity(0.1), radius: 10)
-            
-            Text(Constants.Strings.myReboundPlan)
-                .multilineTextAlignment(.leading)
-                .font(.system(size: 28, weight: .semibold))
-            HStack {
-                
-                Text(manager.seledtedEntry?.reboundText ?? "empty")
-                    .padding()
-                Spacer()
-            }
-            .multilineTextAlignment(.leading)
-            .background(Color("ListColor"))
-            .cornerRadius(15)
-            .shadow(color: Color.black.opacity(0.1), radius: 10)
-            
-            Spacer()
-                
-        }
-        .padding()
-    }
-}
-
-/// Journal entry creator flow
 struct JournalEntryCreatorView: View {
     
     @EnvironmentObject var manager: DataManager
@@ -102,54 +43,51 @@ struct JournalEntryCreatorView: View {
     @State private var isRebounded: Bool = false
     @State private var reasons: [MoodReason] = [MoodReason]()
     @State private var images: [UIImage] = [UIImage]()
+    @State private var showAlert: Bool = false
     
-    // MARK: - Main rendering function
     var body: some View {
         ZStack {
-            Color("Secondary").ignoresSafeArea()
+            Color(.diarySecondary).ignoresSafeArea()
             VStack {
                 TopProgressBarView
+                // MARK: 11. 조건에 따라서 화면이 바뀌도록하는 방법
                 switch currentStep {
                 case .text: EntryTextInputView
                 case .shoot: MoodLevelSelectorView
-                //case .reasons: MoodReasonsListView
-                case .rebound: ReboundTextInputView //PhotosContainerView
+                case .rebound: ReboundTextInputView
                 }
             }
         }
-        /// Register for keyboard events
+        // MARK: 12. 키보드 보이고 감추는 노티를 주는 방법
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIApplication.keyboardWillShowNotification, object: nil, queue: nil) { _ in
                 DispatchQueue.main.async {
-                    self.showDoneButton = true
+                    showDoneButton = true
                 }
             }
             NotificationCenter.default.addObserver(forName: UIApplication.keyboardWillHideNotification, object: nil, queue: nil) { _ in
                 DispatchQueue.main.async {
-                    self.showDoneButton = false
+                    showDoneButton = false
                 }
             }
         }
-        /// Full modal screen flow
-        .fullScreenCover(isPresented: $showPhotoPicker) {
-            PhotoPicker { image in handleSelectedPhoto(image) }
-        }
     }
     
-    /// Top progress bar view
     private var TopProgressBarView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            // X button
+            
             HStack {
                 Spacer()
                 Button {
                     if !text.isEmpty || moodLevel != nil || images.count > 0 {
-                        presentAlert(title: "Exit Flow", 
-                                     message: "Are you sure you want to leave this flow? You will lose your current progress",
-                                     primaryAction: .Cancel,
-                                     secondaryAction: .init(title: "Exit", style: .destructive, handler: { _ in
-                            manager.fullScreenMode = nil
-                        }))
+                        showAlert.toggle()
+                        // MARK: 13. Alert 만들기
+//                        presentAlert(title: Constants.Strings.exitFlow,
+//                                     message: "Are you sure you want to leave this flow? You will lose your current progress",
+//                                     primaryAction: .Cancel,
+//                                     secondaryAction: .init(title: "Exit", style: .destructive, handler: { _ in
+//                            manager.fullScreenMode = nil
+//                        }))
                     } else {
                         manager.fullScreenMode = nil
                     }
@@ -157,20 +95,34 @@ struct JournalEntryCreatorView: View {
                     Image(systemName: "xmark")
                         .font(.system(size: 20, weight: .semibold))
                 }
+                .alert(isPresented: $showAlert) {
+                            Alert(title: Text("Confirm Your Choice"),
+                                  message: Text("Please choose one of the options."),
+                                  primaryButton: .default(Text("OK"), action: {
+                                        manager.fullScreenMode = nil
+                                      //alertResult = "OK pressed"
+                                  }),
+                                  secondaryButton: .cancel(Text("Cancel"))
+//                                  ,
+//                                  tertiaryButton: .destructive(Text("Delete"), action: {
+//                                      //alertResult = "Delete pressed"
+//                                  }))
+                                  )
+                        }
             }
             // progress bar
             HStack(spacing: 10) {
                 ForEach(EntryCreationStep.allCases) { step in
                     Capsule()
                         .frame(height: 26)
-                        .opacity(step.level <= currentStep.level ? 1 : 0.2)
+                        .opacity(step.process <= currentStep.process ? 1 : 0.2)
                         .onTapGesture {
-                            if step.level < currentStep.level {
+                            if step.process < currentStep.process {
                                 currentStep = step
                                 print("??")
                             }
                         }
-                        .foregroundStyle(Color("BackgroundColor"))
+                        .foregroundStyle(.diaryBackground)
                 }
             }
             Text(currentStep.question)
@@ -315,7 +267,7 @@ struct JournalEntryCreatorView: View {
                             .font(.system(size: 20, weight: .medium))
                     }
                     .padding(.bottom)
-                    .foregroundColor(Color("TextColor"))
+                    .foregroundColor(.text)
                 } else {
                     Color.clear.frame(height: 1)
                 }
@@ -343,7 +295,7 @@ struct JournalEntryCreatorView: View {
                             .font(.system(size: 20, weight: .medium))
                     }
                     .padding(.bottom)
-                    .foregroundColor(Color("BackgroundColor"))
+                    .foregroundColor(.diaryBackground)
                 } else {
                     Color.clear.frame(height: 1)
                 }

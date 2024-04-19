@@ -14,7 +14,7 @@ struct PhotoDetailView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> PDFView {
         let view = PDFView()
-        view.backgroundColor = UIColor(Color("BackgroundColor"))
+        view.backgroundColor = UIColor(.diaryBackground)
         view.document = PDFDocument()
         guard let page = PDFPage(image: image) else { return view }
         view.document?.insert(page, at: 0)

@@ -36,5 +36,11 @@ struct Constants {
         static let whatIshoot = "내가 쐈던 슛은 이랬어요" // "What I shoot"
         static let myReboundPlan = "내 다음 계획은 이래요"// "My rebound plan"
         static let myMood = "지금 내 기분은"
+        
+        static let exitFlow = "정말 나가시나요?"// "Exit Flow"
+    }
+    
+    struct ImageStrings {
+        static let xMark = "xmark"
     }
 }
