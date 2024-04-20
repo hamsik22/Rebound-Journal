@@ -8,22 +8,30 @@
 import SwiftUI
 
 enum EntryCreationStep: CaseIterable, Identifiable {
-    case text, shoot, rebound
+    case today, mood, shoot
     var id: Int { hashValue }
     
     var question: String {
         switch self {
-        case .text: return Constants.Strings.todayShoot
-        case .shoot: return Constants.Strings.feelToday
-        case .rebound: return Constants.Strings.howToRebound
+        case .today: return Constants.Strings.todayShoot
+        case .mood: return Constants.Strings.feelToday
+        case .shoot: return Constants.Strings.howToRebound
+        }
+    }
+    
+    var reboundQuestion: String {
+        switch self {
+        case .today: return Constants.Strings.reboundTodayShoot
+        case .mood: return Constants.Strings.reboundFeelToday
+        case .shoot: return Constants.Strings.reboundHowToRebound
         }
     }
     
     var process: Int {
         switch self {
-        case .text: return 1
-        case .shoot: return 2
-        case .rebound: return 3
+        case .today: return 1
+        case .mood: return 2
+        case .shoot: return 3
         }
     }
 }
@@ -35,12 +43,12 @@ struct JournalEntryCreatorView: View {
     @State private var showPhotoPicker: Bool = false
     @State private var selectedPhotoIndex: Int?
     @State private var showDoneButton: Bool = false
-    @State private var currentStep: EntryCreationStep = .text
+    @State private var currentStep: EntryCreationStep = .today
     @State private var text: String = ""
     @State private var moodLevel: MoodLevel?
     @State private var todayText: String = ""
     @State private var reboundText: String = ""
-    @State private var isRebounded: Bool = false
+    @State var isRebounded: Bool = false
     @State private var reasons: [MoodReason] = [MoodReason]()
     @State private var images: [UIImage] = [UIImage]()
     @State private var showAlert: Bool = false
@@ -52,9 +60,9 @@ struct JournalEntryCreatorView: View {
                 TopProgressBarView
                 // MARK: 11. 조건에 따라서 화면이 바뀌도록하는 방법
                 switch currentStep {
-                case .text: EntryTextInputView
-                case .shoot: MoodLevelSelectorView
-                case .rebound: ReboundTextInputView
+                case .today: EntryTextInputView
+                case .mood: MoodLevelSelectorView
+                case .shoot: ReboundTextInputView
                 }
             }
         }
@@ -113,7 +121,7 @@ struct JournalEntryCreatorView: View {
                         .foregroundStyle(.diaryBackground)
                 }
             }
-            Text(currentStep.question)
+            Text(isRebounded ? currentStep.reboundQuestion : currentStep.question)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
         }
@@ -124,9 +132,12 @@ struct JournalEntryCreatorView: View {
     /// Next button
     private func NextButtonView(disabled: Bool) -> some View {
         Button {
-            if currentStep == .rebound {
+            if currentStep == .shoot {
                 if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
                     manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
+                    if isRebounded {
+                        manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                    }
                     manager.fullScreenMode = nil
                 } else {
                     presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
@@ -140,7 +151,7 @@ struct JournalEntryCreatorView: View {
             ZStack {
                 Color(.tabBar)
                     .cornerRadius(30).opacity(disabled ? 0.5 : 1)
-                Text(currentStep == .rebound ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
+                Text(currentStep == .shoot ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.diarySecondary)
             }
@@ -155,11 +166,6 @@ struct JournalEntryCreatorView: View {
                         .opacity(moodLevel == level ? 1 : 0.3)
                         .onTapGesture {
                             moodLevel = level
-                            if moodLevel == .level1 {
-                                isRebounded = false
-                            } else if moodLevel == .level2 {
-                                isRebounded = true
-                            }
                         }
                 }.frame(maxWidth: .infinity)
             }
@@ -256,7 +262,9 @@ struct JournalEntryCreatorView: View {
                     .opacity(colorScheme == .dark ? 1 : 0.1)
                 ReboundTextEditorView.scrollContentBackground(.hidden)
             }
-            if showDoneButton == false {
+            if showDoneButton{
+                NextButtonView(disabled: reboundText.trimmingCharacters(in: .whitespaces).isEmpty)
+            } else {
                 if reboundText.trimmingCharacters(in: .whitespaces).isEmpty {
                     Color.clear.frame(height: 1)
                 } else {
@@ -267,9 +275,6 @@ struct JournalEntryCreatorView: View {
                     .padding(.bottom)
                     .foregroundColor(.diaryBackground)
                 }
-            } else {
-                NextButtonView(disabled: reboundText.trimmingCharacters(in: .whitespaces).isEmpty)
-                
             }
         }.padding(.horizontal)
     }

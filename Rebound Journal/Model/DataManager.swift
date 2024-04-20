@@ -12,7 +12,7 @@ import Foundation
 
 /// Full Screen flow
 enum FullScreenMode: Int, Identifiable {
-    case entryCreator, readJournalView
+    case entryCreator, readJournalView, reboundCreator
     var id: Int { hashValue }
 }
 
@@ -26,7 +26,7 @@ class DataManager: NSObject, ObservableObject {
     @Published var selectedDate: Date = Date()
     @Published var selectedEntryImage: UIImage?
     @Published var seledtedEntry: JournalEntry?
-    @Published var quotes: QuotesList = QuotesList()
+    //@Published var quotes: QuotesList = QuotesList()
     @Published var didEnterCorrectPasscode: Bool = false
     
     /// Dynamic properties that the UI will react to AND store values in UserDefaults
@@ -35,7 +35,7 @@ class DataManager: NSObject, ObservableObject {
     @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
     @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
     //{
-        //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
+    //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
     //}
     
     /// Core Data container with the database model
@@ -50,7 +50,7 @@ class DataManager: NSObject, ObservableObject {
         container.loadPersistentStores { _, _ in
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         }
-        fetchQuotesData()
+        //fetchQuotesData()
     }
     
     /// Calendar days
@@ -66,19 +66,26 @@ class DataManager: NSObject, ObservableObject {
     }
     
     /// Fetch all quotes from local `Quotes` json
-    private func fetchQuotesData() {
-        guard let path = Bundle.main.path(forResource: "Quotes", ofType: "json"),
-              let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
-              let models = try? JSONDecoder().decode(QuotesList.self, from: data)
-        else { return }
-        quotes = models.shuffled()
-    }
+    //    private func fetchQuotesData() {
+    //        guard let path = Bundle.main.path(forResource: "Quotes", ofType: "json"),
+    //              let data = try? Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe),
+    //              let models = try? JSONDecoder().decode(QuotesList.self, from: data)
+    //        else { return }
+    //        quotes = models.shuffled()
+    //    }
 }
 
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
     /// Save journal entries to Core Data
-    func saveEntry(text: String, moodLevel: Int, moodText: String, reboundText: String, reasons: [MoodReason],isRebounded: Bool = false, images: [UIImage]) {
+    func saveEntry(text: String, 
+                   moodLevel: Int,
+                   moodText: String,
+                   reboundText: String,
+                   reasons: [MoodReason],
+                   isRebounded: Bool = false,
+                   images: [UIImage],
+                   hasDeleted: Bool = false) {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
@@ -87,6 +94,7 @@ extension DataManager {
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
         entryModel.reboundText = reboundText
+        entryModel.hasDeleted = hasDeleted
         entryModel.reasons = reasons.map({ $0.rawValue }).joined(separator: ";")
         for index in 0..<images.count {
             saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
@@ -110,6 +118,22 @@ extension DataManager {
                 saveImage(data: imageData, id: id)
             }
         }
+    }
+}
+
+// MARK: - Update Journal Entry to Core Data
+extension DataManager {
+    func updateSelectedEntry(with selectedEntry: JournalEntry) {
+        selectedEntry.isRebounded = true
+        try? container.viewContext.save()
+    }
+}
+
+// MARK: - Delete Journal Entry to Core Data
+extension DataManager {
+    func deleteSelectedEntry(with selectedEntry: JournalEntry) {
+        selectedEntry.hasDeleted = true
+        try? container.viewContext.save()
     }
 }
 

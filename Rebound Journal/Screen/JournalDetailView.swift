@@ -10,6 +10,7 @@ import SwiftUI
 struct JournalDetailView: View {
     @EnvironmentObject var manager: DataManager
     @State private var todayText: String = ""
+    @State private var showAlert = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -58,7 +59,36 @@ struct JournalDetailView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 10)
             
             Spacer()
-                
+            
+            
+            Button(action: {
+                showAlert = true
+            }) {
+                Image(systemName: "trash.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    .foregroundColor(.white)
+                    .padding()
+            }
+
+            .cornerRadius(20) // 버튼에 대한 코너 반지름을 20으로 설정
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("삭제"),
+                    message: Text("정말 삭제하시겠습니까?"),
+                    primaryButton: .destructive(Text("삭제"), action: {
+                        manager.deleteSelectedEntry(with: manager.seledtedEntry!)
+                        manager.fullScreenMode = nil
+                    }),
+                    secondaryButton: .cancel(Text("취소"))
+                )
+            }
+            .frame(maxWidth: .infinity, maxHeight: 60)
+            .background(Color.red.cornerRadius(20)) // 배경에 대한 코너 반지름을 설정
+            .edgesIgnoringSafeArea(.all)
+            
+            
         }
         .padding()
     }

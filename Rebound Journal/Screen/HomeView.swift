@@ -21,8 +21,8 @@ struct HomeView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                let disableCheckIn = Date().longFormat != manager.selectedDate.longFormat
-                var entries = disableCheckIn ? results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat }) : results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat || $0.moodLevel == 2 })
+                
+                let entries = checkReboundList()
                 if  entries.count > 0 {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVStack {
@@ -38,9 +38,6 @@ struct HomeView: View {
                         }
                         Spacer(minLength: 100)
                     }
-                    .onAppear {
-                        entries.append(contentsOf: results.filter({ $0.isRebounded == true }))
-                    }
                 } else {
                     CheckInBannerView
                         .padding(.top, 20)
@@ -48,6 +45,17 @@ struct HomeView: View {
                 }
             }
         }.padding(.top, 10)
+    }
+    
+    private func checkReboundList() -> [FetchedResults<JournalEntry>.Element] {
+        let isTodaySelected = Date().longFormat == manager.selectedDate.longFormat
+        print(isTodaySelected)
+        
+        if isTodaySelected { // 선택된 날이 오늘이면
+            return results.filter({ $0.isRebounded == false && $0.hasDeleted == false })
+        } else {
+            return results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat && $0.hasDeleted == false })
+        }
     }
     
     /// Check-in banner view
@@ -149,7 +157,8 @@ struct HomeView: View {
             if model.moodLevel == 2 {
                 Spacer()
                 Button {
-                    manager.fullScreenMode = .entryCreator
+                    manager.fullScreenMode = .reboundCreator
+                    manager.seledtedEntry = model
                 } label: {
                     ZStack {
                         Color.diaryBackground

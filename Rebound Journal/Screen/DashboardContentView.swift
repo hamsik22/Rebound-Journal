@@ -28,6 +28,9 @@ struct DashboardContentView: View {
             case .readJournalView:
                 JournalDetailView()
                     .environmentObject(manager)
+            case .reboundCreator:
+                JournalEntryCreatorView(isRebounded: true)
+                    .environmentObject(manager)
             }
         }
     }

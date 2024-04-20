@@ -25,8 +25,12 @@ struct Constants {
         static let noEntriesYetDiscription = "한 번도 쓧을 쏘지 않았는데\n슛-쏘기 버튼을 눌러서 슛 쏴보는건 어때요?"
         
         static let todayShoot = "오늘 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
+        
         static let feelToday = "그래서 그 슛을 쏘고난 지금 기분은 어때요?" //"Hello, how do you feel today?"
         static let howToRebound = "만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
+        static let reboundTodayShoot = "다시 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
+        static let reboundFeelToday = "그래서 그 슛을 다시 쏘고난 지금 기분은 어때요?" //"Hello, how do you feel today?"
+        static let reboundHowToRebound = "리바운드는 만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
         static let whatWillNext = "그래서 이 다음은 어떻게 되는거에요?"//"Describe how was your day so far..."
         static let describeShoot = "오늘 쏘았던 슛은 얼마나 멀리 날아갔는지 최대한 자세하게 설명해주세요."//"Describe how was your day so far..."
         

@@ -14,10 +14,8 @@
 		586F229B2A3387AF004C7410 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229A2A3387AF004C7410 /* DataManager.swift */; };
 		586F229D2A3388C4004C7410 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229C2A3388C4004C7410 /* HomeView.swift */; };
 		586F22A02A338990004C7410 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229F2A338990004C7410 /* AppConfig.swift */; };
-		586F22A42A338A31004C7410 /* QuotesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A32A338A31004C7410 /* QuotesList.swift */; };
 		586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A72A3390B4004C7410 /* Database.xcdatamodeld */; };
 		586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */; };
-		586F22AD2A3392A5004C7410 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AC2A3392A5004C7410 /* PhotoPicker.swift */; };
 		58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6706C2BD01BBE00F581E2 /* String+Extension.swift */; };
 		58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6706E2BD01BDE00F581E2 /* Date+Extension.swift */; };
 		58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670702BD01C0F00F581E2 /* Calendar+Extension.swift */; };
@@ -39,10 +37,8 @@
 		586F229A2A3387AF004C7410 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		586F229C2A3388C4004C7410 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		586F229F2A338990004C7410 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		586F22A32A338A31004C7410 /* QuotesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesList.swift; sourceTree = "<group>"; };
 		586F22A82A3390B4004C7410 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryCreatorView.swift; sourceTree = "<group>"; };
-		586F22AC2A3392A5004C7410 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		58D6706C2BD01BBE00F581E2 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		58D6706E2BD01BDE00F581E2 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		58D670702BD01C0F00F581E2 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
@@ -89,7 +85,6 @@
 				586F229E2A338981004C7410 /* AppConfig */,
 				586F22992A338793004C7410 /* Model */,
 				589D5F412A3EDBD100DB3CCF /* Screen */,
-				586F22AC2A3392A5004C7410 /* PhotoPicker.swift */,
 				58D6707A2BD0275600F581E2 /* Constants.swift */,
 				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
@@ -110,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				586F229A2A3387AF004C7410 /* DataManager.swift */,
-				586F22A32A338A31004C7410 /* QuotesList.swift */,
 				586F22A72A3390B4004C7410 /* Database.xcdatamodeld */,
 			);
 			path = Model;
@@ -222,10 +216,8 @@
 			files = (
 				58D6707B2BD0275600F581E2 /* Constants.swift in Sources */,
 				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
-				586F22AD2A3392A5004C7410 /* PhotoPicker.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
-				586F22A42A338A31004C7410 /* QuotesList.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
