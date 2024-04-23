@@ -14,40 +14,10 @@
             filePath = "Rebound Journal/Screen/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "checkReboundList()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "33670DE7-6170-4C15-97B1-19754CA68D0B - fa1789aa1a5e7701"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Rebound_Journal.HomeView.checkReboundList() -&gt; Swift.Array&lt;Rebound_Journal.JournalEntry&gt;"
-                  moduleName = "Rebound Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hyunholee/Documents/workspace/code/Rebound-Journal/Rebound%20Journal/Screen/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
-               </Location>
-               <Location
-                  uuid = "33670DE7-6170-4C15-97B1-19754CA68D0B - 72823a1dd829af"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Rebound_Journal.JournalEntry) -&gt; Swift.Bool in Rebound_Journal.HomeView.checkReboundList() -&gt; Swift.Array&lt;Rebound_Journal.JournalEntry&gt;"
-                  moduleName = "Rebound Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hyunholee/Documents/workspace/code/Rebound-Journal/Rebound%20Journal/Screen/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -60,40 +30,10 @@
             filePath = "Rebound Journal/Screen/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "checkReboundList()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "22F1DB72-B72C-4692-9211-BF86C7F97543 - fa1789aa1a5e76cf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Rebound_Journal.HomeView.checkReboundList() -&gt; Swift.Array&lt;Rebound_Journal.JournalEntry&gt;"
-                  moduleName = "Rebound Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hyunholee/Documents/workspace/code/Rebound-Journal/Rebound%20Journal/Screen/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57">
-               </Location>
-               <Location
-                  uuid = "22F1DB72-B72C-4692-9211-BF86C7F97543 - afba0311806f4260"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Rebound_Journal.JournalEntry) -&gt; Swift.Bool in Rebound_Journal.HomeView.checkReboundList() -&gt; Swift.Array&lt;Rebound_Journal.JournalEntry&gt;"
-                  moduleName = "Rebound Journal"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hyunholee/Documents/workspace/code/Rebound-Journal/Rebound%20Journal/Screen/HomeView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

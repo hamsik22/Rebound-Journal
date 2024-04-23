@@ -52,7 +52,10 @@ struct HomeView: View {
         print(isTodaySelected)
         
         if isTodaySelected { // 선택된 날이 오늘이면
-            return results.filter({ $0.isRebounded == false && $0.hasDeleted == false })
+            let nonReboundedNonDeleted = results.filter({ $0.isRebounded == false && $0.hasDeleted == false && $0.moodLevel == 2 })
+            let matchingDate = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat })
+            let combinedResults = Array(Set(nonReboundedNonDeleted + matchingDate))
+            return combinedResults
         } else {
             return results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat && $0.hasDeleted == false })
         }
@@ -117,6 +120,14 @@ struct HomeView: View {
                         .padding(.bottom, 10)
                         .foregroundColor(.text)
                 }
+                
+                if let entryText = model.date?.longFormat {
+                    Text(entryText)
+                        .multilineTextAlignment(.leading)
+                        .font(.system(size: 20, weight: .regular))
+                        .padding(.bottom, 10)
+                        .foregroundColor(.text)
+                }
             }
             .padding([.top, .horizontal])
             
@@ -168,6 +179,8 @@ struct HomeView: View {
                             .foregroundColor(.light)
                     }
                 }
+                .disabled(model.isRebounded)
+                .opacity(model.isRebounded ? 0.3 : 1)
                 .frame(width: 88, height: 42)
                 
             }
