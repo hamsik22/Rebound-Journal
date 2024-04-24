@@ -24,16 +24,16 @@ class DataManager: NSObject, ObservableObject {
     @Published var fullScreenMode: FullScreenMode?
     @Published var performance: [String: MoodLevel] = [String: MoodLevel]()
     @Published var selectedDate: Date = Date()
-    @Published var selectedEntryImage: UIImage?
+    //@Published var selectedEntryImage: UIImage?
     @Published var seledtedEntry: JournalEntry?
     //@Published var quotes: QuotesList = QuotesList()
-    @Published var didEnterCorrectPasscode: Bool = false
+    //@Published var didEnterCorrectPasscode: Bool = false
     
-    /// Dynamic properties that the UI will react to AND store values in UserDefaults
-    @AppStorage("savedPasscode") var savedPasscode: String = ""
-    @AppStorage("enableReminders") var enableReminders: Bool = false
-    @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
-    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
+//    /// Dynamic properties that the UI will react to AND store values in UserDefaults
+//    @AppStorage("savedPasscode") var savedPasscode: String = ""
+//    @AppStorage("enableReminders") var enableReminders: Bool = false
+//    @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
+//    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
     //{
     //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
     //}
@@ -96,29 +96,29 @@ extension DataManager {
         entryModel.reboundText = reboundText
         entryModel.hasDeleted = hasDeleted
         entryModel.reasons = reasons.map({ $0.rawValue }).joined(separator: ";")
-        for index in 0..<images.count {
-            saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
-            saveImage(images[index], id: "\(entryModelId)-\(index)", thumbnail: false)
-        }
+//        for index in 0..<images.count {
+//            saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
+//            saveImage(images[index], id: "\(entryModelId)-\(index)", thumbnail: false)
+//        }
         entryModel.date = Date()
         try? container.viewContext.save()
     }
     
-    /// Save journal entry image to documents folder
-    func saveImage(_ image: UIImage, id: String, thumbnail: Bool) {
-        let maxImageWidth = UIScreen.main.bounds.width/2
-        let thumbnailQuality = 0.6
-        let originalQuality = 0.9
-        if thumbnail {
-            if let thumbnailData = image.resizeImage(newWidth: maxImageWidth).jpegData(compressionQuality: thumbnailQuality) {
-                saveImage(data: thumbnailData, id: id)
-            }
-        } else {
-            if let imageData = image.jpegData(compressionQuality: originalQuality) {
-                saveImage(data: imageData, id: id)
-            }
-        }
-    }
+//    /// Save journal entry image to documents folder
+//    func saveImage(_ image: UIImage, id: String, thumbnail: Bool) {
+//        let maxImageWidth = UIScreen.main.bounds.width/2
+//        let thumbnailQuality = 0.6
+//        let originalQuality = 0.9
+//        if thumbnail {
+//            if let thumbnailData = image.resizeImage(newWidth: maxImageWidth).jpegData(compressionQuality: thumbnailQuality) {
+//                saveImage(data: thumbnailData, id: id)
+//            }
+//        } else {
+//            if let imageData = image.jpegData(compressionQuality: originalQuality) {
+//                saveImage(data: imageData, id: id)
+//            }
+//        }
+//    }
 }
 
 // MARK: - Update Journal Entry to Core Data
@@ -137,65 +137,65 @@ extension DataManager {
     }
 }
 
-// MARK: - Save/Fetch image from documents folder
-extension DataManager {
-    /// Load image from documents folder
-    func loadImage(id: String) -> UIImage? {
-        guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
-        if let imageData = try? Data(contentsOf: documentsUrl.appendingPathComponent("\(id).jpg")) {
-            return UIImage(data: imageData)
-        }
-        return nil
-    }
-    
-    /// Save image to the documents folder
-    func saveImage(data: Data, id: String) {
-        guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let fileURL = documentsUrl.appendingPathComponent("\(id).jpg")
-        try? data.write(to: fileURL, options: .atomic)
-    }
-}
+//// MARK: - Save/Fetch image from documents folder
+//extension DataManager {
+//    /// Load image from documents folder
+//    func loadImage(id: String) -> UIImage? {
+//        guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
+//        if let imageData = try? Data(contentsOf: documentsUrl.appendingPathComponent("\(id).jpg")) {
+//            return UIImage(data: imageData)
+//        }
+//        return nil
+//    }
+//    
+//    /// Save image to the documents folder
+//    func saveImage(data: Data, id: String) {
+//        guard let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+//        let fileURL = documentsUrl.appendingPathComponent("\(id).jpg")
+//        try? data.write(to: fileURL, options: .atomic)
+//    }
+//}
+//
+//// MARK: - Load images from documents
+//extension DataManager {
+//    /// Load images for a journal entry id
+//    func loadImages(id: String, thumbnails: Bool = true) -> [UIImage]? {
+//        var images = [UIImage]()
+//        let imageName = "\(id)-index\(thumbnails ? "-thumbnail" : "")"
+//        for index in 0..<4 {
+//            let updatedName = imageName.replacingOccurrences(of: "index", with: "\(index)")
+//            if let image = loadImage(id: updatedName) {
+//                image.accessibilityIdentifier = updatedName
+//                images.append(image)
+//            }
+//        }
+//        return images
+//    }
+//}
 
-// MARK: - Load images from documents
-extension DataManager {
-    /// Load images for a journal entry id
-    func loadImages(id: String, thumbnails: Bool = true) -> [UIImage]? {
-        var images = [UIImage]()
-        let imageName = "\(id)-index\(thumbnails ? "-thumbnail" : "")"
-        for index in 0..<4 {
-            let updatedName = imageName.replacingOccurrences(of: "index", with: "\(index)")
-            if let image = loadImage(id: updatedName) {
-                image.accessibilityIdentifier = updatedName
-                images.append(image)
-            }
-        }
-        return images
-    }
-}
-
-// MARK: - Schedule daily reminders
-extension DataManager {
-    
-    /// Schedule a daily reminder if needed
-    func scheduleDailyReminderIfNeeded() {
-        func removePendingNotifications() {
-            let center = UNUserNotificationCenter.current()
-            center.removeAllDeliveredNotifications()
-            center.removeAllPendingNotificationRequests()
-        }
-        
-        if enableReminders {
-            removePendingNotifications()
-            let notificationContent = UNMutableNotificationContent()
-            notificationContent.title = "Rebound Shoot-In"
-            notificationContent.body = "Don't forget to write your journal today!"
-            notificationContent.sound = .default
-            let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime.dateComponents, repeats: true)
-            let request = UNNotificationRequest(identifier: "reminder", content: notificationContent, trigger: trigger)
-            UNUserNotificationCenter.current().add(request) { _ in }
-        } else {
-            removePendingNotifications()
-        }
-    }
-    
-}
+//// MARK: - Schedule daily reminders
+//extension DataManager {
+//    
+//    /// Schedule a daily reminder if needed
+//    func scheduleDailyReminderIfNeeded() {
+//        func removePendingNotifications() {
+//            let center = UNUserNotificationCenter.current()
+//            center.removeAllDeliveredNotifications()
+//            center.removeAllPendingNotificationRequests()
+//        }
+//        
+//        if enableReminders {
+//            removePendingNotifications()
+//            let notificationContent = UNMutableNotificationContent()
+//            notificationContent.title = "Rebound Shoot-In"
+//            notificationContent.body = "Don't forget to write your journal today!"
+//            notificationContent.sound = .default
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime.dateComponents, repeats: true)
+//            let request = UNNotificationRequest(identifier: "reminder", content: notificationContent, trigger: trigger)
+//            UNUserNotificationCenter.current().add(request) { _ in }
+//        } else {
+//            removePendingNotifications()
+//        }
+//    }
+//    
+//}

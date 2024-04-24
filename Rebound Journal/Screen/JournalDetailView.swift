@@ -30,6 +30,7 @@ struct JournalDetailView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)
+                .clipShape(.rect(cornerRadius: 10))
             
             Text(Constants.Strings.whatIshoot)
                 .multilineTextAlignment(.leading)

@@ -24,20 +24,29 @@ struct HomeView: View {
                 
                 let entries = checkReboundList()
                 if  entries.count > 0 {
+                    ZStack {
                     ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack {
-                            CheckInBannerView
-                                .padding(.top, 20)
-                            ForEach(entries.sorted(by: { $0.date ?? Date() > $1.date ?? Date() })) { entry in
-                                JournalEntryItem(model: entry)
-                                    .onTapGesture {
-                                        manager.fullScreenMode = .readJournalView
-                                        manager.seledtedEntry = entry
-                                    }
+                        
+                            LazyVStack {
+                                ForEach(entries.sorted(by: { $0.date ?? Date() > $1.date ?? Date() })) { entry in
+                                    JournalEntryItem(model: entry)
+                                        .onTapGesture {
+                                            manager.fullScreenMode = .readJournalView
+                                            manager.seledtedEntry = entry
+                                        }
+                                }
+                                
+                                
                             }
+                            
                         }
-                        Spacer(minLength: 100)
+                        VStack {
+                            Spacer()
+                            CheckInBannerView
+                                .padding(.bottom, 10)
+                        }
                     }
+                    .ignoresSafeArea(edges: .bottom)
                 } else {
                     CheckInBannerView
                         .padding(.top, 20)
@@ -53,7 +62,7 @@ struct HomeView: View {
         
         if isTodaySelected { // 선택된 날이 오늘이면
             let nonReboundedNonDeleted = results.filter({ $0.isRebounded == false && $0.hasDeleted == false && $0.moodLevel == 2 })
-            let matchingDate = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat })
+            let matchingDate = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat && $0.hasDeleted == false })
             let combinedResults = Array(Set(nonReboundedNonDeleted + matchingDate))
             return combinedResults
         } else {
@@ -96,7 +105,7 @@ struct HomeView: View {
         }
         .frame(height: 72)
         .padding([.horizontal, .bottom])
-        .opacity(disableCheckIn ? 0.8 : 1)
+        //.opacity(disableCheckIn ? 0.8 : 1)
     }
     
     /// Journal entry item
@@ -131,12 +140,7 @@ struct HomeView: View {
             }
             .padding([.top, .horizontal])
             
-            JournaEntryPhotosView(model: model)
-            // divider
-            Color.dark
-                .frame(height: 1)
-                .padding(.horizontal)
-                .opacity(0.5)
+            //JournaEntryPhotosView(model: model)
             JournaEntryFooterView(model: model)
         }
         .background(
@@ -154,6 +158,7 @@ struct HomeView: View {
             Image("level\(model.moodLevel)")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+                .clipShape(.rect(cornerRadius: 10))
                 .frame(width: 50, height: 50, alignment: .center)
             VStack(alignment: .leading, spacing: 0) {
                 Text(Constants.Strings.myMood)
@@ -189,51 +194,51 @@ struct HomeView: View {
         .foregroundColor(.text)
     }
     
-    /// Photos grid for a journal entry
-    private func JournaEntryPhotosView(model: JournalEntry) -> some View {
-        let width = UIScreen.main.bounds.width-60
-        return ZStack {
-            if let modelId = model.id,
-                let images = manager.loadImages(id: modelId),
-                images.count > 0 {
-                ZStack {
-                    if images.count == 1 {
-                        EntryImage(images[0], width: width, height: width/2)
-                    } else if images.count == 2 {
-                        HStack(spacing: 5) {
-                            EntryImage(images[0], width: width/2-5, height: width/2)
-                            EntryImage(images[1], width: width/2-5, height: width/2)
-                        }
-                    } else if images.count == 3 || images.count == 4 {
-                        HStack(spacing: 5) {
-                            VStack(spacing: 5) {
-                                EntryImage(images[0], width: width/2-5, height: width/2-5)
-                                EntryImage(images[1], width: width/2-5, height: width/2-5)
-                            }
-                            if images.count == 3 {
-                                EntryImage(images[2], width: width/2-5, height: width-5)
-                            } else {
-                                VStack(spacing: 5) {
-                                    EntryImage(images[2], width: width/2-5, height: width/2-5)
-                                    EntryImage(images[3], width: width/2-5, height: width/2-5)
-                                }
-                            }
-                        }
-                    }
-                }.cornerRadius(16).padding(.bottom, 10)
-            }
-        }
-    }
+    //    /// Photos grid for a journal entry
+    //    private func JournaEntryPhotosView(model: JournalEntry) -> some View {
+    //        let width = UIScreen.main.bounds.width-60
+    //        return ZStack {
+    //            if let modelId = model.id,
+    //                let images = manager.loadImages(id: modelId),
+    //                images.count > 0 {
+    //                ZStack {
+    //                    if images.count == 1 {
+    //                        EntryImage(images[0], width: width, height: width/2)
+    //                    } else if images.count == 2 {
+    //                        HStack(spacing: 5) {
+    //                            EntryImage(images[0], width: width/2-5, height: width/2)
+    //                            EntryImage(images[1], width: width/2-5, height: width/2)
+    //                        }
+    //                    } else if images.count == 3 || images.count == 4 {
+    //                        HStack(spacing: 5) {
+    //                            VStack(spacing: 5) {
+    //                                EntryImage(images[0], width: width/2-5, height: width/2-5)
+    //                                EntryImage(images[1], width: width/2-5, height: width/2-5)
+    //                            }
+    //                            if images.count == 3 {
+    //                                EntryImage(images[2], width: width/2-5, height: width-5)
+    //                            } else {
+    //                                VStack(spacing: 5) {
+    //                                    EntryImage(images[2], width: width/2-5, height: width/2-5)
+    //                                    EntryImage(images[3], width: width/2-5, height: width/2-5)
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                }.cornerRadius(16).padding(.bottom, 10)
+    //            }
+    //        }
+    //    }
     
-    private func EntryImage(_ image: UIImage, width: CGFloat, height: CGFloat) -> some View {
-        Image(uiImage: image).resizable().aspectRatio(contentMode: .fill)
-            .frame(width: width, height: height, alignment: .center).clipped()
-            .onTapGesture {
-                if let imageName = image.accessibilityIdentifier?.replacingOccurrences(of: "-thumbnail", with: "") {
-                    manager.selectedEntryImage = manager.loadImage(id: imageName)
-                }
-            }
-    }
+    //    private func EntryImage(_ image: UIImage, width: CGFloat, height: CGFloat) -> some View {
+    //        Image(uiImage: image).resizable().aspectRatio(contentMode: .fill)
+    //            .frame(width: width, height: height, alignment: .center).clipped()
+    //            .onTapGesture {
+    //                if let imageName = image.accessibilityIdentifier?.replacingOccurrences(of: "-thumbnail", with: "") {
+    //                    manager.selectedEntryImage = manager.loadImage(id: imageName)
+    //                }
+    //            }
+    //    }
     
     /// Footer view with a horizontal carousel showing mood reasons like work/travel/friends
     private func JournaEntryFooterView(model: JournalEntry) -> some View {

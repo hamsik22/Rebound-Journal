@@ -92,24 +92,32 @@ struct DashboardContentView: View {
         let isSelectedItem = manager.selectedDate.longFormat == date.longFormat
         return VStack(spacing: 2) {
             ZStack {
+                
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 44, height: 39, alignment: .center)
-                    .foregroundColor(.diaryBackground)
+                    .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
                     // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                    .opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
+                    //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
+                if entries.count > 0 {
+                    Image("Ball")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44, height: 39, alignment: .center)
+                        .opacity(0.35)
+                }
                 Text(date.string(format: "d"))
                     .font(.system(size: 22, weight: .semibold))
                     //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
-                    .foregroundStyle(entries.count > 0 ? .diaryPrimary : .light)
+                    .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
             }
             // MARK: 09. 요일을 한국어로 표기하는 방법
             Text(DateFormatter.koreanWeekdayFormatter()
                 .string(from: date))
                 .font(.system(size: 12))
-                .foregroundColor(.diaryPrimary)
+                .foregroundColor(.text)
         }
         .padding(5)
-        .background(Color.lightColor.cornerRadius(10))
+        .background(Color.diarySecondary.cornerRadius(10))
     }
 }
 
