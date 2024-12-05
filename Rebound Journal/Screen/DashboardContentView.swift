@@ -51,9 +51,31 @@ struct DashboardContentView: View {
                 // MARK: 02. date format을 사용하는 것에 대하여
                 Text(manager.selectedDate.headerTitle)
                 // MARK: 03. 고정 문구를 관리하는 것에 대하여
-                Text(Constants.Strings.mainTitle)
-                    .font(.largeTitle)
-                    .bold()
+                HStack {
+                    Text(Constants.Strings.mainTitle)
+                        .font(.largeTitle)
+                        .bold()
+#warning("설정 페이지, 차트")
+//                    Spacer()
+//                    Button {
+//                        
+//                    } label: {
+//                        Image(systemName: "chart.bar.xaxis")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 25)
+//                    }
+//                    
+//                    Button {
+//                        
+//                    } label: {
+//                        Image(systemName: "gearshape.fill")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 25)
+//                    }
+
+                }
             }
             Spacer()
         }
