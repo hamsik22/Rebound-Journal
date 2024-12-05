@@ -56,18 +56,23 @@ struct HomeView: View {
         }.padding(.top, 10)
     }
     
-    private func checkReboundList() -> [FetchedResults<JournalEntry>.Element] {
+    private func checkReboundList() -> [JournalEntry] {
         let isTodaySelected = Date().longFormat == manager.selectedDate.longFormat
         print(isTodaySelected)
         
-        if isTodaySelected { // 선택된 날이 오늘이면
-            let nonReboundedNonDeleted = results.filter({ $0.isRebounded == false && $0.hasDeleted == false && $0.moodLevel == 2 })
-            let matchingDate = results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat && $0.hasDeleted == false })
-            let combinedResults = Array(Set(nonReboundedNonDeleted + matchingDate))
-            return combinedResults
-        } else {
-            return results.filter({ $0.date?.longFormat == manager.selectedDate.longFormat && $0.hasDeleted == false })
+        let filteredByDate = results.filter {
+            $0.date?.longFormat == manager.selectedDate.longFormat && !$0.hasDeleted
         }
+        
+        guard isTodaySelected else {
+            return filteredByDate
+        }
+        
+        let nonReboundedNonDeleted = results.filter {
+            !$0.isRebounded && !$0.hasDeleted && $0.moodLevel == 2
+        }
+        
+        return Array(Set(nonReboundedNonDeleted + filteredByDate))
     }
     
     /// Check-in banner view
@@ -272,8 +277,7 @@ struct HomeView: View {
 }
 
 // MARK: - Preview UI
-struct HomeTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView().environmentObject(DataManager(preview: true))
-    }
+#Preview {
+    HomeView()
+        .environmentObject(DataManager(preview: true))
 }

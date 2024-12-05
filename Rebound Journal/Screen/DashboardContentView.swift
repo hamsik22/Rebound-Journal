@@ -11,6 +11,7 @@ struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
+    @State private var isSettingsSheetPresented = false
     
     var body: some View {
         ZStack {
@@ -31,7 +32,21 @@ struct DashboardContentView: View {
             case .reboundCreator:
                 JournalEntryCreatorView(isRebounded: true)
                     .environmentObject(manager)
+            case .passcodeView:
+                PasscodeView().environmentObject(manager)
+            case .setupPasscodeView:
+                PasscodeView(setupMode: true).environmentObject(manager)
             }
+        }
+        /// Show the passcode view if the passcode was setup
+        .onAppear() {
+            //Interstitial.shared.loadInterstitial()
+            if manager.savedPasscode.count == 4 && !manager.didEnterCorrectPasscode {
+                manager.fullScreenMode = .passcodeView
+            }
+        }
+        .sheet(isPresented: $isSettingsSheetPresented) {
+            SettingsView() // 모달로 표시될 View
         }
     }
     
@@ -56,7 +71,7 @@ struct DashboardContentView: View {
                         .font(.largeTitle)
                         .bold()
 #warning("설정 페이지, 차트")
-//                    Spacer()
+                    Spacer()
 //                    Button {
 //                        
 //                    } label: {
@@ -65,15 +80,15 @@ struct DashboardContentView: View {
 //                            .scaledToFit()
 //                            .frame(width: 25)
 //                    }
-//                    
-//                    Button {
-//                        
-//                    } label: {
-//                        Image(systemName: "gearshape.fill")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 25)
-//                    }
+                    
+                    Button {
+                        isSettingsSheetPresented.toggle()
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25)
+                    }
 
                 }
             }

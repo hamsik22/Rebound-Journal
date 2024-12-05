@@ -24,6 +24,9 @@
 		58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670762BD01F0400F581E2 /* Binding+Extension.swift */; };
 		58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */; };
 		58D6707B2BD0275600F581E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6707A2BD0275600F581E2 /* Constants.swift */; };
+		58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAF68C2D01F0C8008BE152 /* SettingsView.swift */; };
+		58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */; };
+		58FAF6912D01FDBD008BE152 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */; };
 		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
 		9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -47,6 +50,9 @@
 		58D670762BD01F0400F581E2 /* Binding+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extension.swift"; sourceTree = "<group>"; };
 		58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Extension.swift"; sourceTree = "<group>"; };
 		58D6707A2BD0275600F581E2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		58FAF68C2D01F0C8008BE152 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
+		58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +71,7 @@
 		586F227F2A33861C004C7410 = {
 			isa = PBXGroup;
 			children = (
+				58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */,
 				586F228A2A33861C004C7410 /* Rebound Journal */,
 				586F22892A33861C004C7410 /* Products */,
 			);
@@ -125,6 +132,8 @@
 				586F229C2A3388C4004C7410 /* HomeView.swift */,
 				586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */,
 				9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */,
+				58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */,
+				58FAF68C2D01F0C8008BE152 /* SettingsView.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -181,11 +190,11 @@
 			};
 			buildConfigurationList = 586F22832A33861C004C7410 /* Build configuration list for PBXProject "Rebound Journal" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = 586F227F2A33861C004C7410;
 			productRefGroup = 586F22892A33861C004C7410 /* Products */;
@@ -204,6 +213,7 @@
 			files = (
 				586F22932A33861D004C7410 /* Preview Assets.xcassets in Resources */,
 				586F22902A33861D004C7410 /* Assets.xcassets in Resources */,
+				58FAF6912D01FDBD008BE152 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +227,7 @@
 				58D6707B2BD0275600F581E2 /* Constants.swift in Sources */,
 				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
+				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
@@ -226,6 +237,7 @@
 				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
 				586F229D2A3388C4004C7410 /* HomeView.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
+				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
@@ -295,6 +307,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -350,6 +363,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -361,11 +375,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rebound Journal/Preview Content\"";
 				DEVELOPMENT_TEAM = QGAQ3AY3R3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "리바운드 저널";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -376,7 +391,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -394,11 +409,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rebound Journal/Preview Content\"";
 				DEVELOPMENT_TEAM = QGAQ3AY3R3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "리바운드 저널";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -409,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

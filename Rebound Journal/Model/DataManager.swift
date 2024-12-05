@@ -12,7 +12,7 @@ import Foundation
 
 /// Full Screen flow
 enum FullScreenMode: Int, Identifiable {
-    case entryCreator, readJournalView, reboundCreator
+    case entryCreator, readJournalView, reboundCreator, passcodeView, setupPasscodeView
     var id: Int { hashValue }
 }
 
@@ -27,12 +27,12 @@ class DataManager: NSObject, ObservableObject {
     //@Published var selectedEntryImage: UIImage?
     @Published var seledtedEntry: JournalEntry?
     //@Published var quotes: QuotesList = QuotesList()
-    //@Published var didEnterCorrectPasscode: Bool = false
+    @Published var didEnterCorrectPasscode: Bool = false
     
 //    /// Dynamic properties that the UI will react to AND store values in UserDefaults
-//    @AppStorage("savedPasscode") var savedPasscode: String = ""
-//    @AppStorage("enableReminders") var enableReminders: Bool = false
-//    @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
+    @AppStorage("savedPasscode") var savedPasscode: String = ""
+    @AppStorage("enableReminders") var enableReminders: Bool = false
+    @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
 //    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
     //{
     //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
@@ -173,29 +173,29 @@ extension DataManager {
 //    }
 //}
 
-//// MARK: - Schedule daily reminders
-//extension DataManager {
-//    
-//    /// Schedule a daily reminder if needed
-//    func scheduleDailyReminderIfNeeded() {
-//        func removePendingNotifications() {
-//            let center = UNUserNotificationCenter.current()
-//            center.removeAllDeliveredNotifications()
-//            center.removeAllPendingNotificationRequests()
-//        }
-//        
-//        if enableReminders {
-//            removePendingNotifications()
-//            let notificationContent = UNMutableNotificationContent()
-//            notificationContent.title = "Rebound Shoot-In"
-//            notificationContent.body = "Don't forget to write your journal today!"
-//            notificationContent.sound = .default
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime.dateComponents, repeats: true)
-//            let request = UNNotificationRequest(identifier: "reminder", content: notificationContent, trigger: trigger)
-//            UNUserNotificationCenter.current().add(request) { _ in }
-//        } else {
-//            removePendingNotifications()
-//        }
-//    }
-//    
-//}
+// MARK: - Schedule daily reminders
+extension DataManager {
+    
+    /// Schedule a daily reminder if needed
+    func scheduleDailyReminderIfNeeded() {
+        func removePendingNotifications() {
+            let center = UNUserNotificationCenter.current()
+            center.removeAllDeliveredNotifications()
+            center.removeAllPendingNotificationRequests()
+        }
+        
+        if enableReminders {
+            removePendingNotifications()
+            let notificationContent = UNMutableNotificationContent()
+            notificationContent.title = "Rebound Shoot-In"
+            notificationContent.body = "Don't forget to write your journal today!"
+            notificationContent.sound = .default
+            let trigger = UNCalendarNotificationTrigger(dateMatching: reminderTime.dateComponents, repeats: true)
+            let request = UNNotificationRequest(identifier: "reminder", content: notificationContent, trigger: trigger)
+            UNUserNotificationCenter.current().add(request) { _ in }
+        } else {
+            removePendingNotifications()
+        }
+    }
+    
+}

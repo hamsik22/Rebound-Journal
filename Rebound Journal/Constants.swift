@@ -44,6 +44,26 @@ struct Constants {
         
         static let exitFlow = "정말 나가시나요?"// "Exit Flow"
         static let exitDescription = "지금 그만두시면 진행정보를 모두 잃게됩니다."//"Are you sure you want to leave this flow? You will lose your current progress"
+        
+        
+        // SettingsView
+        static let appPasscode = "앱 비밀번호" // "App Passcode"
+        
+        static let setPasscode = "비밀번호 설정" // "Set Passcode"
+        static let disablePasscode = "비밀번호 삭제" // "Disable Passcode"
+        
+        static let dailyReminders = "매일 알림"// "Daily Reminders"
+        static let enableReminders = "알림 켜기"// "Enable Reminders"
+        
+        static let spreadTheWord = "소식을 퍼뜨리세요" // "Spread the Word"
+        static let rateApp = "평점주기" // "Rate App"
+        static let shareApp = "앱 공유하기" // "Share App"
+        
+        static let supportAndPrivacy = "지원 및 개인정보 보호" // "Support & Privacy"
+        static let eMailUs = "개발자에게 메일 보내기" // "E-Mail us"
+        static let privacyPolicy = "개인정보 보호정책"// "Privacy Policy"
+        static let termsOfUse = "이용약관"// "Terms of Use"
+        
     }
     
     struct ImageStrings {
