@@ -163,6 +163,9 @@ struct JournalEntryCreatorView: View {
             HStack {
                 ForEach(MoodLevel.allCases) { level in
                     Image("\(level)")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
                         .opacity(moodLevel == level ? 1 : 0.3)
                         .onTapGesture {
                             moodLevel = level
@@ -203,7 +206,9 @@ struct JournalEntryCreatorView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(MoodReason.allCases) { reason in
                         HStack {
-                            Image("\(reason)").resizable().aspectRatio(contentMode: .fit)
+                            Image("\(reason)")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
                                 .frame(width: 18, height: 18, alignment: .center)
                             Text(reason.rawValue.capitalized)
                             Spacer()
