@@ -8,30 +8,33 @@
 import SwiftUI
 
 enum EntryCreationStep: CaseIterable, Identifiable {
-    case today, mood, shoot
+    case mood, today , shoot, images
     var id: Int { hashValue }
     
     var question: String {
         switch self {
-        case .today: return Constants.Strings.todayShoot
         case .mood: return Constants.Strings.feelToday
+        case .today: return Constants.Strings.todayShoot
         case .shoot: return Constants.Strings.howToRebound
+        case .images: return Constants.Strings.attachPhotos
         }
     }
     
     var reboundQuestion: String {
         switch self {
-        case .today: return Constants.Strings.reboundTodayShoot
         case .mood: return Constants.Strings.reboundFeelToday
+        case .today: return Constants.Strings.reboundTodayShoot
         case .shoot: return Constants.Strings.reboundHowToRebound
+        case .images: return Constants.Strings.reboundAttachPhotos
         }
     }
     
     var process: Int {
         switch self {
-        case .today: return 1
-        case .mood: return 2
+        case .mood: return 1
+        case .today: return 2
         case .shoot: return 3
+        case .images: return 4
         }
     }
 }
@@ -43,7 +46,7 @@ struct JournalEntryCreatorView: View {
     @State private var showPhotoPicker: Bool = false
     @State private var selectedPhotoIndex: Int?
     @State private var showDoneButton: Bool = false
-    @State private var currentStep: EntryCreationStep = .today
+    @State private var currentStep: EntryCreationStep = .mood
     @State private var text: String = ""
     @State private var moodLevel: MoodLevel?
     @State private var todayText: String = ""
@@ -60,9 +63,10 @@ struct JournalEntryCreatorView: View {
                 TopProgressBarView
                 // MARK: 11. 조건에 따라서 화면이 바뀌도록하는 방법
                 switch currentStep {
-                case .today: EntryTextInputView
                 case .mood: MoodLevelSelectorView
+                case .today: EntryTextInputView
                 case .shoot: ReboundTextInputView
+                case .images: PhotosContainerView
                 }
             }
         }
@@ -78,6 +82,20 @@ struct JournalEntryCreatorView: View {
                     showDoneButton = false
                 }
             }
+        }
+        /// Full modal screen flow
+        .fullScreenCover(isPresented: $showPhotoPicker) {
+            PhotoPicker { image in handleSelectedPhoto(image) }
+        }
+    }
+    
+    /// Handle selected photo
+    private func handleSelectedPhoto(_ photo: UIImage?) {
+        guard let image = photo, let currentIndex = selectedPhotoIndex else { return }
+        if images.count > currentIndex {
+            images[currentIndex] = image
+        } else {
+            images.append(image)
         }
     }
     
@@ -132,7 +150,7 @@ struct JournalEntryCreatorView: View {
     /// Next button
     private func NextButtonView(disabled: Bool) -> some View {
         Button {
-            if currentStep == .shoot {
+            if currentStep == .images {
                 if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
                     manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
                     if isRebounded {
@@ -151,7 +169,7 @@ struct JournalEntryCreatorView: View {
             ZStack {
                 Color(.tabBar)
                     .cornerRadius(30).opacity(disabled ? 0.5 : 1)
-                Text(currentStep == .shoot ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
+                Text(currentStep == .images ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.diarySecondary)
             }
@@ -162,14 +180,24 @@ struct JournalEntryCreatorView: View {
         VStack(spacing: 20) {
             HStack {
                 ForEach(MoodLevel.allCases) { level in
-                    Image("\(level)")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50)
-                        .opacity(moodLevel == level ? 1 : 0.3)
-                        .onTapGesture {
-                            moodLevel = level
+                    VStack {
+                        
+                        Image("\(level)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 50)
+                            .opacity(moodLevel == level ? 1 : 0.3)
+                            .onTapGesture {
+                                moodLevel = level
+                            }
+                        switch level {
+                        case .level1:
+                            Text("골인")
+                        case .level2:
+                            Text("리바운드")
                         }
+                        
+                    }
                 }.frame(maxWidth: .infinity)
             }
             
@@ -320,6 +348,67 @@ struct JournalEntryCreatorView: View {
             .padding(.top, 10)
             .foregroundColor(.text)
             .padding(.horizontal, 20)
+    }
+    
+    // MARK: - Photos container view
+    private var PhotosContainerView: some View {
+        let width = UIScreen.main.bounds.width-35
+        func presentPhotoPickerAlert(_ index: Int) {
+            selectedPhotoIndex = index
+            showPhotoPicker = true
+        }
+        let placeholder = UIImage(named: "image-placeholder")!
+        return VStack(spacing: 20) {
+            ZStack {
+                if images.count == 0 {
+                    PhotoContainer(image: placeholder, index: 0, width: width, height: width)
+                } else if images.count == 1 {
+                    HStack(spacing: 5) {
+                        PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
+                        PhotoContainer(image: placeholder, index: 1, width: width/2-5, height: width/2-5)
+                    }
+                } else if images.count == 2 {
+                    HStack(spacing: 5) {
+                        VStack(spacing: 5) {
+                            PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
+                            PhotoContainer(image: images[1], index: 1, width: width/2-5, height: width/2-5)
+                        }
+                        PhotoContainer(image: placeholder, index: 2, width: width/2-5, height: width-2.5)
+                    }
+                } else if images.count == 3 || images.count == 4 {
+                    HStack(spacing: 5) {
+                        VStack(spacing: 5) {
+                            PhotoContainer(image: images[0], index: 0, width: width/2-5, height: width/2-5)
+                            PhotoContainer(image: images[1], index: 1, width: width/2-5, height: width/2-5)
+                        }
+                        if images.count == 3 {
+                            VStack(spacing: 5) {
+                                PhotoContainer(image: images[2], index: 2, width: width/2-5, height: width/2-5)
+                                PhotoContainer(image: placeholder, index: 3, width: width/2-5, height: width/2-5)
+                            }
+                        } else {
+                            VStack(spacing: 5) {
+                                PhotoContainer(image: images[2], index: 2, width: width/2-5, height: width/2-5)
+                                PhotoContainer(image: images[3], index: 3, width: width/2-5, height: width/2-5)
+                            }
+                        }
+                    }
+                }
+            }.cornerRadius(20)
+            Spacer()
+            NextButtonView(disabled: false)
+        }.padding(.horizontal)
+    }
+    
+    /// Photo container view
+    private func PhotoContainer(image: UIImage, index: Int, width: CGFloat, height: CGFloat) -> some View {
+        func presentPhotoPickerAlert(_ index: Int) {
+            selectedPhotoIndex = index
+            showPhotoPicker = true
+        }
+        return Image(uiImage: image.resizeImage(newWidth: width)).resizable().aspectRatio(contentMode: .fill)
+            .frame(width: width, height: height, alignment: .center).clipped()
+            .contentShape(Rectangle()).onTapGesture { presentPhotoPickerAlert(index) }
     }
 }
 

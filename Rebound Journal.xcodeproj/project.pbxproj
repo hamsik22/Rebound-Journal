@@ -16,6 +16,11 @@
 		586F22A02A338990004C7410 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229F2A338990004C7410 /* AppConfig.swift */; };
 		586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A72A3390B4004C7410 /* Database.xcdatamodeld */; };
 		586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */; };
+		589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCA62D03F4F1003F86E5 /* HistoryView.swift */; };
+		589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCA82D03FDA4003F86E5 /* JournalEntryItemView.swift */; };
+		589DCCAC2D04B169003F86E5 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCAB2D04B169003F86E5 /* PhotoPicker.swift */; };
+		589DCCAE2D04B188003F86E5 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCAD2D04B188003F86E5 /* PhotoDetailView.swift */; };
+		589DCCB02D04B887003F86E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCAF2D04B887003F86E5 /* AppDelegate.swift */; };
 		58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6706C2BD01BBE00F581E2 /* String+Extension.swift */; };
 		58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6706E2BD01BDE00F581E2 /* Date+Extension.swift */; };
 		58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D670702BD01C0F00F581E2 /* Calendar+Extension.swift */; };
@@ -42,6 +47,11 @@
 		586F229F2A338990004C7410 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		586F22A82A3390B4004C7410 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryCreatorView.swift; sourceTree = "<group>"; };
+		589DCCA62D03F4F1003F86E5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		589DCCA82D03FDA4003F86E5 /* JournalEntryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryItemView.swift; sourceTree = "<group>"; };
+		589DCCAB2D04B169003F86E5 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		589DCCAD2D04B188003F86E5 /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
+		589DCCAF2D04B887003F86E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58D6706C2BD01BBE00F581E2 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		58D6706E2BD01BDE00F581E2 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		58D670702BD01C0F00F581E2 /* Calendar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extension.swift"; sourceTree = "<group>"; };
@@ -93,6 +103,7 @@
 				586F22992A338793004C7410 /* Model */,
 				589D5F412A3EDBD100DB3CCF /* Screen */,
 				58D6707A2BD0275600F581E2 /* Constants.swift */,
+				589DCCAF2D04B887003F86E5 /* AppDelegate.swift */,
 				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
@@ -128,14 +139,26 @@
 		589D5F412A3EDBD100DB3CCF /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				589DCCAA2D04B14C003F86E5 /* Photo */,
 				586F228D2A33861C004C7410 /* DashboardContentView.swift */,
 				586F229C2A3388C4004C7410 /* HomeView.swift */,
 				586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */,
 				9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */,
 				58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */,
 				58FAF68C2D01F0C8008BE152 /* SettingsView.swift */,
+				589DCCA62D03F4F1003F86E5 /* HistoryView.swift */,
+				589DCCA82D03FDA4003F86E5 /* JournalEntryItemView.swift */,
 			);
 			path = Screen;
+			sourceTree = "<group>";
+		};
+		589DCCAA2D04B14C003F86E5 /* Photo */ = {
+			isa = PBXGroup;
+			children = (
+				589DCCAB2D04B169003F86E5 /* PhotoPicker.swift */,
+				589DCCAD2D04B188003F86E5 /* PhotoDetailView.swift */,
+			);
+			path = Photo;
 			sourceTree = "<group>";
 		};
 		58D6706B2BD01BA800F581E2 /* Extensions */ = {
@@ -224,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				589DCCB02D04B887003F86E5 /* AppDelegate.swift in Sources */,
 				58D6707B2BD0275600F581E2 /* Constants.swift in Sources */,
 				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
@@ -236,12 +260,16 @@
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
 				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
 				586F229D2A3388C4004C7410 /* HomeView.swift in Sources */,
+				589DCCAC2D04B169003F86E5 /* PhotoPicker.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
+				589DCCAE2D04B188003F86E5 /* PhotoDetailView.swift in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
+				589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */,
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
+				589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,7 +419,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -425,7 +453,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

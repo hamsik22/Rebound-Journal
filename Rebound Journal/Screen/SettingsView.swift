@@ -27,15 +27,16 @@ struct SettingsView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer(minLength: 5)
                     VStack {
-//                        InAppPurchasesPromoBannerView
-//                        CustomHeader(title: "In-App Purchases")
-//                        InAppPurchasesView
+                        //                        InAppPurchasesPromoBannerView
+                        //                        CustomHeader(title: "In-App Purchases")
+                        //                        InAppPurchasesView
                         AppCustomSettingsView
                         CustomHeader(title: Constants.Strings.spreadTheWord)
                         RatingShareView
                         CustomHeader(title: Constants.Strings.supportAndPrivacy)
                         PrivacySupportView
-                    }.padding(.horizontal, 20)
+                    }
+                    .padding(.horizontal, 20)
                     Spacer(minLength: 100)
                 }
             }
@@ -47,6 +48,7 @@ struct SettingsView: View {
                 }
             }
         }
+        
     }
     
     /// Create custom header view
@@ -95,41 +97,41 @@ struct SettingsView: View {
         }
     }
     
-//    // MARK: - In App Purchases
-//    private var InAppPurchasesView: some View {
-//        VStack {
-//            SettingsItem(title: "Upgrade Premium", icon: "crown") {
-//                manager.fullScreenMode = .premium
-//            }
-//            Color("TextColor").frame(height: 1).opacity(0.1)
-//            SettingsItem(title: "Restore Purchases", icon: "arrow.clockwise") {
-//                manager.fullScreenMode = .premium
-//            }
-//        }.padding([.top, .bottom], 5).background(
-//            Color("Secondary").cornerRadius(15)
-//                .shadow(color: Color.black.opacity(0.07), radius: 10)
-//        ).padding(.bottom, 40)
-//    }
-//    
-//    private var InAppPurchasesPromoBannerView: some View {
-//        ZStack {
-//            if manager.isPremiumUser == false {
-//                ZStack {
-//                    Color("BackgroundColor")
-//                    HStack {
-//                        VStack(alignment: .leading) {
-//                            Text("Premium Version").bold().font(.system(size: 20))
-//                            Text("- Enable App Passcode").font(.system(size: 15)).opacity(0.7)
-//                            Text("- Add Photos to journal").font(.system(size: 15)).opacity(0.7)
-//                            Text("- Remove ads").font(.system(size: 15)).opacity(0.7)
-//                        }
-//                        Spacer()
-//                        Image(systemName: "crown.fill").font(.system(size: 45))
-//                    }.foregroundColor(.white).padding([.leading, .trailing], 20)
-//                }.frame(height: 110).cornerRadius(16).padding(.bottom, 5)
-//            }
-//        }
-//    }
+    //    // MARK: - In App Purchases
+    //    private var InAppPurchasesView: some View {
+    //        VStack {
+    //            SettingsItem(title: "Upgrade Premium", icon: "crown") {
+    //                manager.fullScreenMode = .premium
+    //            }
+    //            Color("TextColor").frame(height: 1).opacity(0.1)
+    //            SettingsItem(title: "Restore Purchases", icon: "arrow.clockwise") {
+    //                manager.fullScreenMode = .premium
+    //            }
+    //        }.padding([.top, .bottom], 5).background(
+    //            Color("Secondary").cornerRadius(15)
+    //                .shadow(color: Color.black.opacity(0.07), radius: 10)
+    //        ).padding(.bottom, 40)
+    //    }
+    //    
+    //    private var InAppPurchasesPromoBannerView: some View {
+    //        ZStack {
+    //            if manager.isPremiumUser == false {
+    //                ZStack {
+    //                    Color("BackgroundColor")
+    //                    HStack {
+    //                        VStack(alignment: .leading) {
+    //                            Text("Premium Version").bold().font(.system(size: 20))
+    //                            Text("- Enable App Passcode").font(.system(size: 15)).opacity(0.7)
+    //                            Text("- Add Photos to journal").font(.system(size: 15)).opacity(0.7)
+    //                            Text("- Remove ads").font(.system(size: 15)).opacity(0.7)
+    //                        }
+    //                        Spacer()
+    //                        Image(systemName: "crown.fill").font(.system(size: 45))
+    //                    }.foregroundColor(.white).padding([.leading, .trailing], 20)
+    //                }.frame(height: 110).cornerRadius(16).padding(.bottom, 5)
+    //            }
+    //        }
+    //    }
     
     // MARK: - App Custom settings
     private var AppCustomSettingsView: some View {
@@ -169,11 +171,11 @@ struct SettingsView: View {
         VStack {
             SettingsItem(title: Constants.Strings.setPasscode, icon: "circle.grid.3x3") {
                 manager.fullScreenMode = .setupPasscodeView
-//                if manager.isPremiumUser {
-//                    manager.fullScreenMode = .setupPasscodeView
-//                } else {
-//                    manager.fullScreenMode = .premium
-//                }
+                //                if manager.isPremiumUser {
+                //                    manager.fullScreenMode = .setupPasscodeView
+                //                } else {
+                //                    manager.fullScreenMode = .premium
+                //                }
             }
             Color("TextColor")
                 .frame(height: 1)
@@ -224,20 +226,20 @@ struct SettingsView: View {
                 EmailPresenter.shared.present()
             }
 #warning("약관추가")
-//            Color("TextColor")
-//                .frame(height: 1)
-//                .opacity(0.1)
-//            SettingsItem(title: Constants.Strings.privacyPolicy,
-//                         icon: "hand.raised") {
-//                UIApplication.shared.open(AppConfig.privacyURL, options: [:], completionHandler: nil)
-//            }
-//            Color("TextColor")
-//                .frame(height: 1)
-//                .opacity(0.1)
-//            SettingsItem(title: Constants.Strings.termsOfUse,
-//                         icon: "doc.text") {
-//                UIApplication.shared.open(AppConfig.termsAndConditionsURL, options: [:], completionHandler: nil)
-//            }
+            //            Color("TextColor")
+            //                .frame(height: 1)
+            //                .opacity(0.1)
+            //            SettingsItem(title: Constants.Strings.privacyPolicy,
+            //                         icon: "hand.raised") {
+            //                UIApplication.shared.open(AppConfig.privacyURL, options: [:], completionHandler: nil)
+            //            }
+            //            Color("TextColor")
+            //                .frame(height: 1)
+            //                .opacity(0.1)
+            //            SettingsItem(title: Constants.Strings.termsOfUse,
+            //                         icon: "doc.text") {
+            //                UIApplication.shared.open(AppConfig.termsAndConditionsURL, options: [:], completionHandler: nil)
+            //            }
         }.padding([.top, .bottom], 5).background(
             Color("Secondary").cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.07), radius: 10)

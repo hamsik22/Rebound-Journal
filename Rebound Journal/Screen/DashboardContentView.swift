@@ -12,6 +12,7 @@ struct DashboardContentView: View {
     @EnvironmentObject var manager: DataManager
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @State private var isSettingsSheetPresented = false
+    @State private var isHistorySheetPresented = false
     
     var body: some View {
         ZStack {
@@ -19,6 +20,7 @@ struct DashboardContentView: View {
             Color.diaryBackground
                 .ignoresSafeArea()
             MainContainer
+            PreviewImageFullScreen
         }
         // MARK: 10. 화면이동 중 전체화면을 덮는 방법
         .fullScreenCover(item: $manager.fullScreenMode) { type in
@@ -48,6 +50,9 @@ struct DashboardContentView: View {
         .sheet(isPresented: $isSettingsSheetPresented) {
             SettingsView() // 모달로 표시될 View
         }
+        .sheet(isPresented: $isHistorySheetPresented) {
+            HistoryView() // 모달로 표시될 View
+        }
     }
     
     // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
@@ -70,16 +75,15 @@ struct DashboardContentView: View {
                     Text(Constants.Strings.mainTitle)
                         .font(.largeTitle)
                         .bold()
-#warning("설정 페이지, 차트")
                     Spacer()
-//                    Button {
-//                        
-//                    } label: {
-//                        Image(systemName: "chart.bar.xaxis")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 25)
-//                    }
+                    Button {
+                        isHistorySheetPresented.toggle()
+                    } label: {
+                        Image(systemName: "chart.bar.xaxis")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25)
+                    }
                     
                     Button {
                         isSettingsSheetPresented.toggle()
@@ -126,7 +130,6 @@ struct DashboardContentView: View {
         let date = manager.calendarDays[index]
         // MARK: 07. 날짜를 비교하는 간단한 방법
         let isTodayItem = date.longFormat == Date().longFormat
-        let isSelectedItem = manager.selectedDate.longFormat == date.longFormat
         return VStack(spacing: 2) {
             ZStack {
                 
@@ -155,6 +158,30 @@ struct DashboardContentView: View {
         }
         .padding(5)
         .background(Color.diarySecondary.cornerRadius(10))
+    }
+    
+    /// Preview image full screen
+    private var PreviewImageFullScreen: some View {
+        ZStack {
+            if let entryImage = manager.selectedEntryImage {
+                PhotoDetailView(image: entryImage).ignoresSafeArea()
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            manager.selectedEntryImage = nil
+                        } label: {
+                            ZStack {
+                                Color.clear.frame(width: 25, height: 25, alignment: .center)
+                                Image(systemName: "xmark").resizable().aspectRatio(contentMode: .fit)
+                                    .frame(width: 18, height: 18, alignment: .center)
+                            }
+                        }.foregroundColor(Color("LightColor"))
+                    }
+                    Spacer()
+                }.padding(.horizontal)
+            }
+        }.animation(.easeInOut)
     }
 }
 
