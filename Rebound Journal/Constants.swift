@@ -26,11 +26,13 @@ struct Constants {
         
         static let todayShoot = "오늘 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
         
-        static let feelToday = "그래서 그 슛을 쏘고난 지금 기분은 어때요?" //"Hello, how do you feel today?"
+        static let feelToday = "어떤 슛을 남겨볼까요?" //"Hello, how do you feel today?"
         static let howToRebound = "만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
+        static let attachPhotos = "같이 붙일 사진이 있나요?"// "Do you want to attach any photos?"
         static let reboundTodayShoot = "다시 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
         static let reboundFeelToday = "그래서 그 슛을 다시 쏘고난 지금 기분은 어때요?" //"Hello, how do you feel today?"
         static let reboundHowToRebound = "리바운드는 만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
+        static let reboundAttachPhotos = "같이 붙일 사진이 있나요?"// "Do you want to attach any photos?"
         static let whatWillNext = "그래서 이 다음은 어떻게 되는거에요?"//"Describe how was your day so far..."
         static let describeShoot = "오늘 쏘았던 슛은 얼마나 멀리 날아갔는지 최대한 자세하게 설명해주세요."//"Describe how was your day so far..."
         
@@ -47,6 +49,7 @@ struct Constants {
         
         
         // SettingsView
+        static let setting = "설정"// "setting"
         static let appPasscode = "앱 비밀번호" // "App Passcode"
         
         static let setPasscode = "비밀번호 설정" // "Set Passcode"
@@ -64,6 +67,7 @@ struct Constants {
         static let privacyPolicy = "개인정보 보호정책"// "Privacy Policy"
         static let termsOfUse = "이용약관"// "Terms of Use"
         
+        static let history = "이전 기록보기"// "History"
     }
     
     struct ImageStrings {
