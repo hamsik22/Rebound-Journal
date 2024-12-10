@@ -14,8 +14,10 @@ struct HistoryView: View {
     
     @FetchRequest(
         entity: JournalEntry.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \JournalEntry.date, ascending: false)]
+        sortDescriptors: [NSSortDescriptor(keyPath: \JournalEntry.date, ascending: false)],
+        predicate: NSPredicate(format: "hasDeleted == %@", NSNumber(value: false))
     )
+    
     var entries: FetchedResults<JournalEntry>
     
     var groupedEntries: [String: [JournalEntry]] {

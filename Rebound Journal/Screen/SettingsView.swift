@@ -153,13 +153,13 @@ struct SettingsView: View {
                 Color("TextColor")
                     .frame(height: 1)
                     .opacity(0.1)
-                SettingsItem(title: "Time",
+                SettingsItem(title: "시간",
                              icon: "clock",
                              timePicker: true) { }
             }
         }
         .padding([.top, .bottom], 5)
-        .background(Color("Secondary")
+        .background(Color("DiarySecondary")
             .cornerRadius(15)
             .shadow(color: Color.black.opacity(0.07),
                     radius: 10))
@@ -182,15 +182,15 @@ struct SettingsView: View {
                 .opacity(0.1)
             SettingsItem(title: Constants.Strings.disablePasscode,
                          icon: "lock.slash") {
-                presentAlert(title: "Delete Passcode",
-                             message: "Are you sure you want to delete your passcode and disable protection?",
-                             primaryAction: UIAlertAction(title: "Cancel", style: .cancel, handler: nil),
-                             secondaryAction: UIAlertAction(title: "Delete Passcode", style: .destructive, handler: { _ in
+                presentAlert(title: "비밀번호 삭제",
+                             message: "정말 비밀번호를 삭제하고 보안을 낮추겠습니까?",
+                             primaryAction: UIAlertAction(title: "취소", style: .cancel, handler: nil),
+                             secondaryAction: UIAlertAction(title: "비밀번호 삭제", style: .destructive, handler: { _ in
                     manager.savedPasscode = ""
                 }))
             }
         }.padding([.top, .bottom], 5).background(
-            Color("Secondary").cornerRadius(15)
+            Color("DiarySecondary").cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.07), radius: 10)
         ).padding(.bottom, 40)
     }
@@ -213,7 +213,7 @@ struct SettingsView: View {
                 rootController?.present(shareController, animated: true, completion: nil)
             }
         }.padding([.top, .bottom], 5).background(
-            Color("Secondary").cornerRadius(15)
+            Color("DiarySecondary").cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.07), radius: 10)
         ).padding(.bottom, 40)
     }
@@ -241,7 +241,7 @@ struct SettingsView: View {
             //                UIApplication.shared.open(AppConfig.termsAndConditionsURL, options: [:], completionHandler: nil)
             //            }
         }.padding([.top, .bottom], 5).background(
-            Color("Secondary").cornerRadius(15)
+            Color("DiarySecondary").cornerRadius(15)
                 .shadow(color: Color.black.opacity(0.07), radius: 10)
         )
     }

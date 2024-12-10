@@ -55,7 +55,6 @@ struct HomeView: View {
     
     private func checkReboundList() -> [JournalEntry] {
         let isTodaySelected = Date().longFormat == manager.selectedDate.longFormat
-        print(isTodaySelected)
         
         let filteredByDate = results.filter {
             $0.date?.longFormat == manager.selectedDate.longFormat && !$0.hasDeleted
@@ -87,7 +86,6 @@ struct HomeView: View {
                 }
                 .foregroundColor(.light)
                 
-                
                 Spacer()
                 
                 Button {
@@ -107,7 +105,6 @@ struct HomeView: View {
         }
         .frame(height: 72)
         .padding([.horizontal, .bottom])
-        //.opacity(disableCheckIn ? 0.8 : 1)
     }
 }
 

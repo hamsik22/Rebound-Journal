@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum EntryCreationStep: CaseIterable, Identifiable {
-    case mood, today , shoot, images
+    case mood, today , shoot//, images
     var id: Int { hashValue }
     
     var question: String {
@@ -16,7 +16,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.feelToday
         case .today: return Constants.Strings.todayShoot
         case .shoot: return Constants.Strings.howToRebound
-        case .images: return Constants.Strings.attachPhotos
+        //case .images: return Constants.Strings.attachPhotos
         }
     }
     
@@ -25,7 +25,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.reboundFeelToday
         case .today: return Constants.Strings.reboundTodayShoot
         case .shoot: return Constants.Strings.reboundHowToRebound
-        case .images: return Constants.Strings.reboundAttachPhotos
+        //case .images: return Constants.Strings.reboundAttachPhotos
         }
     }
     
@@ -34,7 +34,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return 1
         case .today: return 2
         case .shoot: return 3
-        case .images: return 4
+        //case .images: return 4
         }
     }
 }
@@ -61,16 +61,14 @@ struct JournalEntryCreatorView: View {
             Color(.diarySecondary).ignoresSafeArea()
             VStack {
                 TopProgressBarView
-                // MARK: 11. 조건에 따라서 화면이 바뀌도록하는 방법
                 switch currentStep {
                 case .mood: MoodLevelSelectorView
                 case .today: EntryTextInputView
                 case .shoot: ReboundTextInputView
-                case .images: PhotosContainerView
+                //case .images: PhotosContainerView
                 }
             }
         }
-        // MARK: 12. 키보드 보이고 감추는 노티를 주는 방법
         .onAppear {
             NotificationCenter.default.addObserver(forName: UIApplication.keyboardWillShowNotification, object: nil, queue: nil) { _ in
                 DispatchQueue.main.async {
@@ -101,7 +99,6 @@ struct JournalEntryCreatorView: View {
     
     private var TopProgressBarView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            
             HStack {
                 Spacer()
                 Button {
@@ -114,7 +111,6 @@ struct JournalEntryCreatorView: View {
                     Image(systemName: Constants.ImageStrings.xMark)
                         .font(.system(size: 20, weight: .semibold))
                 }
-                // MARK: 13. Alert 만들기
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text(Constants.Strings.exitFlow),
                           message: Text(Constants.Strings.exitDescription),
@@ -150,7 +146,7 @@ struct JournalEntryCreatorView: View {
     /// Next button
     private func NextButtonView(disabled: Bool) -> some View {
         Button {
-            if currentStep == .images {
+            if currentStep == .shoot {
                 if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
                     manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
                     if isRebounded {
@@ -169,7 +165,7 @@ struct JournalEntryCreatorView: View {
             ZStack {
                 Color(.tabBar)
                     .cornerRadius(30).opacity(disabled ? 0.5 : 1)
-                Text(currentStep == .images ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
+                Text(currentStep == .shoot ? Constants.Strings.submitEntry : Constants.Strings.nextStep)
                     .font(.system(size: 20, weight: .semibold))
                     .foregroundColor(.diarySecondary)
             }
@@ -289,28 +285,60 @@ struct JournalEntryCreatorView: View {
     }
     
     private var ReboundTextInputView: some View {
-        VStack(spacing: 20) {
-            ZStack {
-                Color.diaryPrimary.cornerRadius(20)
-                    .opacity(colorScheme == .dark ? 1 : 0.1)
-                ReboundTextEditorView.scrollContentBackground(.hidden)
-            }
-            if showDoneButton{
-                NextButtonView(disabled: reboundText.trimmingCharacters(in: .whitespaces).isEmpty)
-            } else {
-                if reboundText.trimmingCharacters(in: .whitespaces).isEmpty {
-                    Color.clear.frame(height: 1)
-                } else {
-                    Button { hideKeyboard() } label: {
-                        Text(Constants.Strings.doneEditing)
-                            .font(.system(size: 20, weight: .medium))
-                    }
-                    .padding(.bottom)
-                    .foregroundColor(.diaryBackground)
+        ScrollView {
+            VStack(spacing: 20) {
+                ZStack {
+                    Color.diaryPrimary.cornerRadius(20)
+                        .opacity(colorScheme == .dark ? 1 : 0.1)
+                    ReboundTextEditorView.scrollContentBackground(.hidden)
                 }
+                .frame(minHeight: 280)
+
+                if showDoneButton {
+                    if text.trimmingCharacters(in: .whitespaces).isEmpty {
+                        Color.clear.frame(height: 1)
+                    } else {
+                        Button {
+                            hideKeyboard()
+                        } label: {
+                            Text(Constants.Strings.doneEditing)
+                                .font(.system(size: 20, weight: .medium))
+                        }
+                        .padding(.bottom, 8)
+                        .foregroundColor(.text)
+                        .animation(.easeInOut, value: keyboardHeight)
+                    }
+                } else {
+                    NextButtonView(disabled: text.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+                PhotosContainerView
             }
-        }.padding(.horizontal)
+            .padding(.horizontal)
+        }
+        .onAppear {
+            observeKeyboardNotifications()
+        }
     }
+    
+    // gpt
+    @State private var keyboardHeight: CGFloat = 0
+
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+
+    private func observeKeyboardNotifications() {
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+            if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+                keyboardHeight = keyboardFrame.height
+            }
+        }
+
+        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+            keyboardHeight = 0
+        }
+    }
+    // gpt
     
     private var TextEditorView: some View {
         TextEditor(text: $text)
@@ -359,6 +387,12 @@ struct JournalEntryCreatorView: View {
         }
         let placeholder = UIImage(named: "image-placeholder")!
         return VStack(spacing: 20) {
+            HStack{
+                Text(Constants.Strings.attachPhotos)
+                    .multilineTextAlignment(.leading)
+                    .font(.system(size: 28, weight: .semibold))
+                Spacer()
+            }
             ZStack {
                 if images.count == 0 {
                     PhotoContainer(image: placeholder, index: 0, width: width, height: width)
@@ -397,7 +431,7 @@ struct JournalEntryCreatorView: View {
             }.cornerRadius(20)
             Spacer()
             NextButtonView(disabled: false)
-        }.padding(.horizontal)
+        }//.padding(.horizontal)
     }
     
     /// Photo container view

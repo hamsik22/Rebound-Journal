@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct ReboundJournalApp: App {
     // 데이터를 전체에서 쓸 방법
-//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var manager: DataManager = DataManager(preview: false)
     
     var body: some Scene {
