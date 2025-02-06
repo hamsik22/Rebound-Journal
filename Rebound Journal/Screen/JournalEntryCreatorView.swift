@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum EntryCreationStep: CaseIterable, Identifiable {
-    case mood, today , shoot//, images
+    case mood, today , shoot, plan// images
     var id: Int { hashValue }
     
     var question: String {
@@ -16,6 +16,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.feelToday
         case .today: return Constants.Strings.todayShoot
         case .shoot: return Constants.Strings.howToRebound
+        case .plan: return ""
         //case .images: return Constants.Strings.attachPhotos
         }
     }
@@ -25,6 +26,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.reboundFeelToday
         case .today: return Constants.Strings.reboundTodayShoot
         case .shoot: return Constants.Strings.reboundHowToRebound
+        case .plan: return ""
         //case .images: return Constants.Strings.reboundAttachPhotos
         }
     }
@@ -34,6 +36,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return 1
         case .today: return 2
         case .shoot: return 3
+        case .plan: return 4
         //case .images: return 4
         }
     }
@@ -65,6 +68,7 @@ struct JournalEntryCreatorView: View {
                 case .mood: MoodLevelSelectorView
                 case .today: EntryTextInputView
                 case .shoot: ReboundTextInputView
+                case .plan: MockView
                 //case .images: PhotosContainerView
                 }
             }
@@ -102,9 +106,12 @@ struct JournalEntryCreatorView: View {
             HStack {
                 Spacer()
                 Button {
+                    // 사용자가 입력이 있다면
+                    // 나가기 확인 경고 출력
                     if !text.isEmpty || moodLevel != nil || images.count > 0 {
                         showAlert.toggle()
                     } else {
+                        // 내용이 없으면 해당 화면 해제
                         manager.fullScreenMode = nil
                     }
                 } label: {
@@ -128,6 +135,7 @@ struct JournalEntryCreatorView: View {
                         .frame(height: 26)
                         .opacity(step.process <= currentStep.process ? 1 : 0.2)
                         .onTapGesture {
+                            // 현재 단계보다 낮은 단계로만 이동 가능
                             if step.process < currentStep.process {
                                 currentStep = step
                             }
@@ -318,6 +326,12 @@ struct JournalEntryCreatorView: View {
         .onAppear {
             observeKeyboardNotifications()
         }
+    }
+    
+    private var MockView: some View {
+        VStack(spacing: 20) {
+            Text("hello")
+        }.padding(.horizontal)
     }
     
     // gpt
