@@ -16,8 +16,8 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.feelToday
         case .today: return Constants.Strings.todayShoot
         case .shoot: return Constants.Strings.howToRebound
-        case .plan: return ""
-        //case .images: return Constants.Strings.attachPhotos
+        case .plan: return Constants.Strings.whatToDoNext
+            //case .images: return Constants.Strings.attachPhotos
         }
     }
     
@@ -26,8 +26,8 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .mood: return Constants.Strings.reboundFeelToday
         case .today: return Constants.Strings.reboundTodayShoot
         case .shoot: return Constants.Strings.reboundHowToRebound
-        case .plan: return ""
-        //case .images: return Constants.Strings.reboundAttachPhotos
+        case .plan: return Constants.Strings.whatIsTarget
+            //case .images: return Constants.Strings.reboundAttachPhotos
         }
     }
     
@@ -37,7 +37,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
         case .today: return 2
         case .shoot: return 3
         case .plan: return 4
-        //case .images: return 4
+            //case .images: return 4
         }
     }
 }
@@ -69,7 +69,7 @@ struct JournalEntryCreatorView: View {
                 case .today: EntryTextInputView
                 case .shoot: ReboundTextInputView
                 case .plan: MockView
-                //case .images: PhotosContainerView
+                    //case .images: PhotosContainerView
                 }
             }
         }
@@ -131,18 +131,28 @@ struct JournalEntryCreatorView: View {
             // progress bar
             HStack(spacing: 10) {
                 ForEach(EntryCreationStep.allCases) { step in
-                    Capsule()
-                        .frame(height: 26)
-                        .opacity(step.process <= currentStep.process ? 1 : 0.2)
-                        .onTapGesture {
-                            // 현재 단계보다 낮은 단계로만 이동 가능
-                            if step.process < currentStep.process {
-                                currentStep = step
+                    ZStack {
+                        Capsule()
+                            .frame(width: step.process <= currentStep.process ? 90 : 50, height: 26)
+                            .opacity(step.process <= currentStep.process ? 1 : 0.2)
+                            .animation(.easeInOut(duration: 0.3), value: currentStep.process)
+                            .onTapGesture {
+                                // 현재 단계보다 낮은 단계로만 이동 가능
+                                if step.process <
+                                    currentStep.process {
+                                    currentStep = step
+                                }
                             }
+                            .foregroundStyle(.diaryBackground)
+                        if currentStep.process == step.process {
+                            Text("\(step.process)/4")
+                        } else {
+                            Text("\(step.process)")
                         }
-                        .foregroundStyle(.diaryBackground)
+                    }.frame(maxWidth: .infinity)
                 }
             }
+            
             Text(isRebounded ? currentStep.reboundQuestion : currentStep.question)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
@@ -301,7 +311,7 @@ struct JournalEntryCreatorView: View {
                     ReboundTextEditorView.scrollContentBackground(.hidden)
                 }
                 .frame(minHeight: 280)
-
+                
                 if showDoneButton {
                     if text.trimmingCharacters(in: .whitespaces).isEmpty {
                         Color.clear.frame(height: 1)
@@ -330,24 +340,24 @@ struct JournalEntryCreatorView: View {
     
     private var MockView: some View {
         VStack(spacing: 20) {
-            Text("hello")
+            Text("MockView")
         }.padding(.horizontal)
     }
     
     // gpt
     @State private var keyboardHeight: CGFloat = 0
-
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
-
+    
     private func observeKeyboardNotifications() {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
             if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 keyboardHeight = keyboardFrame.height
             }
         }
-
+        
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
             keyboardHeight = 0
         }

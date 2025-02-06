@@ -23,6 +23,9 @@ struct Constants {
         static let howToRebound = "만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
         static let reboundHowToRebound = "리바운드는 만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
         // MARK: .plan
+        static let whatToDoNext = "앞으로의 계획은 무엇인가요?"
+        static let completeShooting = "슈팅 완료!"
+        static let whatIsTarget = "경험과 계획을 참고해, 목표를 생성할까요?"
         
         // MARK: .images
         static let attachPhotos = "같이 붙일 사진이 있나요?"// "Do you want to attach any photos?"
