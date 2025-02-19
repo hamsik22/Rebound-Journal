@@ -58,11 +58,17 @@ struct DashboardContentView: View {
     // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
     private var MainContainer: some View {
         VStack(spacing: 15) {
-            HeaderTitle
-            HeaderCalendarView
+//            HeaderTitle
+//            HeaderCalendarView
+            // 그래프 아이콘, 설정 아이콘
+            headerView
+            // 상태바
+            ReboundStatusBoard()
             HomeView()
                 .environmentObject(manager)
+            createShootButton
         }
+        .padding()
     }
     
     private var HeaderTitle: some View {
@@ -100,6 +106,39 @@ struct DashboardContentView: View {
         }
         .padding(.horizontal)
         .foregroundColor(.lightColor)
+    }
+    
+    private var headerView: some View {
+        HStack {
+            Spacer()
+            Button {
+                print("그래프")
+            } label: {
+                Image(systemName: "chart.bar.xaxis")
+                    .foregroundStyle(.black)
+            }
+            Button {
+                print("설정")
+            } label: {
+                Image(systemName: "gearshape.fill")
+                    .foregroundStyle(.black)
+            }
+        }
+        .padding(.bottom, 10)
+    }
+    private var createShootButton: some View {
+        Button {
+            print("기록하기")
+        } label: {
+            Text("기록하기")
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(.black)
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+                .background(Color.gray)
+                .clipShape(.rect(cornerRadius: 12
+                                ))
+        }
     }
     
     private var HeaderCalendarView: some View {

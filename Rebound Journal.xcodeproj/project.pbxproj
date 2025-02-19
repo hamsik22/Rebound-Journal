@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -68,6 +68,10 @@
 		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C377ABC32D659A7F00C6C7AE /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		586F22852A33861C004C7410 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -99,6 +103,7 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
+				C377ABC32D659A7F00C6C7AE /* View */,
 				589DCCB12D05F444003F86E5 /* Rebound-Journal-Info.plist */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
 				586F229E2A338981004C7410 /* AppConfig */,
@@ -192,6 +197,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C377ABC32D659A7F00C6C7AE /* View */,
 			);
 			name = "Rebound Journal";
 			productName = "Rebound Journal";
