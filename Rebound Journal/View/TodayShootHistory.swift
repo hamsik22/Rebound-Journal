@@ -16,9 +16,9 @@ struct ShootModel: Identifiable {
 struct TodayShootHistory: View {
     
     var contents: [ShootModel] = [
-        ShootModel(title: "살을 빼고 싶다", date: "12.17(화)"),
-        ShootModel(title: "개발 잘하고 싶다", date: "12.18(수)"),
-        ShootModel(title: "운동 잘하고 싶다", date: "12.19(목)")
+//        ShootModel(title: "살을 빼고 싶다", date: "12.17(화)"),
+//        ShootModel(title: "개발 잘하고 싶다", date: "12.18(수)"),
+//        ShootModel(title: "운동 잘하고 싶다", date: "12.19(목)")
     ]
     
     var body: some View {
@@ -36,26 +36,34 @@ struct TodayShootHistory: View {
                     .clipShape(.rect(cornerRadius: 8))
             }
             // MARK: Content
-            TabView {
-                ForEach(contents) { item in
-                    VStack {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("계획")
-                                Text(item.title)
+            if contents.isEmpty {
+                Text("아직 오늘의 슈팅이 없어요.")
+                    .bold()
+                    .frame(height: 100)
+                    .padding()
+            } else {
+                TabView {
+                    ForEach(contents) { item in
+                        VStack {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("계획")
+                                    Text(item.title)
+                                }
+                                .frame(alignment: .leading)
+                                Spacer()
+                                Text(item.date)
                             }
-                            .frame(alignment: .leading)
                             Spacer()
-                            Text(item.date)
                         }
-                        Spacer()
                     }
                 }
+                .tabViewStyle(.page(indexDisplayMode: .always))
+                .indexViewStyle(.page(backgroundDisplayMode: .always))
+                .frame(height: 100)
+                .padding()
+                
             }
-            .tabViewStyle(.page(indexDisplayMode: .always))
-            .indexViewStyle(.page(backgroundDisplayMode: .always))
-            .frame(height: 100)
-            .padding()
         }
     }
 }

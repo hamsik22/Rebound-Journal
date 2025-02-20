@@ -64,6 +64,7 @@ struct JournalEntryCreatorView: View {
             Color(.diarySecondary).ignoresSafeArea()
             VStack {
                 TopProgressBarView
+                    .padding(.bottom, 32)
                 switch currentStep {
                 case .mood: MoodLevelSelectorView
                 case .today: EntryTextInputView
@@ -103,37 +104,13 @@ struct JournalEntryCreatorView: View {
     
     private var TopProgressBarView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            HStack {
-                Spacer()
-                Button {
-                    // 사용자가 입력이 있다면
-                    // 나가기 확인 경고 출력
-                    if !text.isEmpty || moodLevel != nil || images.count > 0 {
-                        showAlert.toggle()
-                    } else {
-                        // 내용이 없으면 해당 화면 해제
-                        manager.fullScreenMode = nil
-                    }
-                } label: {
-                    Image(systemName: Constants.ImageStrings.xMark)
-                        .font(.system(size: 20, weight: .semibold))
-                }
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text(Constants.Strings.exitFlow),
-                          message: Text(Constants.Strings.exitDescription),
-                          primaryButton: .default(Text("OK"), action: {
-                        manager.fullScreenMode = nil
-                    }),
-                          secondaryButton: .cancel(Text("Cancel"))
-                    )
-                }
-            }
             // progress bar
             HStack(spacing: 10) {
+                Spacer()
                 ForEach(EntryCreationStep.allCases) { step in
                     ZStack {
                         Capsule()
-                            .frame(width: step.process <= currentStep.process ? 90 : 50, height: 26)
+                            .frame(width: step.process == currentStep.process ? 90 : 50, height: 40)
                             .opacity(step.process <= currentStep.process ? 1 : 0.2)
                             .animation(.easeInOut(duration: 0.3), value: currentStep.process)
                             .onTapGesture {
@@ -151,13 +128,34 @@ struct JournalEntryCreatorView: View {
                         }
                     }.frame(maxWidth: .infinity)
                 }
+                Button {
+                    // 사용자가 입력이 있다면
+                    // 나가기 확인 경고 출력
+                    if !text.isEmpty || moodLevel != nil || images.count > 0 {
+                        showAlert.toggle()
+                    } else {
+                        // 내용이 없으면 해당 화면 해제
+                        manager.fullScreenMode = nil
+                    }
+                } label: {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundStyle(.diaryBackground)
+                        .font(.system(size: 20, weight: .semibold))
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text(Constants.Strings.exitFlow),
+                          message: Text(Constants.Strings.exitDescription),
+                          primaryButton: .default(Text("OK"), action: {
+                        manager.fullScreenMode = nil
+                    }),
+                          secondaryButton: .cancel(Text("Cancel"))
+                    )
+                }
+                Spacer()
             }
-            
-            Text(isRebounded ? currentStep.reboundQuestion : currentStep.question)
-                .multilineTextAlignment(.leading)
-                .font(.system(size: 28, weight: .semibold))
         }
         .foregroundColor(.text)
+        .frame(maxWidth: .infinity)
         .padding(.horizontal)
     }
     
@@ -192,51 +190,79 @@ struct JournalEntryCreatorView: View {
     
     private var MoodLevelSelectorView: some View {
         VStack(spacing: 20) {
+            // Header
             HStack {
-                ForEach(MoodLevel.allCases) { level in
-                    VStack {
-                        
-                        Image("\(level)")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 50)
-                            .opacity(moodLevel == level ? 1 : 0.3)
-                            .onTapGesture {
-                                moodLevel = level
-                            }
-                        switch level {
-                        case .level1:
-                            Text("골인")
-                        case .level2:
-                            Text("리바운드")
-                        }
-                        
-                    }
-                }.frame(maxWidth: .infinity)
+                Text("슈팅 시작!")
+                    .font(.system(size: 18))
+                    .padding(.leading, 16)
+                Spacer()
             }
+            HStack {
+                Text("어떤 경험을 기록할까요?")
+                    .font(.system(size: 22))
+                    .bold()
+                    .padding(.leading, 16)
+                Spacer()
+            }
+            Spacer().frame(height: 154)
             
-            ZStack {
-                Color.diaryPrimary.cornerRadius(20).opacity(colorScheme == .dark ? 1 : 0.1)
-                if let mood = moodLevel {
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        ForEach(mood.moodOptions, id: \.self) { myMood in
-                            HStack {
-                                Text(myMood)
-                                Spacer()
-                                Image(systemName: todayText == myMood ? "circle.fill" : "circle")
-                                    .font(.system(size: 20))
-                            }
-                            .padding().background(.list)
-                            .opacity(todayText == myMood ? 0.5 : 1)
-                            .contentShape(Rectangle()).onTapGesture {
-                                todayText = myMood
-                            }
-                        }.cornerRadius(10).padding()
+            // Contents
+            // 슛 골인
+            Button {
+                moodLevel = .level1
+                if currentStep == .shoot {
+                    if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
+                        manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
+                        if isRebounded {
+                            manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                        }
+                        manager.fullScreenMode = nil
+                    } else {
+                        presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
+                    }
+                } else {
+                    if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
+                        currentStep = EntryCreationStep.allCases[index+1]
                     }
                 }
+                print("슛-골인! 성공했어요")
+            } label: {
+                Text("슛-골인! 성공했어요")
+                    .frame(width: 361, height: 83)
+                    .foregroundStyle(.text)
+                    .background(.diaryBackground)
+                    .clipShape(.rect(cornerRadius: 12))
+                    .padding()
             }
-            NextButtonView(disabled: moodLevel == nil || todayText.isEmpty)
+            
+            // 슛 리바운드
+            Button {
+                moodLevel = .level2
+                if currentStep == .shoot {
+                    if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
+                        manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
+                        if isRebounded {
+                            manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                        }
+                        manager.fullScreenMode = nil
+                    } else {
+                        presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
+                    }
+                } else {
+                    if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
+                        currentStep = EntryCreationStep.allCases[index+1]
+                    }
+                }
+                print("슛- 리바운드! 아쉽게 빗맞았어요")
+            } label: {
+                Text("슛- 리바운드! 아쉽게 빗맞았어요")
+                    .frame(width: 361, height: 83)
+                    .foregroundStyle(.text)
+                    .background(.diarySecondaryBackground)
+                    .clipShape(.rect(cornerRadius: 12))
+                    .padding()
+            }
+            Spacer()
         }.padding(.horizontal)
     }
     
