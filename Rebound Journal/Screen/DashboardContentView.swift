@@ -16,9 +16,6 @@ struct DashboardContentView: View {
     
     var body: some View {
         ZStack {
-            // MARK: 00. 색상을 정의하는 방법에 대하여
-            Color.diaryBackground
-                .ignoresSafeArea()
             MainContainer
             PreviewImageFullScreen
         }
@@ -58,11 +55,7 @@ struct DashboardContentView: View {
     // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
     private var MainContainer: some View {
         VStack(spacing: 15) {
-//            HeaderTitle
-//            HeaderCalendarView
-            // 그래프 아이콘, 설정 아이콘
             headerView
-            // 상태바
             ReboundStatusBoard()
             HomeView()
                 .environmentObject(manager)
@@ -112,12 +105,14 @@ struct DashboardContentView: View {
         HStack {
             Spacer()
             Button {
+                isHistorySheetPresented.toggle()
                 print("그래프")
             } label: {
                 Image(systemName: "chart.bar.xaxis")
                     .foregroundStyle(.black)
             }
             Button {
+                isSettingsSheetPresented.toggle()
                 print("설정")
             } label: {
                 Image(systemName: "gearshape.fill")
@@ -128,6 +123,7 @@ struct DashboardContentView: View {
     }
     private var createShootButton: some View {
         Button {
+            manager.fullScreenMode = .entryCreator
             print("기록하기")
         } label: {
             Text("기록하기")
@@ -136,8 +132,7 @@ struct DashboardContentView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 60)
                 .background(Color.gray)
-                .clipShape(.rect(cornerRadius: 12
-                                ))
+                .clipShape(.rect(cornerRadius: 12))
         }
     }
     
@@ -175,8 +170,8 @@ struct DashboardContentView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 44, height: 39, alignment: .center)
                     .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
-                    // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                    //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
+                // MARK: 08. 3항 연산자로 if문을 줄이는 방법
+                //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
                 if entries.count > 0 {
                     Image("Ball")
                         .resizable()
@@ -186,14 +181,14 @@ struct DashboardContentView: View {
                 }
                 Text(date.string(format: "d"))
                     .font(.system(size: 22, weight: .semibold))
-                    //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
+                //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
                     .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
             }
             // MARK: 09. 요일을 한국어로 표기하는 방법
             Text(DateFormatter.koreanWeekdayFormatter()
                 .string(from: date))
-                .font(.system(size: 12))
-                .foregroundColor(.text)
+            .font(.system(size: 12))
+            .foregroundColor(.text)
         }
         .padding(5)
         .background(Color.diarySecondary.cornerRadius(10))

@@ -12,7 +12,7 @@ struct ShootModel: Identifiable {
     let title: String
     let date: String //임시
 }
-
+// TODO: 데이터 연동 필요
 struct TodayShootHistory: View {
     
     var contents: [ShootModel] = [

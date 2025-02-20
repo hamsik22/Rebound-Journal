@@ -7,7 +7,9 @@
 
 import SwiftUI
 
+// TODO: 데이터 연동 필요
 struct ReboundStatusBoard: View {
+    
     var body: some View {
         HStack {
             VStack {

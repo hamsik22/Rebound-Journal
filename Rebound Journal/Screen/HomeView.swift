@@ -15,45 +15,11 @@ struct HomeView: View {
     
     // MARK: - Main rendering function
     var body: some View {
-//        ZStack {
-//            RoundedCorner(radius: 30, corners: [.topLeft, .topRight])
-//                .foregroundStyle(.list)
-//                .ignoresSafeArea()
-//            
-//            VStack(spacing: 0) {
-//                
-//                let entries = checkReboundList()
-//                if  entries.count > 0 {
-//                    ZStack {
-//                    ScrollView(.vertical, showsIndicators: false) {
-//                        
-//                            LazyVStack {
-//                                ForEach(entries.sorted(by: { $0.date ?? Date() > $1.date ?? Date() })) { entry in
-//                                    JournalEntryItemView(model: entry)
-//                                        .onTapGesture {
-//                                            manager.fullScreenMode = .readJournalView
-//                                            manager.seledtedEntry = entry
-//                                        }
-//                                }
-//                            }
-//                        }
-//                        VStack {
-//                            Spacer()
-//                            CheckInBannerView
-//                                .padding(.bottom, 10)
-//                        }
-//                    }
-//                    .ignoresSafeArea(edges: .bottom)
-//                } else {
-//                    CheckInBannerView
-//                        .padding(.top, 20)
-//                    EmptyListView()
-//                }
-//            }
-//        }.padding(.top, 10)
-        
         VStack {
             TodayShootHistory()
+                .onTapGesture {
+                    print("TodayShootHistory")
+                }
             TargetList()
         }
     }

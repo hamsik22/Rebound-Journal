@@ -13,7 +13,7 @@ struct TargetModel: Identifiable {
     let title: String
     let count: Int
 }
-
+// TODO: 데이터 연동 필요
 struct TargetList: View {
     
     var content: [TargetModel] = [TargetModel(type: "목표", title: "공부하기", count: 3),
