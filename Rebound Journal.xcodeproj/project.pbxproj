@@ -69,6 +69,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C36BE1432D687029006D1EE4 /* Hamsik */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Hamsik; sourceTree = "<group>"; };
 		C377ABC32D659A7F00C6C7AE /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -103,6 +104,7 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
+				C36BE1432D687029006D1EE4 /* Hamsik */,
 				C377ABC32D659A7F00C6C7AE /* View */,
 				589DCCB12D05F444003F86E5 /* Rebound-Journal-Info.plist */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
@@ -199,6 +201,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				C36BE1432D687029006D1EE4 /* Hamsik */,
 				C377ABC32D659A7F00C6C7AE /* View */,
 			);
 			name = "Rebound Journal";

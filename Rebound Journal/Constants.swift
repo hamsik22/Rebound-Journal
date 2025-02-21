@@ -13,21 +13,50 @@ struct Constants {
         static let mainTitle = "리바운드 저널"
         
         // MARK: - JournalEntryCreatorView
-        // MARK: .mood
+        
+        // MARK: .isSuccess
+        // “What experience would you like to record?”
+        static let experienceToRecord = "어떤 경험을 기록할까요?"
+        // “Start Shooting”
+        static let startShooting = "슈팅 시작!"
+        
+        // MARK: .howFeelingNow
+        // “Goal! Now I’ll let go of my emotions.”
+        static let goalMessage = "골인! 이제 감정을 덜어낼게요"
+        // “What feelings are you experiencing?”
+        static let currentEmotion = "어떤 감정을 느끼고 있나요?"
+        
+        // MARK: .yourExperience
+        // “Why do you feel this emotion?”
+        static let emotionReason = "이 감정을 느끼게 된 이유가 뭘까요?"
+        // “Tell me about this experience.”
+        static let experienceDescription = "이번 경험에 대해 말해주세요."
+        
+        // MARK: .nextPlan
+        // “What are your plans for the future?”
+        static let futurePlans = "앞으로의 계획은 무엇인가요?"
+        
+        // MARK: .completeCreation
+        // “Shooting Complete!”
+        // “Shall we create a goal based on your experiences and plans?”
+        static let shootingComplete = "슈팅 완료!"
+        static let goalSuggestion = "경험과 계획을 참고해, 목표를 생성할까요?"
+        
+        // MARK: .mood(Lagacy)
         static let feelToday = "어떤 슛을 남겨볼까요?" //"Hello, how do you feel today?"
         static let reboundFeelToday = "그래서 그 슛을 다시 쏘고난 지금 기분은 어때요?" //"Hello, how do you feel today?"
-        // MARK: .today
+        // MARK: .today(Lagacy)
         static let todayShoot = "오늘 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
         static let reboundTodayShoot = "다시 쏘았던 슛은 어땠나요?"// "What shot did you shoot today?"
-        // MARK: .shoot
+        // MARK: .shoot(Lagacy)
         static let howToRebound = "만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
         static let reboundHowToRebound = "리바운드는 만족해요? 이 다음은 어떻게 할꺼에요?"// "How can you rebound?"
-        // MARK: .plan
+        // MARK: .plan(Lagacy)
         static let whatToDoNext = "앞으로의 계획은 무엇인가요?"
         static let completeShooting = "슈팅 완료!"
         static let whatIsTarget = "경험과 계획을 참고해, 목표를 생성할까요?"
         
-        // MARK: .images
+        // MARK: .images(Lagacy)
         static let attachPhotos = "같이 붙일 사진이 있나요?"// "Do you want to attach any photos?"
         static let reboundAttachPhotos = "같이 붙일 사진이 있나요?"// "Do you want to attach any photos?"
         
