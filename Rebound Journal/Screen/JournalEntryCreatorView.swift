@@ -58,6 +58,7 @@ struct JournalEntryCreatorView: View {
     @State private var reasons: [MoodReason] = [MoodReason]()
     @State private var images: [UIImage] = [UIImage]()
     @State private var showAlert: Bool = false
+    @State private var isSecondViewShowing = true
     
     var body: some View {
         ZStack {
@@ -204,65 +205,103 @@ struct JournalEntryCreatorView: View {
                     .padding(.leading, 16)
                 Spacer()
             }
-            Spacer().frame(height: 154)
             
             // Contents
-            // 슛 골인
-            Button {
-                moodLevel = .level1
-                if currentStep == .shoot {
-                    if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
-                        manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
-                        if isRebounded {
-                            manager.updateSelectedEntry(with: manager.seledtedEntry!)
-                        }
-                        manager.fullScreenMode = nil
-                    } else {
-                        presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
-                    }
-                } else {
-                    if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
-                        currentStep = EntryCreationStep.allCases[index+1]
-                    }
-                }
-                print("슛-골인! 성공했어요")
-            } label: {
-                Text("슛-골인! 성공했어요")
-                    .frame(width: 361, height: 83)
-                    .foregroundStyle(.text)
-                    .background(.diaryBackground)
-                    .clipShape(.rect(cornerRadius: 12))
-                    .padding()
-            }
             
-            // 슛 리바운드
-            Button {
-                moodLevel = .level2
-                if currentStep == .shoot {
-                    if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
-                        manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
-                        if isRebounded {
-                            manager.updateSelectedEntry(with: manager.seledtedEntry!)
+            if isSecondViewShowing {
+                // 슛 골인
+                Spacer().frame(height: 154)
+                Button {
+                    moodLevel = .level1
+                    isSecondViewShowing.toggle()
+                    print("슛-골인! 성공했어요")
+                } label: {
+                    Text("슛-골인! 성공했어요")
+                        .frame(width: 361, height: 83)
+                        .foregroundStyle(.text)
+                        .background(.diaryBackground)
+                        .clipShape(.rect(cornerRadius: 12))
+                        .padding()
+                }
+                
+                // 슛 리바운드
+                Button {
+                    moodLevel = .level2
+                    isSecondViewShowing.toggle()
+                    print("슛- 리바운드! 아쉽게 빗맞았어요")
+                } label: {
+                    Text("슛- 리바운드! 아쉽게 빗맞았어요")
+                        .frame(width: 361, height: 83)
+                        .foregroundStyle(.text)
+                        .background(.diarySecondaryBackground)
+                        .clipShape(.rect(cornerRadius: 12))
+                        .padding()
+                }
+                Spacer()
+            } else {
+                VStack {
+                    Text("슛-골인! 성공했어요")
+                        .frame(width: 361, height: 83)
+                        .foregroundStyle(.text)
+                        .background(.diaryBackground)
+                        .clipShape(.rect(cornerRadius: 12))
+                        .padding()
+                    Text("목표에 대한 기록인가요?")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                    
+                    TargetList()
+                    
+                    Button {
+                        if currentStep == .shoot {
+                            if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
+                                manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
+                                if isRebounded {
+                                    manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                                }
+                                manager.fullScreenMode = nil
+                            } else {
+                                presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
+                            }
+                        } else {
+                            if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
+                                currentStep = EntryCreationStep.allCases[index+1]
+                            }
                         }
-                        manager.fullScreenMode = nil
-                    } else {
-                        presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
+                    } label: {
+                        Text("건너뛰기")
+                            .frame(width: 361, height: 60)
+                            .foregroundStyle(.text)
+                            .clipShape(.rect(cornerRadius: 12))
+                            
                     }
-                } else {
-                    if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
-                        currentStep = EntryCreationStep.allCases[index+1]
+                    
+                    Button {
+                        if currentStep == .shoot {
+                            if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
+                                manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
+                                if isRebounded {
+                                    manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                                }
+                                manager.fullScreenMode = nil
+                            } else {
+                                presentAlert(title: "Missing Fields", message: "Make sure that you've complete all required fields")
+                            }
+                        } else {
+                            if let index = EntryCreationStep.allCases.firstIndex(of: currentStep) {
+                                currentStep = EntryCreationStep.allCases[index+1]
+                            }
+                        }
+                    } label: {
+                        Text("기록하기")
+                            .frame(width: 361, height: 60)
+                            .foregroundStyle(.text)
+                            .background(.diarySecondaryBackground)
+                            .clipShape(.rect(cornerRadius: 12))
+                            
                     }
                 }
-                print("슛- 리바운드! 아쉽게 빗맞았어요")
-            } label: {
-                Text("슛- 리바운드! 아쉽게 빗맞았어요")
-                    .frame(width: 361, height: 83)
-                    .foregroundStyle(.text)
-                    .background(.diarySecondaryBackground)
-                    .clipShape(.rect(cornerRadius: 12))
-                    .padding()
             }
-            Spacer()
         }.padding(.horizontal)
     }
     

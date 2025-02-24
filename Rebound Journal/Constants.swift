@@ -15,10 +15,10 @@ struct Constants {
         // MARK: - JournalEntryCreatorView
         
         // MARK: .isSuccess
-        // “What experience would you like to record?”
-        static let experienceToRecord = "어떤 경험을 기록할까요?"
         // “Start Shooting”
         static let startShooting = "슈팅 시작!"
+        // “What experience would you like to record?”
+        static let experienceToRecord = "어떤 경험을 기록할까요?"
         
         // MARK: .howFeelingNow
         // “Goal! Now I’ll let go of my emotions.”

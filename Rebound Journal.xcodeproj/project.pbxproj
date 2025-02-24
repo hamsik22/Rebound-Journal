@@ -104,8 +104,8 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
-				C36BE1432D687029006D1EE4 /* Hamsik */,
 				C377ABC32D659A7F00C6C7AE /* View */,
+				C36BE1432D687029006D1EE4 /* Hamsik */,
 				589DCCB12D05F444003F86E5 /* Rebound-Journal-Info.plist */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
 				586F229E2A338981004C7410 /* AppConfig */,
