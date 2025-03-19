@@ -1,2 +1,6 @@
 
 .DS_Store
+
+*.xcuserstate
+
+Rebound Journal.xcodeproj/xcuserdata/sukhyeonmacmini.xcuserdatad/xcschemes/xcschememanagement.plist

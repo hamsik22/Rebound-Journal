@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,6 +51,10 @@
 		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C3FCA9DC2D8AA9E600556B54 /* Hamsik */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Hamsik; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		586F22852A33861C004C7410 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -81,6 +85,7 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
+				C3FCA9DC2D8AA9E600556B54 /* Hamsik */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
 				586F229E2A338981004C7410 /* AppConfig */,
 				586F22992A338793004C7410 /* Model */,
@@ -158,6 +163,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C3FCA9DC2D8AA9E600556B54 /* Hamsik */,
 			);
 			name = "Rebound Journal";
 			productName = "Rebound Journal";
