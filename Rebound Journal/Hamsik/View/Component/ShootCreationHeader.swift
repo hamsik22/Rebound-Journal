@@ -30,12 +30,12 @@ struct ShootCreationHeader: View {
                     .font(.system(size: 25))
                     .fontWeight(.semibold)
                     .padding(.bottom, 3)
-                    .foregroundStyle(.headerTitle)
+                    .foregroundStyle(.default)
                 
                 if let description = description {
                     Text(description)
                         .font(.system(size: 18))
-                        .foregroundStyle(.headerDescription)
+                        .foregroundStyle(.description)
                 }
             }
         }
