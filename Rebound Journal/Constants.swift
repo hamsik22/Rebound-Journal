@@ -9,6 +9,14 @@ import Foundation
 
 struct Constants {
     struct Strings {
+        
+        // MARK: - 1.0.4 이후 Constants
+        static let shootTypeTitle = "어떤 슛을 남겨볼까요?"
+        static let shootTypeDescription = "골인은 성공을, 리바운드는 아쉬운 실패를 뜻해요"
+        
+        static let EmotionInPutGoalIn = "골인!\n지금 어떤 감정인가요?"
+        static let EmotionInPutRebound = "리바운드!\n지금 어떤 감정인가요?"
+        
         static let mainTitle = "리바운드 저널"
         
         static let oops = "이런!"
