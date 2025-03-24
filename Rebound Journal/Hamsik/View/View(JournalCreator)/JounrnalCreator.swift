@@ -17,7 +17,7 @@ struct JounrnalCreator: View {
             TopProgressBarView
             switch viewModel.currentStep {
             case .shoot: SelectShootTypeView(viewModel: viewModel)
-            case .emotion: EmotionInputView()
+            case .emotion: EmotionInputView(viewModel: viewModel)
             case .review: ReviewPlanView()
             }
         }
