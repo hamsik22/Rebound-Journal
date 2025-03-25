@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct FeelingTracker: View {
+struct EmotionTracker: View {
     
     @ObservedObject var viewModel: JournalCreatorViewModel
     
-    @State var feelingShape: ImageResource = .positiveCircle
-    @State var feelingValue: Double = 0.0
+    @State var emotionShape: ImageResource = .positiveCircle
+    @State var emotionValue: Double = 0.0
+    @State var emotionText: [String] = []
     var isFirstEnter: Bool {
         !viewModel.isSliderEditing && viewModel.emotionValue == nil
     }
@@ -32,31 +33,34 @@ struct FeelingTracker: View {
                             .bold()
                             .padding()
                     } else if !isSliderEditing {
-                        FeelingText()
+                        EmotionText(selectedTags: $emotionText)
+                            .onChange(of: emotionText) { newValue in
+                                viewModel.emotionText = newValue
+                            }
                     }
                     else {
-                        FeelingShape(value: $feelingValue,
-                                     currentFeelingShape: $feelingShape)
+                        FeelingShape(value: $emotionValue,
+                                     currentFeelingShape: $emotionShape)
                     }
                     Spacer()
-                    VerticalSlider(sliderValue: $feelingValue, isEdited: $viewModel.isSliderEditing)
-                        .onChange(of: feelingValue, perform: { newValue in
+                    VerticalSlider(sliderValue: $emotionValue, isEdited: $viewModel.isSliderEditing)
+                        .onChange(of: emotionValue, perform: { newValue in
                             print("Slider: \(newValue)")
                             switch newValue {
                             case 0:
-                                feelingShape = .positiveCircle
+                                emotionShape = .positiveCircle
                             case 1:
-                                feelingShape = .softSpikes
+                                emotionShape = .softSpikes
                             case 2:
-                                feelingShape = .sharpSpike
+                                emotionShape = .sharpSpike
                             case 3:
-                                feelingShape = .thornball
+                                emotionShape = .thornball
                             default:
-                                feelingShape = .softSpikes
+                                emotionShape = .softSpikes
                             }
                         })
                         .onChange(of: viewModel.isSliderEditing) { newValue in
-                            viewModel.emotionValue = feelingValue
+                            viewModel.emotionValue = emotionValue
                         }
                 }
                 .frame(maxWidth: .infinity)
@@ -90,12 +94,11 @@ struct FeelingShape: View {
             .onAppear() {
                 withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
                     scale.toggle()
-                    
                 }
             }
     }
 }
 
 #Preview {
-    FeelingTracker(viewModel: JournalCreatorViewModel())
+    EmotionTracker(viewModel: JournalCreatorViewModel())
 }

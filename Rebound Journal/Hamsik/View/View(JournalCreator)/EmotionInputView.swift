@@ -13,7 +13,7 @@ struct EmotionInputView: View {
     @ObservedObject var viewModel: JournalCreatorViewModel
     
     var canGoNext: Bool {
-        viewModel.emotionValue != nil && viewModel.feelText != nil
+        viewModel.emotionValue != nil && viewModel.emotionText != nil
     }
     
     var body: some View {
@@ -24,14 +24,14 @@ struct EmotionInputView: View {
                         Constants.Strings.EmotionInPutRebound,
                     image: type ? .goalIn : .rebound)
             }
-            FeelingTracker(viewModel: viewModel)
+            EmotionTracker(viewModel: viewModel)
                 .frame(maxWidth: .infinity)
                 .padding()
             Spacer()
             StepControlView(onPrevious: {
-                print("이전")
+                viewModel.currentStep = .shoot
             }, onNext: {
-                print("다음으로")
+                viewModel.currentStep = .review
             }, canGoNext: canGoNext)
         }
     }

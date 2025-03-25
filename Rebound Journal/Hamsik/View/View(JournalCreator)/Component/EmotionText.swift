@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct FeelingText: View {
+struct EmotionText: View {
     
     /// View Properties
     @State var tags = ["기분이 좋은", "신나는", "자랑스러운", "의욕적인", "뿌듯한",
                        "상쾌한", "설레는", "감사한", "행복한", "자신감이 생긴",
                        "편안한", "만족한", "열정적인", "기대되는", "용기있는"]
     /// Selection
-    @State private var selectedTags: [String] = []
+    @Binding var selectedTags: [String]
     
     /// Adding Matched Geometry Effect
     @Namespace private var animation
@@ -42,9 +42,11 @@ struct FeelingText: View {
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
-                                    // Adding to Selected Tag List
-                                    withAnimation(.snappy) {
-                                        selectedTags.insert(tag, at: 0)
+                                    if selectedTags.isEmpty {
+                                        // Adding to Selected Tag List
+                                        withAnimation(.snappy) {
+                                            selectedTags.insert(tag, at: 0)
+                                        }
                                     }
                                 }
                         }
@@ -181,5 +183,5 @@ extension [LayoutSubviews.Element] {
 }
 
 #Preview {
-    FeelingText()
+    EmotionText(selectedTags: .constant([]))
 }

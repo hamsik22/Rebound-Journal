@@ -21,7 +21,7 @@ struct StepControlView: View {
             
             HStack(alignment: .center) {
                 Button {
-                    debugPrint("이전")
+                    onPrevious()
                 } label: {
                     Text("이전")
                         .frame(width: previousWidth)
@@ -36,6 +36,7 @@ struct StepControlView: View {
                 Button {
                     if canGoNext {
                         debugPrint("다음으로")
+                        onNext()
                     }
                 } label: {
                     Text("다음으로")
