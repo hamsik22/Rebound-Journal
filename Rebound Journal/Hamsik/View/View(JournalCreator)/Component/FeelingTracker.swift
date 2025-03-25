@@ -32,7 +32,7 @@ struct FeelingTracker: View {
                             .bold()
                             .padding()
                     } else if !isSliderEditing {
-                        FeelingTagView()
+                        FeelingText()
                     }
                     else {
                         FeelingShape(value: $feelingValue,
@@ -93,12 +93,6 @@ struct FeelingShape: View {
                     
                 }
             }
-    }
-}
-
-struct FeelingTagView: View {
-    var body: some View {
-        Text("Feeling")
     }
 }
 

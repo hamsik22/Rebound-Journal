@@ -16,7 +16,8 @@ struct VerticalSlider: View {
             Text("부정")
             ZStack {
                 Color.clear
-                    .frame(width: 30, height: 400) // 원하는 크기의 컨테이너
+                    .frame(width: 20) // 원하는 크기의 컨테이너
+                    .frame(maxHeight: .infinity)
                     .overlay(
                         Slider(value: $sliderValue, in: 0...3, step: 1) { editing in
                             isEdited = editing
@@ -30,7 +31,7 @@ struct VerticalSlider: View {
             }
             Text("긍정")
         }
-        .padding()
+        .padding(10)
     }
 }
 

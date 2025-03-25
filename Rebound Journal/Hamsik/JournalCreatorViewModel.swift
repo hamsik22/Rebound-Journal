@@ -20,5 +20,5 @@ class JournalCreatorViewModel: ObservableObject {
     // MARK: Data
     @Published var goalType: Bool? = nil
     @Published var emotionValue: Double? = nil
-    @Published var feelText: String? = nil
+    @Published var feelText: [String]? = nil
 }
