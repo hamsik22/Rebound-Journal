@@ -8,19 +8,26 @@
 import Foundation
 
 struct Constants {
-    struct SystemText {
+    struct ContentText {
+        let shootTypeTitle = "어떤 슛을 남겨볼까요?"
+        let shootTypeDescription = "골인은 성공을, 리바운드는 아쉬운 실패를 뜻해요"
+        
+        let EmotionInPutGoalIn = "골인!\n지금 어떤 감정인가요?"
+        let EmotionInPutRebound = "리바운드!\n지금 어떤 감정인가요?"
+        
         let reviewShooting = "오늘 쏘았던 슛은 어땠나요?"
+        let reviewShootingField = "짧아도 좋아요. 경험에 대해 적어봐요."
         let whatNextPlan = "앞으로의 계획은 어떤 것인가요?"
+        let whatNextPlanField = "작은 것부터 생각해보아도 좋아요."
+    }
+    
+    struct SystemText {
+        let previousButton = "이전"
+        let nextButton = "다음으로"
+        let saveButton = "저장하기"
     }
     
     struct Strings {
-        
-        // MARK: - 1.0.4 이후 Constants
-        static let shootTypeTitle = "어떤 슛을 남겨볼까요?"
-        static let shootTypeDescription = "골인은 성공을, 리바운드는 아쉬운 실패를 뜻해요"
-        
-        static let EmotionInPutGoalIn = "골인!\n지금 어떤 감정인가요?"
-        static let EmotionInPutRebound = "리바운드!\n지금 어떤 감정인가요?"
         
         static let mainTitle = "리바운드 저널"
         

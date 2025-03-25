@@ -11,6 +11,7 @@ struct EmotionInputView: View {
     
     @State private var sliderValue: Double = 0.5
     @ObservedObject var viewModel: JournalCreatorViewModel
+    var text = Constants.ContentText()
     
     var canGoNext: Bool {
         viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)
@@ -20,8 +21,8 @@ struct EmotionInputView: View {
         VStack {
             if let type = viewModel.goalType {
                 ShootCreationHeader(
-                    title: type ? Constants.Strings.EmotionInPutGoalIn :
-                        Constants.Strings.EmotionInPutRebound,
+                    title: type ? text.EmotionInPutGoalIn :
+                        text.EmotionInPutRebound,
                     image: type ? .goalIn : .rebound)
             }
             EmotionTracker(viewModel: viewModel)

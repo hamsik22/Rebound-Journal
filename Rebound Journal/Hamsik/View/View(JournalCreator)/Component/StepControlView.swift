@@ -13,6 +13,7 @@ struct StepControlView: View {
     let onNext: () -> Void
     var canGoNext: Bool
     var nextButtonText: String
+    var previousButtonText: String = "이전"
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,7 +25,7 @@ struct StepControlView: View {
                 Button {
                     onPrevious()
                 } label: {
-                    Text("이전")
+                    Text(previousButtonText)
                         .frame(width: previousWidth)
                         .tint(.black)
                         .padding()

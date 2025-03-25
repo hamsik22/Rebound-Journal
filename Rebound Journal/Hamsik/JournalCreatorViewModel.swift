@@ -21,4 +21,10 @@ class JournalCreatorViewModel: ObservableObject {
     @Published var goalType: Bool? = nil
     @Published var emotionValue: Double? = nil
     @Published var emotionText: [String]? = nil
+    @Published var reviewText: String? = nil
+    @Published var nextPlanText: String? = nil
+    
+    func saveShooting() {
+        debugPrint("saveShooting")
+    }
 }

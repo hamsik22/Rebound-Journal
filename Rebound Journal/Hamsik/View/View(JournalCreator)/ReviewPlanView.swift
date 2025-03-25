@@ -9,10 +9,16 @@ import SwiftUI
 
 struct ReviewPlanView: View {
     
-    let text = Constants.SystemText()
+    let text = Constants.ContentText()
+    let systemText = Constants.SystemText()
     @ObservedObject var viewModel: JournalCreatorViewModel
     @State var reviewText: String = ""
     @State var planText: String = ""
+    var canSave: Bool {
+        guard let reviewText = viewModel.reviewText else { return false }
+        guard let planText = viewModel.nextPlanText else { return false }
+        return !reviewText.isEmpty && !planText.isEmpty
+    }
     
     var body: some View {
         VStack {
@@ -26,16 +32,22 @@ struct ReviewPlanView: View {
                     Capsule()
                         .fill(.accent.gradient)
                 }
+            
+            // Reviewing Shoot
             Text(text.reviewShooting)
-            TextField("오늘의 경험", text: $reviewText, prompt: Text("짧아도 좋아요. 경험에 대해 적어봐요."))
+            TextField("오늘의 경험", text: $reviewText, prompt: Text(text.reviewShootingField))
+            
+            // Get NextPlan
             Text(text.whatNextPlan)
-            TextField("앞으로의 계획", text: $planText, prompt: Text("작은 것부터 생각해보아도 좋아요."))
+            TextField("앞으로의 계획", text: $planText, prompt: Text(text.whatNextPlanField))
+            
+            // StepControll
             StepControlView(onPrevious: {
-                
+                viewModel.currentStep = .emotion
             }, onNext: {
-                
-            }, canGoNext: false,
-            nextButtonText: "저장하기")
+                // TODO: 저장 로직
+            }, canGoNext: canSave,
+            nextButtonText: systemText.nextButton)
         }
     }
 }

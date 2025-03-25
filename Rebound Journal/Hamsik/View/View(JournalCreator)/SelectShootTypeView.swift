@@ -11,16 +11,15 @@ struct SelectShootTypeView: View {
     
     @ObservedObject var viewModel: JournalCreatorViewModel
     
-    var title: String = Constants.Strings.shootTypeTitle
-    var description: String = Constants.Strings.shootTypeDescription
+    var text = Constants.ContentText()
     var isTypeSelected: Bool {
         viewModel.goalType == nil ? true : false
     }
     
     var body: some View {
         VStack {
-            ShootCreationHeader(title: title,
-                                description: description)
+            ShootCreationHeader(title: text.shootTypeTitle,
+                                description: text.shootTypeDescription)
             Spacer()
             HStack {
                 Button(action: {

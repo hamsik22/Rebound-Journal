@@ -40,10 +40,10 @@ struct ShootCreationHeader: View {
     ShootCreationHeader(title: "어떤 슛을 남겨볼까요?", description: "슛의 종류를 선택해 보세요.")
 }
 #Preview("EmotionInput-GoalIn") {
-    ShootCreationHeader(title: Constants.Strings.EmotionInPutGoalIn,
+    ShootCreationHeader(title: Constants.ContentText().EmotionInPutGoalIn,
                         image: .goalIn)
 }
 #Preview("EmotionInput-Rebound") {
-    ShootCreationHeader(title: Constants.Strings.EmotionInPutRebound,
+    ShootCreationHeader(title: Constants.ContentText().EmotionInPutRebound,
                         image: .rebound)
 }
