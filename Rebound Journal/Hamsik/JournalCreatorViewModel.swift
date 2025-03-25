@@ -15,10 +15,10 @@ class JournalCreatorViewModel: ObservableObject {
     
     // MARK: State
     @Published var currentStep: ReboundProcessStep = .shoot
-    @Published var isSliderEdited: Bool = false
+    @Published var isSliderEditing: Bool = false
     
     // MARK: Data
     @Published var goalType: Bool? = nil
-    @Published var emotionValue: Double = 1
+    @Published var emotionValue: Double? = nil
     @Published var feelText: String? = nil
 }
