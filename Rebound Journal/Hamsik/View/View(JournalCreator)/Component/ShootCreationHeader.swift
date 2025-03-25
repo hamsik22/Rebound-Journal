@@ -13,12 +13,6 @@ struct ShootCreationHeader: View {
     var description: String? = nil
     var image: ImageResource? = nil
     
-//    init(title: String?, description: String? = nil, image: ImageResource? = nil) {
-//        self.title = title
-//        self.description = description
-//        self.image = image
-//    }
-    
     var body: some View {
         HStack {
             if let image = image {

@@ -12,6 +12,13 @@ enum ReboundProcessStep: CaseIterable {
          review // 느낀점 & 향후계획
 }
 class JournalCreatorViewModel: ObservableObject {
+    
+    // MARK: State
     @Published var currentStep: ReboundProcessStep = .shoot
+    @Published var isSliderEditing: Bool = false
+    
+    // MARK: Data
     @Published var goalType: Bool? = nil
+    @Published var emotionValue: Double? = nil
+    @Published var emotionText: [String]? = nil
 }
