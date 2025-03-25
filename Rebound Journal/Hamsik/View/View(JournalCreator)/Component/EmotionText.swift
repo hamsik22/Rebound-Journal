@@ -26,7 +26,7 @@ struct EmotionText: View {
                     //MARK: alignment를 수정하면 태그 정렬 위치가 바뀜
                     FeelingTextLayout(alignment: .leading , spacing: 10) {
                         ForEach(tags.filter{ selectedTags.contains($0) }, id: \.self) { tag in
-                            FeelingTextView(tag, .orange)
+                            FeelingTextView(tag, .accentColor)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
@@ -55,7 +55,6 @@ struct EmotionText: View {
                 }
             }
             .scrollIndicators(.hidden)
-            .background(.black.opacity(0.05))
             .zIndex(0)
         }
         .preferredColorScheme(.light)

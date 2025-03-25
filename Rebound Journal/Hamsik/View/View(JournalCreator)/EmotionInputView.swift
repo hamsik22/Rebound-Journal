@@ -13,7 +13,7 @@ struct EmotionInputView: View {
     @ObservedObject var viewModel: JournalCreatorViewModel
     
     var canGoNext: Bool {
-        viewModel.emotionValue != nil && viewModel.emotionText != nil
+        viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)
     }
     
     var body: some View {
