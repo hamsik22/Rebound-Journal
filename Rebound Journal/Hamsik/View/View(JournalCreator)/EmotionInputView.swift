@@ -12,6 +12,10 @@ struct EmotionInputView: View {
     @State private var sliderValue: Double = 0.5
     @ObservedObject var viewModel: JournalCreatorViewModel
     
+    var canGoNext: Bool {
+        viewModel.emotionValue != nil && viewModel.feelText != nil
+    }
+    
     var body: some View {
         VStack {
             if let type = viewModel.goalType {
@@ -20,11 +24,15 @@ struct EmotionInputView: View {
                         Constants.Strings.EmotionInPutRebound,
                     image: type ? .goalIn : .rebound)
             }
-            HStack {
-                FeelingTracker(viewModel: viewModel)
-            }
-            .frame(maxWidth: .infinity)
-            .padding()
+            FeelingTracker(viewModel: viewModel)
+                .frame(maxWidth: .infinity)
+                .padding()
+            Spacer()
+            StepControlView(onPrevious: {
+                print("이전")
+            }, onNext: {
+                print("다음으로")
+            }, canGoNext: canGoNext)
         }
     }
     
@@ -33,11 +41,11 @@ struct EmotionInputView: View {
             Text("부정")
             ZStack {
                 Color.clear
-                    .frame(width: 30, height: 400) // 원하는 크기의 컨테이너
+                    .frame(width: 30, height: 400)
                     .overlay(
                         Slider(value: $sliderValue, in: 0...3, step: 1)
                             .rotationEffect(.degrees(-90))
-                            .frame(width: 400, height: 30)) // 원래 크기 유지
+                            .frame(width: 400, height: 30))
             }
             .animation(.easeIn(duration: 0.3), value: sliderValue)
             Text("긍정")
@@ -45,6 +53,20 @@ struct EmotionInputView: View {
     }
 }
 
-#Preview("EmotionInputView") {
-    EmotionInputView(viewModel: JournalCreatorViewModel())
+#Preview("EmotionInputView: GoalIn") {
+    let viewModel: JournalCreatorViewModel = {
+           let vm = JournalCreatorViewModel()
+           vm.goalType = true
+           return vm
+       }()
+    EmotionInputView(viewModel: viewModel)
+}
+
+#Preview("EmotionInputView: Rebound") {
+    let viewModel: JournalCreatorViewModel = {
+           let vm = JournalCreatorViewModel()
+           vm.goalType = false
+           return vm
+       }()
+    EmotionInputView(viewModel: viewModel)
 }
