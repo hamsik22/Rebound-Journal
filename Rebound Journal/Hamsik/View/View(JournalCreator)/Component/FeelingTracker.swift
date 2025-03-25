@@ -11,23 +11,35 @@ struct FeelingTracker: View {
     
     @ObservedObject var viewModel: JournalCreatorViewModel
     
-    @State var feelingShape: ImageResource = .softSpikes
-    @State var feelingValue: Double = 1.0
+    @State var feelingShape: ImageResource = .positiveCircle
+    @State var feelingValue: Double = 0.0
+    var isFirstEnter: Bool {
+        !viewModel.isSliderEditing && viewModel.emotionValue == nil
+    }
+    var isSliderEditing: Bool {
+        viewModel.isSliderEditing
+    }
     
     var body: some View {
         ZStack {
             VStack {
                 HStack(spacing: 5) {
-                    if !viewModel.isSliderEdited {
-                        Text("슬라이더 편집 전")
+                    if isFirstEnter {
+                        Text("슬라이더를 움직여\n감정을 표현해보세요")
                             .frame(maxWidth: .infinity)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.description)
+                            .bold()
                             .padding()
-                    } else {
+                    } else if !isSliderEditing {
+                        FeelingTagView()
+                    }
+                    else {
                         FeelingShape(value: $feelingValue,
                                      currentFeelingShape: $feelingShape)
                     }
                     Spacer()
-                    VerticalSlider(sliderValue: $feelingValue, isEdited: $viewModel.isSliderEdited)
+                    VerticalSlider(sliderValue: $feelingValue, isEdited: $viewModel.isSliderEditing)
                         .onChange(of: feelingValue, perform: { newValue in
                             print("Slider: \(newValue)")
                             switch newValue {
@@ -43,9 +55,8 @@ struct FeelingTracker: View {
                                 feelingShape = .softSpikes
                             }
                         })
-                        .onChange(of: viewModel.isSliderEdited) { newValue in
+                        .onChange(of: viewModel.isSliderEditing) { newValue in
                             viewModel.emotionValue = feelingValue
-                            print("viewModel.emotionValue : \(viewModel.emotionValue)")
                         }
                 }
                 .frame(maxWidth: .infinity)
@@ -82,6 +93,12 @@ struct FeelingShape: View {
                     
                 }
             }
+    }
+}
+
+struct FeelingTagView: View {
+    var body: some View {
+        Text("Feeling")
     }
 }
 
