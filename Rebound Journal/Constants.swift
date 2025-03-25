@@ -8,6 +8,11 @@
 import Foundation
 
 struct Constants {
+    struct SystemText {
+        let reviewShooting = "오늘 쏘았던 슛은 어땠나요?"
+        let whatNextPlan = "앞으로의 계획은 어떤 것인가요?"
+    }
+    
     struct Strings {
         
         // MARK: - 1.0.4 이후 Constants

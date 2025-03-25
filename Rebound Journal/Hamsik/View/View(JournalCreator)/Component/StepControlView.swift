@@ -12,6 +12,7 @@ struct StepControlView: View {
     let onPrevious: () -> Void
     let onNext: () -> Void
     var canGoNext: Bool
+    var nextButtonText: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -39,7 +40,7 @@ struct StepControlView: View {
                         onNext()
                     }
                 } label: {
-                    Text("다음으로")
+                    Text(nextButtonText)
                         .frame(width: nextWidth)
                         .foregroundColor(.white)
                         .padding()
@@ -58,8 +59,8 @@ struct StepControlView: View {
 }
 
 #Preview("Enabled") {
-    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: true)
+    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: true, nextButtonText: "다음으로")
 }
 #Preview("Disabled") {
-    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: false)
+    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: false, nextButtonText: "다음으로")
 }

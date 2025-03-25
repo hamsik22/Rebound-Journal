@@ -32,7 +32,8 @@ struct EmotionInputView: View {
                 viewModel.currentStep = .shoot
             }, onNext: {
                 viewModel.currentStep = .review
-            }, canGoNext: canGoNext)
+            }, canGoNext: canGoNext,
+            nextButtonText: "다음으로")
         }
     }
     

@@ -18,7 +18,7 @@ struct JounrnalCreator: View {
             switch viewModel.currentStep {
             case .shoot: SelectShootTypeView(viewModel: viewModel)
             case .emotion: EmotionInputView(viewModel: viewModel)
-            case .review: ReviewPlanView()
+            case .review: ReviewPlanView(viewModel: viewModel)
             }
         }
     }
