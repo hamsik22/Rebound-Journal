@@ -16,6 +16,7 @@ struct ReviewPlanView: View {
     let text = Constants.ContentText()
     let systemText = Constants.SystemText()
     @ObservedObject var viewModel: JournalCreatorViewModel
+    @EnvironmentObject var manager: DataManager
     @State var reviewText: String = ""
     @State var planText: String = ""
     @FocusState private var currentField: Field?
@@ -75,7 +76,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .plan ? .default : .gray)
                 TextEditor(text: $planText)
-                    .onChange(of: reviewText) { newValue in
+                    .onChange(of: planText) { newValue in
                         viewModel.nextPlanText = newValue
                     }
                     .focused($currentField, equals: .plan)
@@ -97,7 +98,8 @@ struct ReviewPlanView: View {
             StepControlView(onPrevious: {
                 viewModel.currentStep = .emotion
             }, onNext: {
-                // TODO: 저장 로직
+                manager.fullScreenMode = nil
+                viewModel.saveShooting(manager: manager)
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
         }

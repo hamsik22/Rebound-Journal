@@ -19,6 +19,7 @@ struct JounrnalCreator: View {
             case .shoot: SelectShootTypeView(viewModel: viewModel)
             case .emotion: EmotionInputView(viewModel: viewModel)
             case .review: ReviewPlanView(viewModel: viewModel)
+                    .environmentObject(manager)
             }
         }
     }
