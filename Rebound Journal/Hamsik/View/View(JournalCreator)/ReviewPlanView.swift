@@ -8,38 +8,90 @@
 import SwiftUI
 
 struct ReviewPlanView: View {
+    private enum Field {
+        case review
+        case plan
+    }
     
     let text = Constants.ContentText()
     let systemText = Constants.SystemText()
     @ObservedObject var viewModel: JournalCreatorViewModel
     @State var reviewText: String = ""
     @State var planText: String = ""
+    @FocusState private var currentField: Field?
     var canSave: Bool {
         guard let reviewText = viewModel.reviewText else { return false }
         guard let planText = viewModel.nextPlanText else { return false }
         return !reviewText.isEmpty && !planText.isEmpty
     }
+    var isReviewed: Bool {
+        !reviewText.isEmpty || currentField == .review
+    }
+    var isPlaned: Bool {
+        !planText.isEmpty || currentField == .plan
+    }
     
     var body: some View {
         VStack {
-            Text(viewModel.emotionText?.first ?? "감정태그")
-                .font(.system(size: 16))
-                .fontWeight(.semibold)
-                .frame(height: 35)
-                .foregroundStyle(.white)
-                .padding(.horizontal, 10)
-                .background {
-                    Capsule()
-                        .fill(.accent.gradient)
-                }
-            
-            // Reviewing Shoot
-            Text(text.reviewShooting)
-            TextField("오늘의 경험", text: $reviewText, prompt: Text(text.reviewShootingField))
-            
-            // Get NextPlan
-            Text(text.whatNextPlan)
-            TextField("앞으로의 계획", text: $planText, prompt: Text(text.whatNextPlanField))
+            VStack(alignment: .leading) {
+                Text(viewModel.emotionText?.first ?? "감정태그")
+                    .font(.system(size: 16))
+                    .fontWeight(.semibold)
+                    .frame(height: 35)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
+                    .background {
+                        Capsule()
+                            .fill(.accent.gradient)
+                    }
+                
+                // Reviewing Shoot
+                Text(text.reviewShooting)
+                    .font(.system(size: 25))
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 3)
+                    .foregroundStyle(currentField == .review ? .default : .gray)
+                TextEditor(text: $reviewText)
+                    .onChange(of: reviewText) { newValue in
+                        viewModel.reviewText = newValue
+                    }
+                    .focused($currentField, equals: .review)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 200, alignment: .topLeading)
+                    .padding()
+                    .scrollContentBackground(.hidden)
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(.rect(cornerRadius: 18))
+                    .overlay(alignment: .topLeading) {
+                        Text(text.reviewShootingField)
+                            .foregroundStyle(isReviewed ? .clear : .gray)
+                            .padding()
+                    }
+                
+                // Get NextPlan
+                Text(text.whatNextPlan)
+                    .font(.system(size: 25))
+                    .fontWeight(.semibold)
+                    .padding(.bottom, 3)
+                    .foregroundStyle(currentField == .plan ? .default : .gray)
+                TextEditor(text: $planText)
+                    .onChange(of: reviewText) { newValue in
+                        viewModel.nextPlanText = newValue
+                    }
+                    .focused($currentField, equals: .plan)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 200, alignment: .topLeading)
+                    .padding()
+                    .scrollContentBackground(.hidden)
+                    .background(Color.gray.opacity(0.2))
+                    .clipShape(.rect(cornerRadius: 18))
+                    .overlay(alignment: .topLeading) {
+                        Text(text.whatNextPlanField)
+                            .foregroundStyle(isPlaned ? .clear : .gray)
+                            .padding()
+                    }
+            }
+            .padding()
             
             // StepControll
             StepControlView(onPrevious: {
@@ -47,8 +99,10 @@ struct ReviewPlanView: View {
             }, onNext: {
                 // TODO: 저장 로직
             }, canGoNext: canSave,
-            nextButtonText: systemText.nextButton)
+                            nextButtonText: systemText.saveButton)
         }
+        
+        
     }
 }
 
