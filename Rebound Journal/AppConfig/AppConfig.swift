@@ -15,6 +15,7 @@ class AppConfig {
     /// Test App ID: ca-app-pub-3940256099942544~1458002511
 //    static let adMobAdId: String = "ca-app-pub-3940256099942544/4411468910"
     
+#warning("설정필요")
     // MARK: - Settings flow items
     static let emailSupport = "leeo@kakao.com"
     static let privacyURL: URL = URL(string: "https://www.google.com/")!
@@ -24,8 +25,9 @@ class AppConfig {
     // MARK: - Generic configurations
     static let headerTitleDaysCount: Int = 90
     
+#warning("미래에 구매")
     // MARK: - In App Purchases
-    static let premiumVersion: String = "ReboundJournal.Premium"
+    //static let premiumVersion: String = "ReboundJournal.Premium"
 }
 
 // MARK: - Mood Level Configurations
