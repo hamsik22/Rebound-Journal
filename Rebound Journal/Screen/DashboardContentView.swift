@@ -12,6 +12,8 @@ struct DashboardContentView: View {
     @EnvironmentObject var manager: DataManager
     @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
+    @State private var isSettingsSheetPresented = false
+    @State private var isHistorySheetPresented = false
     
     var body: some View {
         ZStack {
@@ -19,6 +21,7 @@ struct DashboardContentView: View {
             Color.diaryBackground
                 .ignoresSafeArea()
             MainContainer
+            PreviewImageFullScreen
         }
         // MARK: 10. 화면이동 중 전체화면을 덮는 방법
         .fullScreenCover(item: $manager.fullScreenMode) { type in
@@ -32,7 +35,24 @@ struct DashboardContentView: View {
             case .reboundCreator:
                 JournalEntryCreatorView(isRebounded: true)
                     .environmentObject(manager)
+            case .passcodeView:
+                PasscodeView().environmentObject(manager)
+            case .setupPasscodeView:
+                PasscodeView(setupMode: true).environmentObject(manager)
             }
+        }
+        /// Show the passcode view if the passcode was setup
+        .onAppear() {
+            //Interstitial.shared.loadInterstitial()
+            if manager.savedPasscode.count == 4 && !manager.didEnterCorrectPasscode {
+                manager.fullScreenMode = .passcodeView
+            }
+        }
+        .sheet(isPresented: $isSettingsSheetPresented) {
+            SettingsView() // 모달로 표시될 View
+        }
+        .sheet(isPresented: $isHistorySheetPresented) {
+            HistoryView() // 모달로 표시될 View
         }
     }
     
@@ -52,9 +72,30 @@ struct DashboardContentView: View {
                 // MARK: 02. date format을 사용하는 것에 대하여
                 Text(manager.selectedDate.headerTitle)
                 // MARK: 03. 고정 문구를 관리하는 것에 대하여
-                Text(Constants.Strings.mainTitle)
-                    .font(.largeTitle)
-                    .bold()
+                HStack {
+                    Text(Constants.Strings.mainTitle)
+                        .font(.largeTitle)
+                        .bold()
+                    Spacer()
+                    Button {
+                        isHistorySheetPresented.toggle()
+                    } label: {
+                        Image(systemName: "chart.bar.xaxis")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25)
+                    }
+                    
+                    Button {
+                        isSettingsSheetPresented.toggle()
+                    } label: {
+                        Image(systemName: "gearshape.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25)
+                    }
+
+                }
             }
             Spacer()
         }
@@ -90,7 +131,6 @@ struct DashboardContentView: View {
         let date = manager.calendarDays[index]
         // MARK: 07. 날짜를 비교하는 간단한 방법
         let isTodayItem = date.longFormat == Date().longFormat
-        let isSelectedItem = manager.selectedDate.longFormat == date.longFormat
         return VStack(spacing: 2) {
             ZStack {
                 
@@ -119,6 +159,30 @@ struct DashboardContentView: View {
         }
         .padding(5)
         .background(Color.diarySecondary.cornerRadius(10))
+    }
+    
+    /// Preview image full screen
+    private var PreviewImageFullScreen: some View {
+        ZStack {
+            if let entryImage = manager.selectedEntryImage {
+                PhotoDetailView(image: entryImage).ignoresSafeArea()
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            manager.selectedEntryImage = nil
+                        } label: {
+                            ZStack {
+                                Color.clear.frame(width: 25, height: 25, alignment: .center)
+                                Image(systemName: "xmark").resizable().aspectRatio(contentMode: .fit)
+                                    .frame(width: 18, height: 18, alignment: .center)
+                            }
+                        }.foregroundColor(Color("LightColor"))
+                    }
+                    Spacer()
+                }.padding(.horizontal)
+            }
+        }.animation(.easeInOut)
     }
 }
 
