@@ -26,6 +26,9 @@
 		58D6707B2BD0275600F581E2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D6707A2BD0275600F581E2 /* Constants.swift */; };
 		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
 		9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */; };
+		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
+		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
+		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +52,9 @@
 		58D6707A2BD0275600F581E2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
+		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +75,8 @@
 		586F227F2A33861C004C7410 = {
 			isa = PBXGroup;
 			children = (
+				C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */,
+				C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */,
 				586F228A2A33861C004C7410 /* Rebound Journal */,
 				586F22892A33861C004C7410 /* Products */,
 			);
@@ -94,6 +102,7 @@
 				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
+				C3B1B7A92D9461E80008E38D /* AppDelegate.swift */,
 			);
 			path = "Rebound Journal";
 			sourceTree = "<group>";
@@ -211,6 +220,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				586F22932A33861D004C7410 /* Preview Assets.xcassets in Resources */,
+				C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */,
+				C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */,
 				586F22902A33861D004C7410 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +237,7 @@
 				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
+				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
