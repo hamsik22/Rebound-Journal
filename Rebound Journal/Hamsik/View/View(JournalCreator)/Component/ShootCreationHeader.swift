@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ShootCreationHeader: View {
-    
+    // Content
     let title: String?
     var description: String? = nil
     var image: ImageResource? = nil

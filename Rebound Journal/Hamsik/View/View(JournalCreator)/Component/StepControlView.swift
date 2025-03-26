@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct StepControlView: View {
-    
+    // Action
     let onPrevious: () -> Void
     let onNext: () -> Void
+    // UI State
     var canGoNext: Bool
+    // Content
     var nextButtonText: String
     var previousButtonText: String = "이전"
     

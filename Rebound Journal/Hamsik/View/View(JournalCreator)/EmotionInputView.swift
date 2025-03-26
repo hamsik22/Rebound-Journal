@@ -7,15 +7,17 @@
 
 import SwiftUI
 
+/// 감정 도형, 감정 태그를 만드는 화면
 struct EmotionInputView: View {
     
-    @State private var sliderValue: Double = 0.5
+    // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
-    var text = Constants.ContentText()
-    
+    // UI State
+    @State private var sliderValue: Double = 0.5
     var canGoNext: Bool {
-        viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)
-    }
+        viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)}
+    // etc
+    var text = Constants.ContentText()
     
     var body: some View {
         VStack {
@@ -38,6 +40,7 @@ struct EmotionInputView: View {
         }
     }
     
+    /// 세로형 슬라이더
     private var verticalSlider: some View {
         VStack {
             Text("부정")

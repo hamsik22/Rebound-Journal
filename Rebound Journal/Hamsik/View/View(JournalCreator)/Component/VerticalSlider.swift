@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VerticalSlider: View {
+    // UI State
     @Binding var sliderValue: Double
     @Binding var isEdited: Bool
     
@@ -16,14 +17,14 @@ struct VerticalSlider: View {
             Text("부정")
             ZStack {
                 Color.clear
-                    .frame(width: 20) // 원하는 크기의 컨테이너
+                    .frame(width: 20)
                     .frame(maxHeight: .infinity)
                     .overlay(
                         Slider(value: $sliderValue, in: 0...3, step: 1) { editing in
                             isEdited = editing
                         }
                             .rotationEffect(.degrees(-90))
-                            .frame(width: 400, height: 30)) // 원래 크기 유지
+                            .frame(width: 400, height: 30))
                     .onChange(of: sliderValue, perform: {
                         newValue in
                         print(newValue)

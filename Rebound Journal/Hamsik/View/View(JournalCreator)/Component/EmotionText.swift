@@ -9,23 +9,19 @@ import SwiftUI
 
 struct EmotionText: View {
     
-    /// View Properties
-    @State var tags = ["기분이 좋은", "신나는", "자랑스러운", "의욕적인", "뿌듯한",
-                       "상쾌한", "설레는", "감사한", "행복한", "자신감이 생긴",
-                       "편안한", "만족한", "열정적인", "기대되는", "용기있는"]
-    /// Selection
+    // UI State
+    @State var emotions = Constants.ContentText().emotionTexts
     @Binding var selectedTags: [String]
-    
-    /// Adding Matched Geometry Effect
+    // etc
     @Namespace private var animation
     
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.vertical) {
                 VStack {
-                    //MARK: alignment를 수정하면 태그 정렬 위치가 바뀜
+                    // MARK: alignment를 수정하면 태그 정렬 위치가 바뀜
                     FeelingTextLayout(alignment: .leading , spacing: 10) {
-                        ForEach(tags.filter{ selectedTags.contains($0) }, id: \.self) { tag in
+                        ForEach(emotions.filter{ selectedTags.contains($0) }, id: \.self) { tag in
                             FeelingTextView(tag, .accentColor)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
@@ -37,7 +33,7 @@ struct EmotionText: View {
                                 }
                         }
                         // MARK: 선택한 태그는 보이지 않게 필터링
-                        ForEach(tags.filter{ !selectedTags.contains($0) }, id: \.self) { tag in
+                        ForEach(emotions.filter{ !selectedTags.contains($0) }, id: \.self) { tag in
                             FeelingTextView(tag, .gray)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)

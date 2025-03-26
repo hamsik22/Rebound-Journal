@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct SelectShootTypeView: View {
-    
+    // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
-    
+    // UI State
+    var isTypeSelected: Bool {viewModel.goalType == nil ? true : false}
+    // etc
     var text = Constants.ContentText()
-    var isTypeSelected: Bool {
-        viewModel.goalType == nil ? true : false
-    }
     
     var body: some View {
         VStack {
@@ -24,8 +23,6 @@ struct SelectShootTypeView: View {
             HStack {
                 Button(action: {
                     toggleSelection(type: true)
-                    debugPrint("Type : \(viewModel.goalType ?? true)")
-                    debugPrint("골인")
                 }) {
                     ShootTypeButton(type: true)
                         .padding()
@@ -38,7 +35,7 @@ struct SelectShootTypeView: View {
                         )
                 }
                 Spacer(minLength: 30)
-
+                
                 Button(action: {
                     toggleSelection(type: false)
                     debugPrint("Type : \(viewModel.goalType ?? false)")

@@ -8,25 +8,24 @@
 import SwiftUI
 
 struct EmotionTracker: View {
-    
+    // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
-    
+    // UI State
     @State var emotionShape: ImageResource = .positiveCircle
     @State var emotionValue: Double = 0.0
     @State var emotionText: [String] = []
     var isFirstEnter: Bool {
-        !viewModel.isSliderEditing && viewModel.emotionValue == nil
-    }
-    var isSliderEditing: Bool {
-        viewModel.isSliderEditing
-    }
+        !viewModel.isSliderEditing && viewModel.emotionValue == nil}
+    var isSliderEditing: Bool {viewModel.isSliderEditing}
+    // etc
+    var text = Constants.SystemText()
     
     var body: some View {
         ZStack {
             VStack {
                 HStack(spacing: 5) {
                     if isFirstEnter {
-                        Text("슬라이더를 움직여\n감정을 표현해보세요")
+                        Text(text.sliderGuide)
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.description)

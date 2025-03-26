@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct JounrnalCreator: View {
+    // Shared Dependencies
     @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: JournalCreatorViewModel
+    // UI State
     @State private var showAlert: Bool = false
     
     var body: some View {
@@ -28,7 +30,6 @@ struct JounrnalCreator: View {
         HStack {
             Spacer()
             Button {
-                // TODO: ViewModel에서 데이터 유무에 따른 분기처리 필요
                 manager.fullScreenMode = nil
             } label: {
                 Image(systemName: Constants.ImageStrings.xMark)
@@ -36,7 +37,6 @@ struct JounrnalCreator: View {
                     .tint(.black)
                     .padding()
             }
-            // MARK: 13. Alert 만들기
             .alert(isPresented: $showAlert) {
                 Alert(title: Text(Constants.Strings.exitFlow),
                       message: Text(Constants.Strings.exitDescription),

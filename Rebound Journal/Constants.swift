@@ -19,12 +19,19 @@ struct Constants {
         let reviewShootingField = "짧아도 좋아요. 경험에 대해 적어봐요."
         let whatNextPlan = "앞으로의 계획은 어떤 것인가요?"
         let whatNextPlanField = "작은 것부터 생각해보아도 좋아요."
+        
+        let emotionTexts = ["기분이 좋은", "신나는", "자랑스러운", "의욕적인", "뿌듯한",
+                            "상쾌한", "설레는", "감사한", "행복한", "자신감이 생긴",
+                            "편안한", "만족한", "열정적인", "기대되는", "용기있는"]
     }
     
     struct SystemText {
         let previousButton = "이전"
         let nextButton = "다음으로"
         let saveButton = "저장하기"
+        let goalIn = "골인"
+        let rebound = "리바운드"
+        let sliderGuide = "슬라이더를 움직여\n감정을 표현해보세요"
     }
     
     struct Strings {

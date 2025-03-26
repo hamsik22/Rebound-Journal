@@ -13,16 +13,16 @@ enum ReboundProcessStep: CaseIterable {
 }
 class JournalCreatorViewModel: ObservableObject {
     
-    // MARK: State
+    // UI State
     @Published var currentStep: ReboundProcessStep = .shoot
     @Published var isSliderEditing: Bool = false
     
-    // MARK: Data
-    @Published var goalType: Bool? = nil
-    @Published var emotionValue: Double? = nil
-    @Published var emotionText: [String]? = nil
-    @Published var reviewText: String? = nil
-    @Published var nextPlanText: String? = nil
+    // Data
+    @Published var goalType: Bool? = nil // 골인 || 리바운드
+    @Published var emotionValue: Double? = nil // 슬라이더 값(0~3)
+    @Published var emotionText: [String]? = nil // 감정태그(EmotionText)
+    @Published var reviewText: String? = nil // 슛하고 느낀 점
+    @Published var nextPlanText: String? = nil // 향후 계획
     
     func saveShooting(manager: DataManager) {
         debugPrint("saveShooting")

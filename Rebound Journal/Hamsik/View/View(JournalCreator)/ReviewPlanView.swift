@@ -8,29 +8,27 @@
 import SwiftUI
 
 struct ReviewPlanView: View {
+    /// 텍스트 필드를 구분하기 위한 열거형
     private enum Field {
         case review
         case plan
     }
-    
-    let text = Constants.ContentText()
-    let systemText = Constants.SystemText()
+    // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
     @EnvironmentObject var manager: DataManager
+    // UI State
+    @FocusState private var currentField: Field?
     @State var reviewText: String = ""
     @State var planText: String = ""
-    @FocusState private var currentField: Field?
     var canSave: Bool {
         guard let reviewText = viewModel.reviewText else { return false }
         guard let planText = viewModel.nextPlanText else { return false }
-        return !reviewText.isEmpty && !planText.isEmpty
-    }
-    var isReviewed: Bool {
-        !reviewText.isEmpty || currentField == .review
-    }
-    var isPlaned: Bool {
-        !planText.isEmpty || currentField == .plan
-    }
+        return !reviewText.isEmpty && !planText.isEmpty}
+    var isReviewed: Bool {!reviewText.isEmpty || currentField == .review}
+    var isPlaned: Bool {!planText.isEmpty || currentField == .plan}
+    // etc
+    let text = Constants.ContentText()
+    let systemText = Constants.SystemText()
     
     var body: some View {
         VStack {
