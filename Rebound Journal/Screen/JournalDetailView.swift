@@ -69,7 +69,7 @@ struct JournalDetailView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: .infinity, maxHeight: 50)
-                    .foregroundColor(.white)
+                    .foregroundColor(.default)
                     .padding()
             }
 

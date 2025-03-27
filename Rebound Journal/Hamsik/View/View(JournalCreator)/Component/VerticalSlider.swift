@@ -21,10 +21,14 @@ struct VerticalSlider: View {
                     .frame(maxHeight: .infinity)
                     .overlay(
                         Slider(value: $sliderValue, in: 0...3, step: 1) { editing in
-                            isEdited = editing
+                            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                withAnimation(.easeInOut(duration: 0.5)) {
+                                    isEdited = editing
+                                }
+                            }
                         }
                             .rotationEffect(.degrees(-90))
-                            .frame(width: 400, height: 30))
+                            .frame(width: 350, height: 30))
                     .onChange(of: sliderValue, perform: {
                         newValue in
                         print(newValue)

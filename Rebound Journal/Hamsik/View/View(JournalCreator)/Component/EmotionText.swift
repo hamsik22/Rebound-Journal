@@ -73,7 +73,6 @@ struct EmotionText: View {
             .scrollIndicators(.hidden)
             .zIndex(0)
         }
-        .preferredColorScheme(.light)
     }
     
     @ViewBuilder
@@ -84,7 +83,7 @@ struct EmotionText: View {
                 .fontWeight(.semibold)
         }
         .frame(height: 35)
-        .foregroundStyle(.white)
+        .foregroundStyle(.default)
         .padding(.horizontal, 10)
         .background {
             Capsule()
