@@ -46,13 +46,13 @@ struct EmotionTracker: View {
                         .onChange(of: emotionValue, perform: { newValue in
                             print("Slider: \(newValue)")
                             switch newValue {
-                            case 0:
+                            case 0...0.5:
                                 emotionShape = .positiveCircle
-                            case 1:
+                            case 0.5...1.5:
                                 emotionShape = .softSpikes
-                            case 2:
+                            case 1.5...2.5:
                                 emotionShape = .sharpSpike
-                            case 3:
+                            case 2.5...3:
                                 emotionShape = .thornball
                             default:
                                 emotionShape = .softSpikes
