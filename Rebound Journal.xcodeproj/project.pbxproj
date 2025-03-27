@@ -96,6 +96,7 @@
 				C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */,
 				586F228A2A33861C004C7410 /* Rebound Journal */,
 				586F22892A33861C004C7410 /* Products */,
+				58C8CF5F2D9573F200B1EC0E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,6 +175,14 @@
 				589DCCAD2D04B188003F86E5 /* PhotoDetailView.swift */,
 			);
 			path = Photo;
+			sourceTree = "<group>";
+		};
+		58C8CF5F2D9573F200B1EC0E /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		58D6706B2BD01BA800F581E2 /* Extensions */ = {
@@ -442,7 +451,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -478,7 +487,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.leeo.ReboundJournal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

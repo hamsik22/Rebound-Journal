@@ -20,10 +20,13 @@ struct VerticalSlider: View {
                     .frame(width: 20)
                     .frame(maxHeight: .infinity)
                     .overlay(
-                        Slider(value: $sliderValue, in: 0...3, step: 1) { editing in
-                            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                withAnimation(.easeInOut(duration: 0.5)) {
-                                    isEdited = editing
+                        Slider(value: $sliderValue, in: 0...3) { editing in
+                            isEdited = editing
+                            if !editing {
+                                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                    withAnimation(.easeInOut(duration: 0.3)) {
+                                        sliderValue = round(sliderValue) // 가장 가까운 값으로 스냅
+                                    }
                                 }
                             }
                         }
