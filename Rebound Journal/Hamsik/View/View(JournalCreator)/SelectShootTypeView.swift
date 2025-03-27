@@ -28,7 +28,7 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(Color.white)
+                        .background(.clear)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(viewModel.goalType == true ? Color.accentColor : Color.gray, lineWidth: 2)
@@ -45,7 +45,7 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(Color.white)
+                        .background(.clear)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(viewModel.goalType == false ? Color.accentColor : Color.gray, lineWidth: 2)
@@ -62,7 +62,7 @@ struct SelectShootTypeView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.accentColor)
-                    .foregroundColor(.white)
+                    .foregroundColor(.default)
                     .cornerRadius(90)
             }
             .disabled(viewModel.goalType == nil)

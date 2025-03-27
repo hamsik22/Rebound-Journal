@@ -29,7 +29,7 @@ struct StepControlView: View {
                 } label: {
                     Text(previousButtonText)
                         .frame(width: previousWidth)
-                        .tint(.black)
+                        .tint(.default)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 90)
@@ -45,12 +45,12 @@ struct StepControlView: View {
                 } label: {
                     Text(nextButtonText)
                         .frame(width: nextWidth)
-                        .foregroundColor(.white)
+                        .foregroundColor(.default)
                         .padding()
                         .cornerRadius(90)
                         .font(.system(size: 18, weight: .bold))
                         .background(Color.accentColor)
-                        .foregroundColor(.white)
+                        .foregroundColor(.default)
                         .cornerRadius(90)
                 }
                 .disabled(!canGoNext)

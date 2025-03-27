@@ -75,10 +75,10 @@ struct FeelingShape: View {
     @State var shapeScale: CGFloat = 1
     
     var body: some View {
-                Image(currentFeelingShape)
-                    .resizable().scaledToFit()
-                    .frame(maxWidth: .infinity)
-                    .scaleEffect(shapeScale)
+        Image(currentFeelingShape)
+            .resizable().scaledToFit()
+            .frame(maxWidth: .infinity)
+            .scaleEffect(shapeScale)
             .onChange(of: currentFeelingShape, perform: { _ in
                 withAnimation {
                     shapeScale = 0
@@ -89,7 +89,7 @@ struct FeelingShape: View {
                     }
                 }
             })
-            
+        
             .onAppear() {
                 withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {
                     scale.toggle()

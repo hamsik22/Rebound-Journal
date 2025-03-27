@@ -33,13 +33,12 @@ struct ReviewPlanView: View {
     let systemText = Constants.SystemText()
     
     var body: some View {
-        VStack {
             VStack(alignment: .leading) {
                 Text(viewModel.emotionText?.first ?? "감정태그")
                     .font(.system(size: 16))
                     .fontWeight(.semibold)
                     .frame(height: 35)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.default)
                     .padding(.horizontal, 10)
                     .background {
                         Capsule()
@@ -102,7 +101,6 @@ struct ReviewPlanView: View {
                 viewModel.saveShooting(manager: manager)
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
-        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("키보드 내리기") {

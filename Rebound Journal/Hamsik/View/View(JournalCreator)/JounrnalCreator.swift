@@ -34,7 +34,7 @@ struct JounrnalCreator: View {
             } label: {
                 Image(systemName: Constants.ImageStrings.xMark)
                     .font(.system(size: 20, weight: .semibold))
-                    .tint(.black)
+                    .tint(.default)
                     .padding()
             }
             .alert(isPresented: $showAlert) {
