@@ -16,6 +16,7 @@ struct ReviewPlanView: View {
     // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
     @EnvironmentObject var manager: DataManager
+    
     // UI State
     @FocusState private var currentField: Field?
     @State var reviewText: String = ""
@@ -26,6 +27,7 @@ struct ReviewPlanView: View {
         return !reviewText.isEmpty && !planText.isEmpty}
     var isReviewed: Bool {!reviewText.isEmpty || currentField == .review}
     var isPlaned: Bool {!planText.isEmpty || currentField == .plan}
+    
     // etc
     let text = Constants.ContentText()
     let systemText = Constants.SystemText()
@@ -101,8 +103,13 @@ struct ReviewPlanView: View {
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
         }
-        
-        
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Button("키보드 내리기") {
+                    currentField = .none
+                }
+            }
+        }
     }
 }
 

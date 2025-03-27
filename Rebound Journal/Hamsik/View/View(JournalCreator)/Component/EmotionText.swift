@@ -12,6 +12,9 @@ struct EmotionText: View {
     // UI State
     @State var emotions = Constants.ContentText().emotionTexts
     @Binding var selectedTags: [String]
+    @State private var showSheet = false
+    @State private var inputText = ""
+    
     // etc
     @Namespace private var animation
     
@@ -20,9 +23,9 @@ struct EmotionText: View {
             ScrollView(.vertical) {
                 VStack {
                     // MARK: alignment를 수정하면 태그 정렬 위치가 바뀜
-                    FeelingTextLayout(alignment: .leading , spacing: 10) {
+                    EmotionTagLayout(alignment: .leading , spacing: 10) {
                         ForEach(emotions.filter{ selectedTags.contains($0) }, id: \.self) { tag in
-                            FeelingTextView(tag, .accentColor)
+                            EmotionTagView(tag, .accentColor)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
@@ -34,7 +37,7 @@ struct EmotionText: View {
                         }
                         // MARK: 선택한 태그는 보이지 않게 필터링
                         ForEach(emotions.filter{ !selectedTags.contains($0) }, id: \.self) { tag in
-                            FeelingTextView(tag, .gray)
+                            EmotionTagView(tag, .gray)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
@@ -47,7 +50,24 @@ struct EmotionText: View {
                                 }
                         }
                     }
-                    .padding(10)
+                    Text("직접 쓰기")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 35)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 17)
+                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                        )
+                        .onTapGesture {
+                            showSheet = true
+                        }
+                        .sheet(isPresented: $showSheet, content: {
+                            CreateEmotionView(isPresented: $showSheet, onConfirm: { input in
+                                emotions.append(input)
+                                selectedTags.append(input)
+                            })
+                            .presentationDetents([.fraction(0.3)])
+                        })
+                        .padding(10)
                 }
             }
             .scrollIndicators(.hidden)
@@ -57,7 +77,7 @@ struct EmotionText: View {
     }
     
     @ViewBuilder
-    func FeelingTextView(_ tag: String, _ color: Color) -> some View {
+    func EmotionTagView(_ tag: String, _ color: Color) -> some View {
         HStack(spacing: 8) {
             Text(tag)
                 .font(.system(size: 16))
@@ -74,7 +94,7 @@ struct EmotionText: View {
 }
 
 // MARK: - Layout
-struct FeelingTextLayout: Layout {
+struct EmotionTagLayout: Layout {
     /// Layout Properties
     var alignment: Alignment = .center
     /// Both Horizontal & Vertical
@@ -174,6 +194,38 @@ extension [LayoutSubviews.Element] {
         return self.compactMap { view in
             return view.sizeThatFits(proposal).height
         }.max() ?? 0
+    }
+}
+
+struct CreateEmotionView: View {
+    @Binding var isPresented: Bool
+    @State private var tempText = ""
+    @FocusState private var isTextFieldFocused: Bool
+    var onConfirm: (String) -> Void
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("지금 감정을 입력해봐요")
+                .font(.headline)
+                .padding(.top, 30)
+            
+            TextField("여기에 입력", text: $tempText)
+                .focused($isTextFieldFocused)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        isTextFieldFocused = true
+                    }
+                }
+            StepControlView(onPrevious: {
+                isPresented = false
+            }, onNext: {
+                onConfirm(tempText)
+                isPresented = false
+            }, canGoNext: !tempText.isEmpty, nextButtonText: "확인", previousButtonText: "취소")
+        }
+        .padding()
     }
 }
 
