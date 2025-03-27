@@ -25,6 +25,7 @@ struct VerticalSlider: View {
                             if !editing {
                                 DispatchQueue.main.asyncAfter(deadline: .now()) {
                                     withAnimation(.easeInOut(duration: 0.3)) {
+                                        isEdited = editing
                                         sliderValue = round(sliderValue) // 가장 가까운 값으로 스냅
                                     }
                                 }
