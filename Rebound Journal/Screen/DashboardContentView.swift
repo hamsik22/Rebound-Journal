@@ -10,6 +10,7 @@ import SwiftUI
 struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
+    @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
@@ -26,7 +27,7 @@ struct DashboardContentView: View {
         .fullScreenCover(item: $manager.fullScreenMode) { type in
             switch type {
             case .entryCreator:
-                JournalEntryCreatorView()
+                JounrnalCreator(viewModel: journalCreatorViewModel)
                     .environmentObject(manager)
             case .readJournalView:
                 JournalDetailView()

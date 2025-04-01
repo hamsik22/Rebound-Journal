@@ -77,6 +77,31 @@ class DataManager: NSObject, ObservableObject {
 
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
+    func saveShooting(text: String,
+                   moodLevel: Int,
+                   moodText: String,
+                   reboundText: String,
+                   reasons: String,
+                   isRebounded: Bool = false,
+                   images: [UIImage]? = nil,
+                   hasDeleted: Bool = false) {
+        let entryModelId = UUID().uuidString
+        let entryModel = JournalEntry(context: container.viewContext)
+        entryModel.id = entryModelId
+        entryModel.text = text
+        entryModel.isRebounded = isRebounded
+        entryModel.moodLevel = Int16(moodLevel)
+        entryModel.moodText = moodText
+        entryModel.reboundText = reboundText
+        entryModel.hasDeleted = hasDeleted
+        entryModel.reasons = reasons
+//        for index in 0..<images.count {
+//            saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
+//            saveImage(images[index], id: "\(entryModelId)-\(index)", thumbnail: false)
+//        }
+        entryModel.date = Date()
+        try? container.viewContext.save()
+    }
     /// Save journal entries to Core Data
     func saveEntry(text: String, 
                    moodLevel: Int,
@@ -199,3 +224,4 @@ extension DataManager {
     }
     
 }
+

@@ -49,7 +49,7 @@ struct PasscodeView: View {
                 })
             }).padding([.leading, .trailing, .top], 40)
             KeypadButton(index: 0)
-        }.foregroundColor(.white)
+        }.foregroundColor(.default)
     }
     
     /// Create keypad button
