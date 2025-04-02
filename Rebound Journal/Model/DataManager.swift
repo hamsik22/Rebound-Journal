@@ -88,7 +88,6 @@ extension DataManager {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
-        entryModel.text = text
         entryModel.isRebounded = isRebounded
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
@@ -114,7 +113,6 @@ extension DataManager {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
-        entryModel.text = text
         entryModel.isRebounded = isRebounded
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
