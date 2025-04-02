@@ -33,19 +33,20 @@ struct ReviewPlanView: View {
     let systemText = Constants.SystemText()
     
     var body: some View {
-            VStack(alignment: .leading) {
-                Text(viewModel.emotionText?.first ?? "감정태그")
-                    .font(.system(size: 16))
-                    .fontWeight(.semibold)
-                    .frame(height: 35)
-                    .foregroundStyle(.default)
-                    .padding(.horizontal, 10)
-                    .background {
-                        Capsule()
-                            .fill(.accent.gradient)
-                    }
-                
-                // Reviewing Shoot
+        VStack(alignment: .leading) {
+            Text(viewModel.emotionText?.first ?? "감정태그")
+                .font(.system(size: 16))
+                .fontWeight(.semibold)
+                .frame(height: 35)
+                .foregroundStyle(.default)
+                .padding(.horizontal, 10)
+                .background {
+                    Capsule()
+                        .fill(.accent.gradient)
+                }
+            
+            // Reviewing Shoot
+            if (currentField == .review) || (currentField == .none) {
                 Text(text.reviewShooting)
                     .font(.system(size: 25))
                     .fontWeight(.semibold)
@@ -67,7 +68,9 @@ struct ReviewPlanView: View {
                             .foregroundStyle(isReviewed ? .clear : .gray)
                             .padding()
                     }
-                
+            }
+            
+            if (currentField == .plan) || (currentField == .none) {
                 // Get NextPlan
                 Text(text.whatNextPlan)
                     .font(.system(size: 25))
@@ -91,16 +94,18 @@ struct ReviewPlanView: View {
                             .padding()
                     }
             }
-            .padding()
             
-            // StepControll
-            StepControlView(onPrevious: {
-                viewModel.currentStep = .emotion
-            }, onNext: {
-                manager.fullScreenMode = nil
-                viewModel.saveShooting(manager: manager)
-            }, canGoNext: canSave,
-                            nextButtonText: systemText.saveButton)
+        }
+        .padding()
+        
+        // StepControll
+        StepControlView(onPrevious: {
+            viewModel.currentStep = .emotion
+        }, onNext: {
+            manager.fullScreenMode = nil
+            viewModel.saveShooting(manager: manager)
+        }, canGoNext: canSave,
+                        nextButtonText: systemText.saveButton)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("키보드 내리기") {
