@@ -56,8 +56,8 @@ struct ReviewPlanView: View {
                         viewModel.reviewText = newValue
                     }
                     .focused($currentField, equals: .review)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 200, alignment: .topLeading)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .frame(alignment: .topLeading)
                     .padding()
                     .scrollContentBackground(.hidden)
                     .background(Color.gray.opacity(0.2))
@@ -79,8 +79,8 @@ struct ReviewPlanView: View {
                         viewModel.nextPlanText = newValue
                     }
                     .focused($currentField, equals: .plan)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 200, alignment: .topLeading)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .frame(alignment: .topLeading)
                     .padding()
                     .scrollContentBackground(.hidden)
                     .background(Color.gray.opacity(0.2))
