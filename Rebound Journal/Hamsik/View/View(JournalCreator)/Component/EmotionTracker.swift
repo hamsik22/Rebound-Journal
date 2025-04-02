@@ -61,8 +61,8 @@ struct EmotionTracker: View {
                         .onChange(of: viewModel.isSliderEditing) { newValue in
                             viewModel.emotionValue = emotionValue
                         }
+                        .frame(width: 60)
                 }
-                .frame(maxWidth: .infinity)
             }
         }
     }
