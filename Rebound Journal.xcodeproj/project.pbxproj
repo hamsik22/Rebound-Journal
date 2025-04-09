@@ -50,6 +50,7 @@
 		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
+		C3DEFD392DA62B4700FEFE65 /* ModalHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +100,7 @@
 		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
+		C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 				C376EA462D9BE5A4003E935F /* ShootCreationHeader.swift */,
 				C376EA472D9BE5A4003E935F /* StepControlView.swift */,
 				C376EA482D9BE5A4003E935F /* VerticalSlider.swift */,
+				C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				C376EA652D9BF821003E935F /* Model.xcmappingmodel in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
+				C3DEFD392DA62B4700FEFE65 /* ModalHeaderBar.swift in Sources */,
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
 				589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */,
