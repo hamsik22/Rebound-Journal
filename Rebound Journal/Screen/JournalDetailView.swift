@@ -97,4 +97,5 @@ struct JournalDetailView: View {
 
 #Preview {
     JournalDetailView()
+        .environmentObject(DataManager())
 }
