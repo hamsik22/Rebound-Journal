@@ -14,6 +14,7 @@ struct ChartView: View {
     @State var date = Date()
     @State private var favoriteFruit = 1
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
+    @ObservedObject var viewModel: ChartViewModel
     var mockChartData: [ChartItem] = [
         .init(date: 12, isTypeA: true, count: 5),
         .init(date: 12, isTypeA: false, count: 1),
@@ -21,28 +22,22 @@ struct ChartView: View {
         .init(date: 13, isTypeA: false, count: 2),
         .init(date: 14, isTypeA: true, count: 4)
     ]
-    var mockShootLogs: [ShootLog] = [
-        .init(type: "골인", feel: "신나는", review: "오늘 시험을 잘 봤다.", nextPlan: "이제 찍지 말고 실력으로도 잘 보자."),
-        .init(type: "리바운드", feel: "슬픈", review: "오늘 넘어져서 다쳤다.", nextPlan: "앞으론 조심해서 다니자.")
-    ]
-    var mockTotalShoots: ShootStatus = .init(totalShoot: 32, goalCount: 10, reboundCount: 12)
-    var mockStreak: Int = 2
     
     var body: some View {
         GeometryReader { proxy in
-            VStack {
+            ScrollView {
                 ModalHeaderBar(title: "통계") {
                     manager.fullScreenMode = nil
                 }
                 // TODO: 연속 일수 필요
                 streakText
                 // TODO: 현재 데이터의 현황(전체/슛/리바운드 갯수)
-                totalShoot(data: mockTotalShoots)
+                totalShoot(data: viewModel.journalSummary)
                 // TODO: 차트를 보여준다
                 chart
                     .frame(height: proxy.size.height * 0.3)
                 // TODO: 차트에서 보여지는 슛의 기록들을 보여준다.
-                shootLog(data: mockShootLogs)
+                shootLog(data: viewModel.journalData)
             }
         }
     }
@@ -53,11 +48,23 @@ extension ChartView {
     /// 연속기록 일수를 보여주는 화면
     private var streakText: some View {
         HStack {
-            Text("연속으로 \(mockStreak)일째 기록 중이에요!")
+            Text("연속으로 \(viewModel.journalSummary.streak)일째 기록 중이에요!")
                 .font(.title2.bold())
             Spacer()
         }
         .padding(.horizontal)
+        .onAppear {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+
+            let sorted = viewModel.journals
+                .filter { !$0.hasDeleted }
+                .sorted { $0.date < $1.date }
+            
+            let dateStrings = sorted.map { formatter.string(from: $0.date) }
+
+            dateStrings.forEach { debugPrint($0) }
+        }
     }
     
     /// 골 기록을 보여주는 차트화면
@@ -108,10 +115,10 @@ extension ChartView {
     
     /// 골인/리바운드 갯수를 보여주는 버튼
     /// 누르면 상세보기로 넘어감
-    private func totalShoot(data: ShootStatus) -> some View {
+    private func totalShoot(data: JournalSummary) -> some View {
         VStack {
             HStack{
-                Text("전체 (\(data.totalShoot)개)")
+                Text("전체 (\(data.total)개)")
                     .font(.title2.bold())
                 Spacer()
             }
@@ -123,7 +130,7 @@ extension ChartView {
                         Text("골인")
                             .bold()
                             .padding(.bottom, 2)
-                        Text("\(data.goalCount)개")
+                        Text("\(data.goals)개")
                             .font(.title.bold())
                     }
                     .padding()
@@ -144,7 +151,7 @@ extension ChartView {
                         Text("리바운드")
                             .bold()
                             .padding(.bottom, 2)
-                        Text("\(data.reboundCount)개")
+                        Text("\(data.rebounds)개")
                             .font(.title.bold())
                     }
                 }
@@ -164,7 +171,7 @@ extension ChartView {
     
     /// 슛 기록을 보여주는 화면
     /// 스크롤 뷰로 만들어야하고 날짜별로 보여줘야 함.
-    private func shootLog(data: [ShootLog]) -> some View {
+    private func shootLog(data: [JournalMetaData]) -> some View {
         VStack {
             HStack {
                 Text("3.18")
@@ -176,7 +183,7 @@ extension ChartView {
             ScrollView {
                 ForEach(data) { item in
                     VStack(alignment: .leading) {
-                        Text("\(item.type) - \(item.feel)")
+                        Text("\(item.isGoalIn ? "골인" : "리바운드") - \(item.emotionText)")
                             .bold()
                             .padding(.bottom, 10)
                         Text(item.review)
@@ -196,26 +203,15 @@ extension ChartView {
     }
 }
 
+
+#Preview {
+    ChartView(viewModel: ChartViewModel())
+}
+
 // 추후 작업예정
-struct ChartItem: Identifiable {
+struct ChartItem : Identifiable {
     let id = UUID()
     let date: Int
     let isTypeA: Bool
     let count: Int
-}
-struct ShootLog: Identifiable {
-    let id = UUID()
-    let type: String
-    let feel: String
-    let review: String
-    let nextPlan: String
-}
-struct ShootStatus: Identifiable {
-    let id = UUID()
-    let totalShoot: Int
-    let goalCount: Int
-    let reboundCount: Int
-}
-#Preview {
-    ChartView()
 }
