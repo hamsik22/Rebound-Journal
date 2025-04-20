@@ -12,23 +12,11 @@ struct JournalSummary: JournalSummarizable {
     let entries: [JournalModel]
     
     /// 연속 일수
-    var streak: Int {
-        return entries.calculateStreak()
-    }
-    
+    var streak: Int { return entries.calculateStreak() }
     /// 전체 갯수
-    var total: Int {
-        let count = entries.filter{ !$0.hasDeleted }.count
-        return count
-    }
+    var total: Int { return entries.filter{ !$0.hasDeleted }.count }
     /// 골인 갯수
-    var goals: Int {
-        let count = entries.filter{ !$0.hasDeleted && $0.isGoalIn }.count
-        return count
-    }
+    var goals: Int { return entries.filter{ !$0.hasDeleted && $0.isGoalIn }.count }
     /// 리바운드 갯수
-    var rebounds: Int {
-        let count = entries.filter{ !$0.hasDeleted && !$0.isGoalIn }.count
-        return count
-    }
+    var rebounds: Int { return entries.filter{ !$0.hasDeleted && !$0.isGoalIn }.count }
 }
