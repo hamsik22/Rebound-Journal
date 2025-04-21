@@ -46,10 +46,18 @@
 		C376EA5A2D9BE5A4003E935F /* JournalCreatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C376EA502D9BE5A4003E935F /* JournalCreatorViewModel.swift */; };
 		C376EA602D9BF488003E935F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C376EA5F2D9BF488003E935F /* ChartView.swift */; };
 		C376EA622D9BF4A1003E935F /* ChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C376EA612D9BF4A1003E935F /* ChartDetailView.swift */; };
-		C376EA652D9BF821003E935F /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = C376EA642D9BF821003E935F /* Model.xcmappingmodel */; };
+		C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */; };
+		C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */; };
+		C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */; };
+		C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */; };
+		C37783362DB544A500BE2CF2 /* ChartDateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37783352DB544A500BE2CF2 /* ChartDateSelector.swift */; };
 		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
+		C3D6A50B2DAFBB2D0030FBC6 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A50A2DAFBB2D0030FBC6 /* ChartViewModel.swift */; };
+		C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */; };
+		C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */; };
+		C3D6A5152DAFC4160030FBC6 /* Model.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A5142DAFC4160030FBC6 /* Model.xcmappingmodel */; };
 		C3DEFD392DA62B4700FEFE65 /* ModalHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,10 +104,18 @@
 		C376EA5F2D9BF488003E935F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		C376EA612D9BF4A1003E935F /* ChartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailView.swift; sourceTree = "<group>"; };
 		C376EA632D9BF55D003E935F /* 1.0.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.5.xcdatamodel; sourceTree = "<group>"; };
-		C376EA642D9BF821003E935F /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
+		C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSummary.swift; sourceTree = "<group>"; };
+		C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMetaData.swift; sourceTree = "<group>"; };
+		C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalChart.swift; sourceTree = "<group>"; };
+		C37783352DB544A500BE2CF2 /* ChartDateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateSelector.swift; sourceTree = "<group>"; };
 		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
+		C3D6A50A2DAFBB2D0030FBC6 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
+		C3D6A5142DAFC4160030FBC6 /* Model.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = Model.xcmappingmodel; sourceTree = "<group>"; };
 		C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,7 +133,6 @@
 		586F227F2A33861C004C7410 = {
 			isa = PBXGroup;
 			children = (
-				C376EA642D9BF821003E935F /* Model.xcmappingmodel */,
 				C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */,
 				C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */,
 				586F228A2A33861C004C7410 /* Rebound Journal */,
@@ -167,7 +182,13 @@
 			isa = PBXGroup;
 			children = (
 				586F229A2A3387AF004C7410 /* DataManager.swift */,
+				C3D6A5142DAFC4160030FBC6 /* Model.xcmappingmodel */,
 				586F22A72A3390B4004C7410 /* Database.xcdatamodeld */,
+				C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */,
+				C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */,
+				C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */,
+				C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */,
+				C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -224,6 +245,7 @@
 				58D670762BD01F0400F581E2 /* Binding+Extension.swift */,
 				58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */,
 				9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */,
+				C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -244,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				C376EA502D9BE5A4003E935F /* JournalCreatorViewModel.swift */,
+				C3D6A50A2DAFBB2D0030FBC6 /* ChartViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -257,6 +280,7 @@
 				C376EA472D9BE5A4003E935F /* StepControlView.swift */,
 				C376EA482D9BE5A4003E935F /* VerticalSlider.swift */,
 				C3DEFD382DA62B4700FEFE65 /* ModalHeaderBar.swift */,
+				C37783352DB544A500BE2CF2 /* ChartDateSelector.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -349,11 +373,15 @@
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
 				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
+				C3D6A5152DAFC4160030FBC6 /* Model.xcmappingmodel in Sources */,
 				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
 				C376EA512D9BE5A4003E935F /* EmotionText.swift in Sources */,
 				C376EA522D9BE5A4003E935F /* EmotionTracker.swift in Sources */,
+				C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */,
+				C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */,
 				C376EA532D9BE5A4003E935F /* ShootCreationHeader.swift in Sources */,
 				C376EA542D9BE5A4003E935F /* StepControlView.swift in Sources */,
+				C37783362DB544A500BE2CF2 /* ChartDateSelector.swift in Sources */,
 				C376EA552D9BE5A4003E935F /* VerticalSlider.swift in Sources */,
 				C376EA562D9BE5A4003E935F /* EmotionInputView.swift in Sources */,
 				C376EA572D9BE5A4003E935F /* JounrnalCreator.swift in Sources */,
@@ -362,6 +390,7 @@
 				C376EA5A2D9BE5A4003E935F /* JournalCreatorViewModel.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
+				C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */,
 				C376EA622D9BF4A1003E935F /* ChartDetailView.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
 				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
@@ -372,15 +401,18 @@
 				589DCCAC2D04B169003F86E5 /* PhotoPicker.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
 				589DCCAE2D04B188003F86E5 /* PhotoDetailView.swift in Sources */,
-				C376EA652D9BF821003E935F /* Model.xcmappingmodel in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
 				C3DEFD392DA62B4700FEFE65 /* ModalHeaderBar.swift in Sources */,
+				C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */,
+				C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */,
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
 				589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */,
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
 				589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */,
+				C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */,
+				C3D6A50B2DAFBB2D0030FBC6 /* ChartViewModel.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,39 +11,33 @@ import Charts
 struct ChartView: View {
     
     @EnvironmentObject var manager: DataManager
-    @State var date = Date()
-    @State private var favoriteFruit = 1
-    @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
-    var mockChartData: [ChartItem] = [
-        .init(date: 12, isTypeA: true, count: 5),
-        .init(date: 12, isTypeA: false, count: 1),
-        .init(date: 13, isTypeA: true, count: 0),
-        .init(date: 13, isTypeA: false, count: 2),
-        .init(date: 14, isTypeA: true, count: 4)
-    ]
-    var mockShootLogs: [ShootLog] = [
-        .init(type: "골인", feel: "신나는", review: "오늘 시험을 잘 봤다.", nextPlan: "이제 찍지 말고 실력으로도 잘 보자."),
-        .init(type: "리바운드", feel: "슬픈", review: "오늘 넘어져서 다쳤다.", nextPlan: "앞으론 조심해서 다니자.")
-    ]
-    var mockTotalShoots: ShootStatus = .init(totalShoot: 32, goalCount: 10, reboundCount: 12)
-    var mockStreak: Int = 2
+    @ObservedObject var viewModel: ChartViewModel
+    @State var isDetailViewPresented: Bool = false
     
     var body: some View {
         GeometryReader { proxy in
-            VStack {
+            ScrollView {
+                // Header
                 ModalHeaderBar(title: "통계") {
                     manager.fullScreenMode = nil
                 }
-                // TODO: 연속 일수 필요
+                // 연속 일수
                 streakText
-                // TODO: 현재 데이터의 현황(전체/슛/리바운드 갯수)
-                totalShoot(data: mockTotalShoots)
-                // TODO: 차트를 보여준다
+                // 슛 현황
+                totalShoot(data: viewModel.journalSummary)
+                // 차트
                 chart
                     .frame(height: proxy.size.height * 0.3)
-                // TODO: 차트에서 보여지는 슛의 기록들을 보여준다.
-                shootLog(data: mockShootLogs)
+                // 슛 기록
+                shootLog
             }
+        }
+        .fullScreenCover(isPresented: $isDetailViewPresented) {
+            // 타입별 상세보기
+            ChartDetailView(isPresented: $isDetailViewPresented, viewModel: viewModel)
+        }
+        .sheet(isPresented: $viewModel.isDatePickerShown) {
+            ChartDateSelector(viewModel: viewModel)
         }
     }
 }
@@ -53,11 +47,23 @@ extension ChartView {
     /// 연속기록 일수를 보여주는 화면
     private var streakText: some View {
         HStack {
-            Text("연속으로 \(mockStreak)일째 기록 중이에요!")
+            Text("연속으로 \(viewModel.journalSummary.streak)일째 기록 중이에요!")
                 .font(.title2.bold())
             Spacer()
         }
         .padding(.horizontal)
+        .onAppear {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+
+            let sorted = viewModel.journals
+                .filter { !$0.hasDeleted }
+                .sorted { $0.date < $1.date }
+            
+            let dateStrings = sorted.map { formatter.string(from: $0.date) }
+
+            dateStrings.forEach { debugPrint($0) }
+        }
     }
     
     /// 골 기록을 보여주는 차트화면
@@ -68,9 +74,11 @@ extension ChartView {
                 Text("월별")
                     .bold()
                 Button {
+                    debugPrint("날짜 변경")
+                    viewModel.isDatePickerShown.toggle()
                 } label: {
                     HStack {
-                        Text("3월")
+                        Text("\(viewModel.selectedDate.month)")
                         Image(systemName: "chevron.up.chevron.down")
                     }
                 }
@@ -82,12 +90,12 @@ extension ChartView {
             }
             
             Chart {
-                ForEach(mockChartData) { item in
+                ForEach(viewModel.journalChart) { item in
                     BarMark(
-                        x: .value("Date", "\(item.date)"),
+                        x: .value("Date", item.date.dayLabel),
                         y: .value("Count", item.count)
                     )
-                    .foregroundStyle(item.isTypeA ? Color.orange : Color.orange.opacity(0.2))
+                    .foregroundStyle(item.isGoalIn ? Color.orange : Color.orange.opacity(0.2))
                 }
             }
             .chartLegend(.hidden)
@@ -108,22 +116,24 @@ extension ChartView {
     
     /// 골인/리바운드 갯수를 보여주는 버튼
     /// 누르면 상세보기로 넘어감
-    private func totalShoot(data: ShootStatus) -> some View {
+    private func totalShoot(data: JournalSummary) -> some View {
         VStack {
             HStack{
-                Text("전체 (\(data.totalShoot)개)")
+                Text("전체 (\(data.total)개)")
                     .font(.title2.bold())
                 Spacer()
             }
             HStack {
                 Button {
                     print("골인 기록 보여주기")
+                    isDetailViewPresented.toggle()
+                    viewModel.selectedDetailType = true
                 } label: {
                     VStack {
                         Text("골인")
                             .bold()
                             .padding(.bottom, 2)
-                        Text("\(data.goalCount)개")
+                        Text("\(data.goals)개")
                             .font(.title.bold())
                     }
                     .padding()
@@ -139,12 +149,14 @@ extension ChartView {
                 
                 Button {
                     print("리바운드 기록 보여주기")
+                    isDetailViewPresented.toggle()
+                    viewModel.selectedDetailType = false
                 } label: {
                     VStack {
                         Text("리바운드")
                             .bold()
                             .padding(.bottom, 2)
-                        Text("\(data.reboundCount)개")
+                        Text("\(data.rebounds)개")
                             .font(.title.bold())
                     }
                 }
@@ -164,58 +176,73 @@ extension ChartView {
     
     /// 슛 기록을 보여주는 화면
     /// 스크롤 뷰로 만들어야하고 날짜별로 보여줘야 함.
-    private func shootLog(data: [ShootLog]) -> some View {
+    private var shootLog: some View {
         VStack {
-            HStack {
-                Text("3.18")
-                    .font(.title3.bold())
-                    .opacity(0.5)
-                    .padding(.leading, 5)
-                Spacer()
-            }
-            ScrollView {
-                ForEach(data) { item in
-                    VStack(alignment: .leading) {
-                        Text("\(item.type) - \(item.feel)")
-                            .bold()
-                            .padding(.bottom, 10)
-                        Text(item.review)
-                        
-                        Divider()
-                        
-                        Text(item.nextPlan)
-                    }
+            if viewModel.groupedJournalData.isEmpty {
+                Text("기록이 없어요!")
                     .padding()
+                    .bold()
+                    .opacity(0.5)
                     .frame(maxWidth: .infinity)
+                    .frame(height: 100)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
+            } else {
+                ForEach(viewModel.groupedJournalData, id: \.key) { group in
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(group.key)
+                            .font(.title3.bold())
+                            .opacity(0.5)
+                            .padding(.leading, 5)
+
+                        ForEach(group.value) { item in
+                            VStack(alignment: .leading) {
+                                Text("\(item.isGoalIn ? "골인" : "리바운드") - \(item.emotionText)")
+                                    .bold()
+                                    .padding(.bottom, 10)
+                                Text(item.review)
+                                Divider()
+                                Text(item.nextPlan)
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                        }
+                    }
                 }
             }
         }
         .padding()
     }
+    
+    private var monthPicker: some View {
+        VStack {
+            HStack {
+                Button {
+                    viewModel.isDatePickerShown = false
+                } label: {
+                 Text("취소")
+                }
+                Spacer()
+                Button {
+                    viewModel.isDatePickerShown = false
+                    // TODO: 월 변경
+                } label: {
+                    Text("확인")
+                }
+            }
+            DatePicker("날짜 선택", selection: $viewModel.selectedDate, displayedComponents: .date)
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+                .padding(.vertical, 10)
+                .presentationDetents([.fraction(0.4)])
+        }
+        .padding()
+    }
 }
 
-// 추후 작업예정
-struct ChartItem: Identifiable {
-    let id = UUID()
-    let date: Int
-    let isTypeA: Bool
-    let count: Int
-}
-struct ShootLog: Identifiable {
-    let id = UUID()
-    let type: String
-    let feel: String
-    let review: String
-    let nextPlan: String
-}
-struct ShootStatus: Identifiable {
-    let id = UUID()
-    let totalShoot: Int
-    let goalCount: Int
-    let reboundCount: Int
-}
+
 #Preview {
-    ChartView()
+    ChartView(viewModel: ChartViewModel())
 }
