@@ -15,13 +15,6 @@ struct ChartView: View {
     @State private var favoriteFruit = 1
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @ObservedObject var viewModel: ChartViewModel
-    var mockChartData: [ChartItem] = [
-        .init(date: 12, isTypeA: true, count: 5),
-        .init(date: 12, isTypeA: false, count: 1),
-        .init(date: 13, isTypeA: true, count: 0),
-        .init(date: 13, isTypeA: false, count: 2),
-        .init(date: 14, isTypeA: true, count: 4)
-    ]
     
     var body: some View {
         GeometryReader { proxy in
@@ -29,15 +22,11 @@ struct ChartView: View {
                 ModalHeaderBar(title: "통계") {
                     manager.fullScreenMode = nil
                 }
-                // TODO: 연속 일수 필요
                 streakText
-                // TODO: 현재 데이터의 현황(전체/슛/리바운드 갯수)
                 totalShoot(data: viewModel.journalSummary)
-                // TODO: 차트를 보여준다
                 chart
                     .frame(height: proxy.size.height * 0.3)
-                // TODO: 차트에서 보여지는 슛의 기록들을 보여준다.
-                shootLog(data: viewModel.journalData)
+                shootLog
             }
         }
     }
@@ -89,12 +78,12 @@ extension ChartView {
             }
             
             Chart {
-                ForEach(mockChartData) { item in
+                ForEach(viewModel.journalChart) { item in
                     BarMark(
-                        x: .value("Date", "\(item.date)"),
+                        x: .value("Date", item.date.dayLabel),
                         y: .value("Count", item.count)
                     )
-                    .foregroundStyle(item.isTypeA ? Color.orange : Color.orange.opacity(0.2))
+                    .foregroundStyle(item.isGoalIn ? Color.orange : Color.orange.opacity(0.2))
                 }
             }
             .chartLegend(.hidden)
@@ -171,31 +160,29 @@ extension ChartView {
     
     /// 슛 기록을 보여주는 화면
     /// 스크롤 뷰로 만들어야하고 날짜별로 보여줘야 함.
-    private func shootLog(data: [JournalMetaData]) -> some View {
+    private var shootLog: some View {
         VStack {
-            HStack {
-                Text("3.18")
-                    .font(.title3.bold())
-                    .opacity(0.5)
-                    .padding(.leading, 5)
-                Spacer()
-            }
-            ScrollView {
-                ForEach(data) { item in
-                    VStack(alignment: .leading) {
-                        Text("\(item.isGoalIn ? "골인" : "리바운드") - \(item.emotionText)")
-                            .bold()
-                            .padding(.bottom, 10)
-                        Text(item.review)
-                        
-                        Divider()
-                        
-                        Text(item.nextPlan)
+            ForEach(viewModel.groupedJournalData, id: \.key) { group in
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(group.key)
+                        .font(.title3.bold())
+                        .opacity(0.5)
+                        .padding(.leading, 5)
+
+                    ForEach(group.value) { item in
+                        VStack(alignment: .leading) {
+                            Text("\(item.isGoalIn ? "골인" : "리바운드") - \(item.emotionText)")
+                                .bold()
+                                .padding(.bottom, 10)
+                            Text(item.review)
+                            Divider()
+                            Text(item.nextPlan)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(10)
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
                 }
             }
         }
@@ -206,12 +193,4 @@ extension ChartView {
 
 #Preview {
     ChartView(viewModel: ChartViewModel())
-}
-
-// 추후 작업예정
-struct ChartItem : Identifiable {
-    let id = UUID()
-    let date: Int
-    let isTypeA: Bool
-    let count: Int
 }

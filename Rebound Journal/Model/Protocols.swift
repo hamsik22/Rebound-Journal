@@ -23,3 +23,10 @@ protocol JournalDisplayable {
     var review: String { get }
     var nextPlan: String { get }
 }
+
+/// 차트화면에 표시될 데이터
+protocol ChartDisplayable {
+    var id: UUID { get }
+    var date: Date { get }
+    var isGoalIn: Bool { get }
+}
