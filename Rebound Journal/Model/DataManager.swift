@@ -47,6 +47,10 @@ class DataManager: NSObject, ObservableObject {
         if preview {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        let description = container.persistentStoreDescriptions.first
+        description?.shouldMigrateStoreAutomatically = true
+        description?.shouldInferMappingModelAutomatically = true
+        
         container.loadPersistentStores { _, _ in
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         }
@@ -95,10 +99,6 @@ extension DataManager {
         entryModel.reboundText = reboundText
         entryModel.hasDeleted = hasDeleted
         entryModel.reasons = reasons
-//        for index in 0..<images.count {
-//            saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
-//            saveImage(images[index], id: "\(entryModelId)-\(index)", thumbnail: false)
-//        }
         entryModel.date = Date()
         try? container.viewContext.save()
     }

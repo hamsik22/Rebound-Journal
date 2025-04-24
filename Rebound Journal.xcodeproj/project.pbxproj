@@ -34,9 +34,14 @@
 		58FAF6912D01FDBD008BE152 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */; };
 		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
 		9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */; };
+		C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */; };
+		C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */; };
+		C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */; };
 		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
+		C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */; };
+		C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,9 +74,14 @@
 		58FAF6902D01FDBD008BE152 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		9C5A70EB2BD2487F004B6F30 /* JournalDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalDetailView.swift; sourceTree = "<group>"; };
+		C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSummary.swift; sourceTree = "<group>"; };
+		C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
+		C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMetaData.swift; sourceTree = "<group>"; };
 		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
+		C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -140,6 +150,10 @@
 			children = (
 				586F229A2A3387AF004C7410 /* DataManager.swift */,
 				586F22A72A3390B4004C7410 /* Database.xcdatamodeld */,
+				C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */,
+				C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */,
+				C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */,
+				C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -196,6 +210,7 @@
 				58D670762BD01F0400F581E2 /* Binding+Extension.swift */,
 				58D670782BD01F2400F581E2 /* UIAlertAction+Extension.swift */,
 				9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */,
+				C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -283,8 +298,10 @@
 				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
 				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
+				C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
+				C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
 				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
@@ -295,11 +312,14 @@
 				589DCCAE2D04B188003F86E5 /* PhotoDetailView.swift in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
+				C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */,
+				C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */,
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */,
 				589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */,
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
 				589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */,
+				C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,7 @@ struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
     @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
+    @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
@@ -42,7 +43,7 @@ struct DashboardContentView: View {
                 PasscodeView(setupMode: true)
                     .environmentObject(manager)
             case .chartView:
-                ChartView()
+                ChartView(viewModel: chartViewModel)
                     .environmentObject(manager)
             }
         }
