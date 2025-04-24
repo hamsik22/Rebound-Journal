@@ -301,8 +301,6 @@
 				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
 				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
-				C376EA512D9BE5A4003E935F /* EmotionText.swift in Sources */,
-				C376EA522D9BE5A4003E935F /* EmotionTracker.swift in Sources */,
 				C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */,
 				C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,

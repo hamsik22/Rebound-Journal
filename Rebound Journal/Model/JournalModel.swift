@@ -26,7 +26,7 @@ extension JournalModel {
         let plans = ["운동하기", "일찍 자기", "계속 유지하기", "책 읽기", "산책하기"]
 
         return (1...10).map { _ in
-            let randomDayOffset = Int.random(in: -7...0)
+            let randomDayOffset = Int.random(in: -6...0)
             let randomDate = Calendar.current.date(byAdding: .day, value: randomDayOffset, to: Date())!
             let isGoalIn = Bool.random()
             let emotionValue = Int.random(in: 1...5)
