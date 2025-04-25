@@ -14,7 +14,6 @@
 		586F229B2A3387AF004C7410 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229A2A3387AF004C7410 /* DataManager.swift */; };
 		586F229D2A3388C4004C7410 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229C2A3388C4004C7410 /* HomeView.swift */; };
 		586F22A02A338990004C7410 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F229F2A338990004C7410 /* AppConfig.swift */; };
-		586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 586F22A72A3390B4004C7410 /* Database.xcdatamodeld */; };
 		586F22AB2A339261004C7410 /* JournalEntryCreatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */; };
 		589DCCA72D03F4F1003F86E5 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCA62D03F4F1003F86E5 /* HistoryView.swift */; };
 		589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 589DCCA82D03FDA4003F86E5 /* JournalEntryItemView.swift */; };
@@ -53,6 +52,7 @@
 		C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */; };
 		C3A07BE22DBBCEE20057D3C3 /* ChartDateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */; };
 		C3A07BE32DBBCEE20057D3C3 /* EmotionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */; };
+		C3A07BE92DBBF7120057D3C3 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */; };
 		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
@@ -69,7 +69,6 @@
 		586F229A2A3387AF004C7410 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		586F229C2A3388C4004C7410 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		586F229F2A338990004C7410 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		586F22A82A3390B4004C7410 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		586F22AA2A339261004C7410 /* JournalEntryCreatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryCreatorView.swift; sourceTree = "<group>"; };
 		589DCCA62D03F4F1003F86E5 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		589DCCA82D03FDA4003F86E5 /* JournalEntryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryItemView.swift; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 		C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JounrnalCreator.swift; sourceTree = "<group>"; };
 		C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlanView.swift; sourceTree = "<group>"; };
 		C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShootTypeView.swift; sourceTree = "<group>"; };
+		C3A07BE82DBBF7120057D3C3 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
 		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
@@ -178,12 +178,12 @@
 			isa = PBXGroup;
 			children = (
 				586F229A2A3387AF004C7410 /* DataManager.swift */,
-				586F22A72A3390B4004C7410 /* Database.xcdatamodeld */,
 				C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */,
 				C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */,
 				C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */,
 				C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */,
 				C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */,
+				C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -383,6 +383,7 @@
 				C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */,
 				C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
+				C3A07BE92DBBF7120057D3C3 /* Database.xcdatamodeld in Sources */,
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
 				C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
@@ -395,7 +396,6 @@
 				C3A07BDC2DBBCEE20057D3C3 /* SelectShootTypeView.swift in Sources */,
 				C3A07BC72DBA4B640057D3C3 /* ChartView.swift in Sources */,
 				C3A07BDB2DBBCEE20057D3C3 /* EmotionTracker.swift in Sources */,
-				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
 				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
 				C3A07BDE2DBBCEE20057D3C3 /* ShootCreationHeader.swift in Sources */,
@@ -639,12 +639,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		586F22A72A3390B4004C7410 /* Database.xcdatamodeld */ = {
+		C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				586F22A82A3390B4004C7410 /* Database.xcdatamodel */,
+				C3A07BE82DBBF7120057D3C3 /* Database.xcdatamodel */,
 			);
-			currentVersion = 586F22A82A3390B4004C7410 /* Database.xcdatamodel */;
+			currentVersion = C3A07BE82DBBF7120057D3C3 /* Database.xcdatamodel */;
 			path = Database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

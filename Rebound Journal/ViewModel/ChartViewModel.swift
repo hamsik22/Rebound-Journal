@@ -11,25 +11,14 @@ import SwiftUI
 
 final class ChartViewModel: ObservableObject {
     
-    @Published var journals: [JournalModel]
-    @Published var journalSummary: JournalSummary
-    @Published var journalData: [JournalMetaData]
+    @Published var journals: [JournalModel] = []
+    @Published var journalSummary: JournalSummary = .init(entries: [])
+    @Published var journalData: [JournalMetaData] = []
     @Published var groupedJournalData: GroupedJournal = []
     @Published var journalChart: [JournalChart] = []
     @Published var selectedDate = Date()
     @Published var selectedDetailType: Bool = false
     @Published var isDatePickerShown: Bool = false
-    
-    init() {
-        let mockJournals = JournalModel.mockData().filter{ !$0.hasDeleted }
-        self.journals = mockJournals
-        self.journalData = mockJournals
-            .filter { !$0.hasDeleted }
-            .map { JournalMetaData(entry: $0) }
-        self.journalSummary = JournalSummary(entries: mockJournals)
-        self.makeChartItems(from: mockJournals)
-        self.makeGroupedJournalData()
-    }
     
     /// 모델에서 가져온 데이터를 차트로 보여주기 위한 데이터 로직
     /// 가장 오래된 순으로 정렬하고 지웠던 이력이 있는 데이터를 제외하고
@@ -42,7 +31,7 @@ final class ChartViewModel: ObservableObject {
         let last7Days = (0...6).compactMap {
             calendar.date(byAdding: .day, value: -$0, to: today)
         }.reversed()
-
+        
         var result: [JournalChart] = []
         
         for date in last7Days {
@@ -105,13 +94,28 @@ final class ChartViewModel: ObservableObject {
             calendar.component(.year, from: $0.date) == year &&
             calendar.component(.month, from: $0.date) == month
         }
-
+        
         self.journalData = filtered.map { JournalMetaData(entry: $0) }
         self.journalSummary = JournalSummary(entries: filtered)
         self.makeChartItems(from: filtered)
         self.makeGroupedJournalData()
     }
     
+    func getJournals(context: NSManagedObjectContext) {
+        let entries = DataManager.loadJournalEntries(context: context)
+        self.journals = JournalModel.convertToJournalModel(entries: entries)
+        self.journalData = self.journals
+            .filter { !$0.hasDeleted}
+            .map { JournalMetaData(entry: $0) }
+        self.journalSummary = JournalSummary(entries: self.journals)
+        self.makeChartItems(from: self.journals)
+        self.makeGroupedJournalData()
+        print("Journals = \(self.journals.count)")
+        print("JournalData = \(self.journalData.count)")
+        print("JournalSummary = \(self.journalSummary.total)")
+        print("JournalChartItems = \(self.journalChart.count)")
+        print("GroupedJournalData = \(self.groupedJournalData.count)")
+    }
 }
 
 /// 날짜별로 그룹화된 딕셔너리 타입

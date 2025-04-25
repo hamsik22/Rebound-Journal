@@ -11,8 +11,9 @@ import Charts
 struct ChartView: View {
     
     @EnvironmentObject var manager: DataManager
-    @ObservedObject var viewModel: ChartViewModel
+    @StateObject var viewModel: ChartViewModel
     @State var isDetailViewPresented: Bool = false
+    @Environment(\.managedObjectContext) private var context
     
     var body: some View {
         GeometryReader { proxy in
@@ -31,6 +32,9 @@ struct ChartView: View {
                 // 슛 기록
                 shootLog
             }
+        }
+        .onAppear {
+            viewModel.getJournals(context: context)
         }
         .fullScreenCover(isPresented: $isDetailViewPresented) {
             // 타입별 상세보기
@@ -55,13 +59,13 @@ extension ChartView {
         .onAppear {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
-
+            
             let sorted = viewModel.journals
                 .filter { !$0.hasDeleted }
                 .sorted { $0.date < $1.date }
             
             let dateStrings = sorted.map { formatter.string(from: $0.date) }
-
+            
             dateStrings.forEach { debugPrint($0) }
         }
     }
@@ -194,7 +198,7 @@ extension ChartView {
                             .font(.title3.bold())
                             .opacity(0.5)
                             .padding(.leading, 5)
-
+                        
                         ForEach(group.value) { item in
                             VStack(alignment: .leading) {
                                 Text("\(item.isGoalIn ? "골인" : "리바운드") - \(item.emotionText)")
@@ -222,7 +226,7 @@ extension ChartView {
                 Button {
                     viewModel.isDatePickerShown = false
                 } label: {
-                 Text("취소")
+                    Text("취소")
                 }
                 Spacer()
                 Button {
