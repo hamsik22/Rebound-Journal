@@ -19,6 +19,22 @@ struct JournalModel: Identifiable {
 }
 
 extension JournalModel {
+    
+    static func convertToJournalModel(entries: [JournalEntry]) -> [JournalModel] {
+        return entries.map { item in
+            guard let id = item.id,
+                  let date = item.date,
+                  let isGoalIn = (item.moodLevel == 1) ? true : false,
+                  let emotionText = item.moodText,
+                  let review = item.reasons,
+                  let nextPlan = item.reboundText
+            else {
+                return JournalModel(id: "", date: Date(), hasDeleted: false, isGoalIn: false, emotionValue: 0, emotionText: "", review: "", nextPlan: "")
+            }
+            return JournalModel(id: id, date: date, hasDeleted: item.hasDeleted, isGoalIn: isGoalIn, emotionValue: 0, emotionText: emotionText, review: review, nextPlan: nextPlan)
+        }
+    }
+    
     /// 더미데이터 생성
     static func mockData() -> [JournalModel] {
         let emotionTexts = ["행복해요", "조금 우울해요", "최고의 하루!", "짜증났어요", "평범했어요"]
