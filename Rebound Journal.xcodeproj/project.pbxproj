@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -38,6 +38,21 @@
 		C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */; };
 		C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */; };
 		C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */; };
+		C3A07BBF2DBA4B640057D3C3 /* ChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */; };
+		C3A07BC52DBA4B640057D3C3 /* JournalCreatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */; };
+		C3A07BC62DBA4B640057D3C3 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */; };
+		C3A07BC72DBA4B640057D3C3 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BB82DBA4B640057D3C3 /* ChartView.swift */; };
+		C3A07BD92DBBCEE20057D3C3 /* ModalHeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCF2DBBCEE20057D3C3 /* ModalHeaderBar.swift */; };
+		C3A07BDA2DBBCEE20057D3C3 /* EmotionInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD42DBBCEE20057D3C3 /* EmotionInputView.swift */; };
+		C3A07BDB2DBBCEE20057D3C3 /* EmotionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCE2DBBCEE20057D3C3 /* EmotionTracker.swift */; };
+		C3A07BDC2DBBCEE20057D3C3 /* SelectShootTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */; };
+		C3A07BDD2DBBCEE20057D3C3 /* VerticalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD22DBBCEE20057D3C3 /* VerticalSlider.swift */; };
+		C3A07BDE2DBBCEE20057D3C3 /* ShootCreationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD02DBBCEE20057D3C3 /* ShootCreationHeader.swift */; };
+		C3A07BDF2DBBCEE20057D3C3 /* JounrnalCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */; };
+		C3A07BE02DBBCEE20057D3C3 /* ReviewPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */; };
+		C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */; };
+		C3A07BE22DBBCEE20057D3C3 /* ChartDateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */; };
+		C3A07BE32DBBCEE20057D3C3 /* EmotionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */; };
 		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
@@ -79,16 +94,27 @@
 		C37782F42DB4E65700BE2CF2 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMetaData.swift; sourceTree = "<group>"; };
 		C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalChart.swift; sourceTree = "<group>"; };
+		C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailView.swift; sourceTree = "<group>"; };
+		C3A07BB82DBA4B640057D3C3 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
+		C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCreatorViewModel.swift; sourceTree = "<group>"; };
+		C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDateSelector.swift; sourceTree = "<group>"; };
+		C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionText.swift; sourceTree = "<group>"; };
+		C3A07BCE2DBBCEE20057D3C3 /* EmotionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTracker.swift; sourceTree = "<group>"; };
+		C3A07BCF2DBBCEE20057D3C3 /* ModalHeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalHeaderBar.swift; sourceTree = "<group>"; };
+		C3A07BD02DBBCEE20057D3C3 /* ShootCreationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootCreationHeader.swift; sourceTree = "<group>"; };
+		C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepControlView.swift; sourceTree = "<group>"; };
+		C3A07BD22DBBCEE20057D3C3 /* VerticalSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
+		C3A07BD42DBBCEE20057D3C3 /* EmotionInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputView.swift; sourceTree = "<group>"; };
+		C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JounrnalCreator.swift; sourceTree = "<group>"; };
+		C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlanView.swift; sourceTree = "<group>"; };
+		C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShootTypeView.swift; sourceTree = "<group>"; };
 		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
 		C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		C3D6A5102DAFC0460030FBC6 /* JournalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		C3FCA9DC2D8AA9E600556B54 /* Hamsik */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Hamsik; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		586F22852A33861C004C7410 /* Frameworks */ = {
@@ -123,7 +149,8 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
-				C3FCA9DC2D8AA9E600556B54 /* Hamsik */,
+				C3A07BCB2DBBCED10057D3C3 /* ViewModel */,
+				C3A07BCA2DBBCE740057D3C3 /* View */,
 				589DCCB12D05F444003F86E5 /* Rebound-Journal-Info.plist */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
 				586F229E2A338981004C7410 /* AppConfig */,
@@ -218,6 +245,59 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		C3A07BCA2DBBCE740057D3C3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BE52DBBCF010057D3C3 /* Component */,
+				C3A07BE42DBBCEEC0057D3C3 /* Chart */,
+				C3A07BE62DBBCF140057D3C3 /* JournalCreator */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C3A07BCB2DBBCED10057D3C3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */,
+				C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C3A07BE42DBBCEEC0057D3C3 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */,
+				C3A07BB82DBA4B640057D3C3 /* ChartView.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		C3A07BE52DBBCF010057D3C3 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */,
+				C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */,
+				C3A07BCE2DBBCEE20057D3C3 /* EmotionTracker.swift */,
+				C3A07BCF2DBBCEE20057D3C3 /* ModalHeaderBar.swift */,
+				C3A07BD02DBBCEE20057D3C3 /* ShootCreationHeader.swift */,
+				C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */,
+				C3A07BD22DBBCEE20057D3C3 /* VerticalSlider.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		C3A07BE62DBBCF140057D3C3 /* JournalCreator */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BD42DBBCEE20057D3C3 /* EmotionInputView.swift */,
+				C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */,
+				C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */,
+				C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */,
+			);
+			path = JournalCreator;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -232,9 +312,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				C3FCA9DC2D8AA9E600556B54 /* Hamsik */,
 			);
 			name = "Rebound Journal";
 			productName = "Rebound Journal";
@@ -297,8 +374,10 @@
 				589DCCB02D04B887003F86E5 /* AppDelegate.swift in Sources */,
 				58D6707B2BD0275600F581E2 /* Constants.swift in Sources */,
 				9C5A70EC2BD2487F004B6F30 /* JournalDetailView.swift in Sources */,
+				C3A07BE22DBBCEE20057D3C3 /* ChartDateSelector.swift in Sources */,
 				58D6706F2BD01BDE00F581E2 /* Date+Extension.swift in Sources */,
 				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
+				C3A07BE02DBBCEE20057D3C3 /* ReviewPlanView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
 				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
 				C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */,
@@ -307,14 +386,26 @@
 				586F22A02A338990004C7410 /* AppConfig.swift in Sources */,
 				C3D6A5112DAFC0460030FBC6 /* JournalModel.swift in Sources */,
 				58D670732BD01EC100F581E2 /* View+Extension.swift in Sources */,
+				C3A07BDD2DBBCEE20057D3C3 /* VerticalSlider.swift in Sources */,
+				C3A07BBF2DBA4B640057D3C3 /* ChartDetailView.swift in Sources */,
+				C3A07BDF2DBBCEE20057D3C3 /* JounrnalCreator.swift in Sources */,
+				C3A07BDA2DBBCEE20057D3C3 /* EmotionInputView.swift in Sources */,
+				C3A07BC52DBA4B640057D3C3 /* JournalCreatorViewModel.swift in Sources */,
+				C3A07BC62DBA4B640057D3C3 /* ChartViewModel.swift in Sources */,
+				C3A07BDC2DBBCEE20057D3C3 /* SelectShootTypeView.swift in Sources */,
+				C3A07BC72DBA4B640057D3C3 /* ChartView.swift in Sources */,
+				C3A07BDB2DBBCEE20057D3C3 /* EmotionTracker.swift in Sources */,
 				586F22A92A3390B4004C7410 /* Database.xcdatamodeld in Sources */,
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
 				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
+				C3A07BDE2DBBCEE20057D3C3 /* ShootCreationHeader.swift in Sources */,
 				586F229D2A3388C4004C7410 /* HomeView.swift in Sources */,
 				589DCCAC2D04B169003F86E5 /* PhotoPicker.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
 				589DCCAE2D04B188003F86E5 /* PhotoDetailView.swift in Sources */,
+				C3A07BD92DBBCEE20057D3C3 /* ModalHeaderBar.swift in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
+				C3A07BE32DBBCEE20057D3C3 /* EmotionText.swift in Sources */,
 				586F229B2A3387AF004C7410 /* DataManager.swift in Sources */,
 				C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */,
 				C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */,
@@ -324,6 +415,7 @@
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
 				589DCCA92D03FDA4003F86E5 /* JournalEntryItemView.swift in Sources */,
 				C37782F52DB4E65700BE2CF2 /* Array+Ext.swift in Sources */,
+				C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
