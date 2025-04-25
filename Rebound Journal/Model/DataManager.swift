@@ -81,13 +81,17 @@ class DataManager: NSObject, ObservableObject {
 
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
-    func saveShooting(text: String,
+    
+    /// Save journal entries to Core Data_V2
+    /// 1.0.5 기준으로 수정사항을 반영한 함수
+    /// 느낀 점은 [MoodReason]이 아닌 String으로 저장
+    /// 이미지는 저장하지 않기 때문에 삭제
+    func saveEntry_V2(text: String,
                    moodLevel: Int,
                    moodText: String,
                    reboundText: String,
                    reasons: String,
                    isRebounded: Bool = false,
-                   images: [UIImage]? = nil,
                    hasDeleted: Bool = false) {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
@@ -102,6 +106,7 @@ extension DataManager {
         entryModel.date = Date()
         try? container.viewContext.save()
     }
+    
     /// Save journal entries to Core Data
     func saveEntry(text: String, 
                    moodLevel: Int,
