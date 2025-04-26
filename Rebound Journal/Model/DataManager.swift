@@ -29,17 +29,18 @@ class DataManager: NSObject, ObservableObject {
     //@Published var quotes: QuotesList = QuotesList()
     @Published var didEnterCorrectPasscode: Bool = false
     
-//    /// Dynamic properties that the UI will react to AND store values in UserDefaults
+    //    /// Dynamic properties that the UI will react to AND store values in UserDefaults
     @AppStorage("savedPasscode") var savedPasscode: String = ""
     @AppStorage("enableReminders") var enableReminders: Bool = false
     @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
-//    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
+    //    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
     //{
     //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
     //}
     
     /// Core Data container with the database model
     let container: NSPersistentContainer = NSPersistentContainer(name: "Database")
+    
     
     /// Default init method. Load the Core Data container
     init(preview: Bool = false) {
@@ -81,14 +82,18 @@ class DataManager: NSObject, ObservableObject {
 
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
-    func saveShooting(text: String,
-                   moodLevel: Int,
-                   moodText: String,
-                   reboundText: String,
-                   reasons: String,
-                   isRebounded: Bool = false,
-                   images: [UIImage]? = nil,
-                   hasDeleted: Bool = false) {
+    
+    /// Save journal entries to Core Data_V2
+    /// 1.0.5 기준으로 수정사항을 반영한 함수
+    /// 느낀 점은 [MoodReason]이 아닌 String으로 저장
+    /// 이미지는 저장하지 않기 때문에 삭제
+    func saveEntry_V2(text: String,
+                      moodLevel: Int,
+                      moodText: String,
+                      reboundText: String,
+                      reasons: String,
+                      isRebounded: Bool = false,
+                      hasDeleted: Bool = false) {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
@@ -101,8 +106,9 @@ extension DataManager {
         entryModel.date = Date()
         try? container.viewContext.save()
     }
+    
     /// Save journal entries to Core Data
-    func saveEntry(text: String, 
+    func saveEntry(text: String,
                    moodLevel: Int,
                    moodText: String,
                    reboundText: String,
@@ -223,3 +229,18 @@ extension DataManager {
     
 }
 
+// MARK: - Fetch Journal Entries
+extension DataManager {
+    static func loadJournalEntries(context: NSManagedObjectContext) -> [JournalEntry] {
+        let request = NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
+        
+        print("뷰모델 : \(context)")
+        do {
+            let items = try context.fetch(request)
+            return items
+        } catch {
+            print("데이터 읽기 실패: \(error)")
+            return []
+        }
+    }
+}
