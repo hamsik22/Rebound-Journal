@@ -24,6 +24,7 @@ struct JounrnalCreator: View {
                     .environmentObject(manager)
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     private var TopProgressBarView: some View {
