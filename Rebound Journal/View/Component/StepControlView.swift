@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+// MARK: 하단의 <이전><다음으로> 버튼을 만드는 뷰
+
+/// - onPrevious : <이전>을 눌렀을 때, 동작할 코드
+/// - onNext : <다음으로>을 눌렀을 때, 동작할 코드
+/// - canGoNext : <다음으로>를 활성화하는 Bool값
+/// - nextButtonText : <다음으로>가 아닌 다른 문자로 수정할 시
+/// - previousButtonText : <이전>이 아닌 다른 문자로 수정할 시
 struct StepControlView: View {
     // Action
     let onPrevious: () -> Void
@@ -14,7 +21,7 @@ struct StepControlView: View {
     // UI State
     var canGoNext: Bool
     // Content
-    var nextButtonText: String
+    var nextButtonText: String = "다음으로"
     var previousButtonText: String = "이전"
     
     var body: some View {
@@ -23,7 +30,7 @@ struct StepControlView: View {
             let previousWidth = totalWidth * 0.25
             let nextWidth = totalWidth * 0.5
             
-            HStack(alignment: .center) {
+            HStack {
                 Button {
                     onPrevious()
                 } label: {
@@ -45,7 +52,7 @@ struct StepControlView: View {
                 } label: {
                     Text(nextButtonText)
                         .frame(width: nextWidth)
-                        .foregroundColor(.default)
+                        .foregroundColor(canGoNext ? .white : .black.opacity(0.5))
                         .padding()
                         .cornerRadius(90)
                         .font(.system(size: 18, weight: .bold))
