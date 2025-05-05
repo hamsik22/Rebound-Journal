@@ -28,7 +28,7 @@ struct StepControlView: View {
         GeometryReader { geometry in
             let totalWidth = geometry.size.width
             let previousWidth = totalWidth * 0.25
-            let nextWidth = totalWidth * 0.5
+            let nextWidth = totalWidth * 0.57
             
             HStack {
                 Button {
@@ -62,7 +62,6 @@ struct StepControlView: View {
                 }
                 .disabled(!canGoNext)
             }
-            .padding()
         }
         .frame(height: 100)
     }
