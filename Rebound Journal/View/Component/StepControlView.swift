@@ -63,7 +63,7 @@ struct StepControlView: View {
                 .disabled(!canGoNext)
             }
         }
-        .frame(height: 100)
+        .frame(height: 60)
     }
 }
 
