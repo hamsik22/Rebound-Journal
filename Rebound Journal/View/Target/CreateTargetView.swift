@@ -12,7 +12,6 @@ struct CreateTargetView: View {
     @State var targetText: String = "계획을 세우고 실천하면 매일이 성장의 기회가 됩니다@@"
     
     var body: some View {
-        GeometryReader { proxy in
             // 전체
             VStack {
                 VStack {
@@ -45,7 +44,7 @@ struct CreateTargetView: View {
                                     if targetText.isEmpty {
                                         Text("목표를 적어주세요")
                                             .font(.system(size: 15))
-                                            .padding()
+                                            .padding(.horizontal, 10)
                                             .opacity(0.3)
                                     }
                                 }
@@ -56,7 +55,7 @@ struct CreateTargetView: View {
                         .frame(height: 65)
                         .padding(5)
                         .background(Color.gray.opacity(0.2))
-                        .clipShape(.rect(cornerRadius: 18))
+                        .clipShape(.rect(cornerRadius: 12))
                     }
                     
                     Spacer()
@@ -65,11 +64,10 @@ struct CreateTargetView: View {
                     Text("다음 슈팅 때 선택할 수 있어요.\n언제든지 다시 확인할 수 있어요.")
                         .multilineTextAlignment(.center)
                 }
-                .padding()
                 
                 StepControlView(onPrevious: {print(" 이전")}, onNext: {print("저장하기")}, canGoNext: true, nextButtonText: targetText.isEmpty ? "건너뛰기" :"저장하기")
             }
-        }
+            .padding()
     }
 }
 
