@@ -41,6 +41,14 @@ struct CreateTargetView: View {
                                 .padding(.vertical, 10)
                                 .frame(maxWidth: .infinity)
                                 .scrollContentBackground(.hidden)
+                                .overlay(alignment: .leading) {
+                                    if targetText.isEmpty {
+                                        Text("목표를 적어주세요")
+                                            .font(.system(size: 15))
+                                            .padding()
+                                            .opacity(0.3)
+                                    }
+                                }
                             Text("\(targetText.count)/30")
                                 .font(.system(size: 12))
                                 .padding(.horizontal, 5)
@@ -56,17 +64,18 @@ struct CreateTargetView: View {
                     // MARK: 안내문구 2
                     Text("다음 슈팅 때 선택할 수 있어요.\n언제든지 다시 확인할 수 있어요.")
                         .multilineTextAlignment(.center)
-                    
                 }
                 .padding()
-                StepControlView(onPrevious: {print(" 이전")}, onNext: {print("저장하기")}, canGoNext: !targetText.isEmpty, nextButtonText: "저장하기")
+                
+                StepControlView(onPrevious: {print(" 이전")}, onNext: {print("저장하기")}, canGoNext: true, nextButtonText: targetText.isEmpty ? "건너뛰기" :"저장하기")
             }
-            
-            
         }
     }
 }
 
-#Preview {
+#Preview("!targetText.isEmpty") {
     CreateTargetView()
+}
+#Preview("targetText.isEmpty") {
+    CreateTargetView(targetText: "")
 }
