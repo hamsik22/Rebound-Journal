@@ -36,7 +36,8 @@ struct EmotionInputView: View {
             }, onNext: {
                 viewModel.currentStep = .review
             }, canGoNext: canGoNext,
-            nextButtonText: "다음으로")
+                            nextButtonText: "다음으로")
+            .padding()
         }
     }
     
@@ -60,18 +61,18 @@ struct EmotionInputView: View {
 
 #Preview("EmotionInputView: GoalIn") {
     let viewModel: JournalCreatorViewModel = {
-           let vm = JournalCreatorViewModel()
-           vm.goalType = true
-           return vm
-       }()
+        let vm = JournalCreatorViewModel()
+        vm.goalType = true
+        return vm
+    }()
     EmotionInputView(viewModel: viewModel)
 }
 
 #Preview("EmotionInputView: Rebound") {
     let viewModel: JournalCreatorViewModel = {
-           let vm = JournalCreatorViewModel()
-           vm.goalType = false
-           return vm
-       }()
+        let vm = JournalCreatorViewModel()
+        vm.goalType = false
+        return vm
+    }()
     EmotionInputView(viewModel: viewModel)
 }
