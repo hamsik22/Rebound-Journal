@@ -53,7 +53,6 @@
 		C3A07BE22DBBCEE20057D3C3 /* ChartDateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */; };
 		C3A07BE32DBBCEE20057D3C3 /* EmotionText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */; };
 		C3A07BE92DBBF7120057D3C3 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */; };
-		C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1B7A92D9461E80008E38D /* AppDelegate.swift */; };
 		C3B1B7AD2D9462140008E38D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */; };
 		C3B1B7AE2D9462140008E38D /* Rebound-Journal-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */; };
 		C3BAA6C52DC88F4E00D17DD8 /* CreateTargetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BAA6C42DC88F4E00D17DD8 /* CreateTargetView.swift */; };
@@ -111,7 +110,6 @@
 		C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPlanView.swift; sourceTree = "<group>"; };
 		C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShootTypeView.swift; sourceTree = "<group>"; };
 		C3A07BE82DBBF7120057D3C3 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
-		C3B1B7A92D9461E80008E38D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B1B7AB2D9462140008E38D /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C3B1B7AC2D9462140008E38D /* Rebound-Journal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rebound-Journal-Info.plist"; sourceTree = "<group>"; };
 		C3BAA6C42DC88F4E00D17DD8 /* CreateTargetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTargetView.swift; sourceTree = "<group>"; };
@@ -392,7 +390,6 @@
 				58FAF68D2D01F0C8008BE152 /* SettingsView.swift in Sources */,
 				C3A07BE02DBBCEE20057D3C3 /* ReviewPlanView.swift in Sources */,
 				586F228E2A33861C004C7410 /* DashboardContentView.swift in Sources */,
-				C3B1B7AA2D9461E80008E38D /* AppDelegate.swift in Sources */,
 				C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */,
 				C3D6A50F2DAFBD9B0030FBC6 /* Protocols.swift in Sources */,
 				58D6706D2BD01BBE00F581E2 /* String+Extension.swift in Sources */,
