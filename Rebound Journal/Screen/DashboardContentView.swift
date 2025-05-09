@@ -11,6 +11,7 @@ struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
     @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
+    @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
@@ -36,9 +37,14 @@ struct DashboardContentView: View {
                 JournalEntryCreatorView(isRebounded: true)
                     .environmentObject(manager)
             case .passcodeView:
-                PasscodeView().environmentObject(manager)
+                PasscodeView()
+                    .environmentObject(manager)
             case .setupPasscodeView:
-                PasscodeView(setupMode: true).environmentObject(manager)
+                PasscodeView(setupMode: true)
+                    .environmentObject(manager)
+            case .chartView:
+                ChartView(viewModel: chartViewModel)
+                    .environmentObject(manager)
             }
         }
         /// Show the passcode view if the passcode was setup
@@ -50,9 +56,6 @@ struct DashboardContentView: View {
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
             SettingsView() // 모달로 표시될 View
-        }
-        .sheet(isPresented: $isHistorySheetPresented) {
-            HistoryView() // 모달로 표시될 View
         }
     }
     
@@ -78,7 +81,7 @@ struct DashboardContentView: View {
                         .bold()
                     Spacer()
                     Button {
-                        isHistorySheetPresented.toggle()
+                        manager.fullScreenMode = .chartView
                     } label: {
                         Image(systemName: "chart.bar.xaxis")
                             .resizable()

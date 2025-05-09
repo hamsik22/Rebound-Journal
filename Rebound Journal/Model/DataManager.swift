@@ -12,7 +12,7 @@ import Foundation
 
 /// Full Screen flow
 enum FullScreenMode: Int, Identifiable {
-    case entryCreator, readJournalView, reboundCreator, passcodeView, setupPasscodeView
+    case entryCreator, readJournalView, reboundCreator, passcodeView, setupPasscodeView, chartView
     var id: Int { hashValue }
 }
 
@@ -29,11 +29,11 @@ class DataManager: NSObject, ObservableObject {
     //@Published var quotes: QuotesList = QuotesList()
     @Published var didEnterCorrectPasscode: Bool = false
     
-//    /// Dynamic properties that the UI will react to AND store values in UserDefaults
+    //    /// Dynamic properties that the UI will react to AND store values in UserDefaults
     @AppStorage("savedPasscode") var savedPasscode: String = ""
     @AppStorage("enableReminders") var enableReminders: Bool = false
     @AppStorage("reminderTime") var reminderTime: String = "9:00 AM"
-//    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
+    //    @AppStorage(AppConfig.premiumVersion) var isPremiumUser: Bool = false
     //{
     //didSet { Interstitial.shared.isPremiumUser = isPremiumUser }
     //}
@@ -41,12 +41,17 @@ class DataManager: NSObject, ObservableObject {
     /// Core Data container with the database model
     let container: NSPersistentContainer = NSPersistentContainer(name: "Database")
     
+    
     /// Default init method. Load the Core Data container
     init(preview: Bool = false) {
         super.init()
         if preview {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        let description = container.persistentStoreDescriptions.first
+        description?.shouldMigrateStoreAutomatically = true
+        description?.shouldInferMappingModelAutomatically = true
+        
         container.loadPersistentStores { _, _ in
             self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         }
@@ -77,33 +82,33 @@ class DataManager: NSObject, ObservableObject {
 
 // MARK: - Save Journal Entry to Core Data
 extension DataManager {
-    func saveShooting(text: String,
-                   moodLevel: Int,
-                   moodText: String,
-                   reboundText: String,
-                   reasons: String,
-                   isRebounded: Bool = false,
-                   images: [UIImage]? = nil,
-                   hasDeleted: Bool = false) {
+    
+    /// Save journal entries to Core Data_V2
+    /// 1.0.5 기준으로 수정사항을 반영한 함수
+    /// 느낀 점은 [MoodReason]이 아닌 String으로 저장
+    /// 이미지는 저장하지 않기 때문에 삭제
+    func saveEntry_V2(text: String,
+                      moodLevel: Int,
+                      moodText: String,
+                      reboundText: String,
+                      reasons: String,
+                      isRebounded: Bool = false,
+                      hasDeleted: Bool = false) {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
-        entryModel.text = text
         entryModel.isRebounded = isRebounded
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
         entryModel.reboundText = reboundText
         entryModel.hasDeleted = hasDeleted
         entryModel.reasons = reasons
-//        for index in 0..<images.count {
-//            saveImage(images[index], id: "\(entryModelId)-\(index)-thumbnail", thumbnail: true)
-//            saveImage(images[index], id: "\(entryModelId)-\(index)", thumbnail: false)
-//        }
         entryModel.date = Date()
         try? container.viewContext.save()
     }
+    
     /// Save journal entries to Core Data
-    func saveEntry(text: String, 
+    func saveEntry(text: String,
                    moodLevel: Int,
                    moodText: String,
                    reboundText: String,
@@ -114,7 +119,6 @@ extension DataManager {
         let entryModelId = UUID().uuidString
         let entryModel = JournalEntry(context: container.viewContext)
         entryModel.id = entryModelId
-        entryModel.text = text
         entryModel.isRebounded = isRebounded
         entryModel.moodLevel = Int16(moodLevel)
         entryModel.moodText = moodText
@@ -225,3 +229,18 @@ extension DataManager {
     
 }
 
+// MARK: - Fetch Journal Entries
+extension DataManager {
+    static func loadJournalEntries(context: NSManagedObjectContext) -> [JournalEntry] {
+        let request = NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
+        
+        print("뷰모델 : \(context)")
+        do {
+            let items = try context.fetch(request)
+            return items
+        } catch {
+            print("데이터 읽기 실패: \(error)")
+            return []
+        }
+    }
+}
