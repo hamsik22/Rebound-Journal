@@ -33,10 +33,10 @@ struct VerticalSlider: View {
                         }
                             .rotationEffect(.degrees(-90))
                             .frame(width: 350, height: 30))
-                    .onChange(of: sliderValue, perform: {
-                        newValue in
+                    .onChange(of: sliderValue) {
+                        _, newValue in
                         print(newValue)
-                    })
+                    }
             }
             Text("긍정")
         }

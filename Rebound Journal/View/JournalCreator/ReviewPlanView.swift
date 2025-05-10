@@ -52,7 +52,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .review ? .default : .gray)
                 TextEditor(text: $reviewText)
-                    .onChange(of: reviewText) { newValue in
+                    .onChange(of: reviewText) { _, newValue in
                         viewModel.reviewText = newValue
                     }
                     .focused($currentField, equals: .review)
@@ -75,7 +75,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .plan ? .default : .gray)
                 TextEditor(text: $planText)
-                    .onChange(of: planText) { newValue in
+                    .onChange(of: planText) { _, newValue in
                         viewModel.nextPlanText = newValue
                     }
                     .focused($currentField, equals: .plan)
