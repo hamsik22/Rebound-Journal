@@ -25,23 +25,17 @@ class JournalCreatorViewModel: ObservableObject {
     @Published var nextPlanText: String? = nil // 향후 계획
     
     func saveShooting(manager: DataManager) {
-        debugPrint("saveShooting")
-
-        guard let emotionValue,
-              let emotionText,
-              let reviewText,
-              let nextPlanText
-        else {
-            debugPrint("⚠️ 필수 값이 비어 있습니다.")
-            return
-        }
-
-        manager.saveShooting(
-            text: "",
-            moodLevel: Int(emotionValue),
-            moodText: emotionText.first!,
-            reboundText: nextPlanText,
-            reasons: reviewText
-        )
+        debugPrint("기록 저장하기(No Image)")
+        guard let text = reviewText,
+              let moodLevel = goalType,
+              let moodText = emotionText?.first,
+              let reasons = reviewText,
+              let reboundText = nextPlanText
+        else { return }
+        manager.saveEntry_V2(text: text,
+                          moodLevel: moodLevel ? 1 : 2,
+                          moodText: moodText,
+                          reboundText: reboundText,
+                          reasons: reasons)
     }
 }
