@@ -14,7 +14,7 @@ final class JournalData {
     var id: String // 식별값
     var date: Date // 생성 일자
     var hasDeleted: Bool // 삭제 여부
-    var isGoalIn: Bool // 골인여부
+    var isGoalIn: Bool? // 골인여부
     var emotionValue: Int? // 감정 수치
     var emotionText: String? // 감정 태그
     var review: String? // 느낀 점
@@ -24,7 +24,7 @@ final class JournalData {
     var mainGoal: String? // 큰 목표
     var subGoal: String? // 작은 목표
     
-    init(id: String, date: Date, hasDeleted: Bool, isGoalIn: Bool, emotionValue: Int? = nil, emotionText: String? = nil, review: String? = nil, nextPlan: String? = nil, purpose: String? = nil, mainGoal: String? = nil, subGoal: String? = nil) {
+    init(id: String, date: Date, hasDeleted: Bool = false, isGoalIn: Bool? = nil, emotionValue: Int? = nil, emotionText: String? = nil, review: String? = nil, nextPlan: String? = nil, purpose: String? = nil, mainGoal: String? = nil, subGoal: String? = nil) {
         self.id = id
         self.date = date
         self.hasDeleted = hasDeleted

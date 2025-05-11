@@ -16,6 +16,7 @@ struct ReviewPlanView: View {
     // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext) private var modelContext
     
     // UI State
     @FocusState private var currentField: Field?
@@ -98,7 +99,7 @@ struct ReviewPlanView: View {
                 viewModel.currentStep = .emotion
             }, onNext: {
                 manager.fullScreenMode = nil
-                viewModel.saveShooting(manager: manager)
+                viewModel.saveJournalToSwiftData(context: modelContext)
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
         .toolbar {

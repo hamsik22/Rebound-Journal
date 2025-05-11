@@ -6,18 +6,32 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ReboundJournalApp: App {
     // 데이터를 전체에서 쓸 방법
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var manager: DataManager = DataManager(preview: false)
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            JournalData.self
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
     
     var body: some Scene {
         WindowGroup {
             DashboardContentView()
                 .environmentObject(manager)
                 .environment(\.managedObjectContext, manager.container.viewContext)
+                .modelContainer(sharedModelContainer)
         }
     }
 }
