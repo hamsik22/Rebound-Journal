@@ -26,6 +26,7 @@ struct JounrnalCreator: View {
                     .environmentObject(manager)
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 

@@ -15,18 +15,21 @@ struct VerticalSlider: View {
     var body: some View {
         VStack {
             Text("부정")
-            ZStack {
-                Color.clear
-                    .frame(width: 20)
-                    .frame(maxHeight: .infinity)
-                    .overlay(
-                        Slider(value: $sliderValue, in: 0...3) { editing in
-                            isEdited = editing
-                            if !editing {
-                                DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                    withAnimation(.easeInOut(duration: 0.3)) {
-                                        isEdited = editing
-                                        sliderValue = round(sliderValue) // 가장 가까운 값으로 스냅
+            
+            GeometryReader { geometry in
+                ZStack {
+                    Color.clear
+                        .frame(width: 20)
+                        .frame(maxHeight: geometry.size.height)
+                        .overlay(
+                            Slider(value: $sliderValue, in: 0...3) { editing in
+                                isEdited = editing
+                                if !editing {
+                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                        withAnimation(.easeInOut(duration: 0.3)) {
+                                            isEdited = editing
+                                            sliderValue = round(sliderValue) // 가장 가까운 값으로 스냅
+                                        }
                                     }
                                 }
                             }
@@ -38,6 +41,7 @@ struct VerticalSlider: View {
                         print(newValue)
                     }
             }
+            
             Text("긍정")
         }
         .padding(10)
