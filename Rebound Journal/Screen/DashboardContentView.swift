@@ -185,7 +185,7 @@ struct DashboardContentView: View {
                     Spacer()
                 }.padding(.horizontal)
             }
-        }.animation(.easeInOut)
+        }
     }
 }
 
