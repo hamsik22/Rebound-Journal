@@ -33,9 +33,10 @@ struct EmotionTracker: View {
                             .padding()
                     } else if !isSliderEditing {
                         EmotionText(selectedTags: $emotionText)
-                            .onChange(of: emotionText) { newValue in
+                            .onChange(of: emotionText) { _, newValue in
                                 viewModel.emotionText = newValue
                             }
+                            
                     }
                     else {
                         FeelingShape(value: $emotionValue,
@@ -43,7 +44,7 @@ struct EmotionTracker: View {
                     }
                     Spacer()
                     VerticalSlider(sliderValue: $emotionValue, isEdited: $viewModel.isSliderEditing)
-                        .onChange(of: emotionValue, perform: { newValue in
+                        .onChange(of: emotionValue) { _, newValue in
                             print("Slider: \(newValue)")
                             switch newValue {
                             case 0...0.5:
@@ -57,8 +58,8 @@ struct EmotionTracker: View {
                             default:
                                 emotionShape = .softSpikes
                             }
-                        })
-                        .onChange(of: viewModel.isSliderEditing) { newValue in
+                        }
+                        .onChange(of: viewModel.isSliderEditing) { _, newValue in
                             viewModel.emotionValue = emotionValue
                         }
                         .frame(width: 60)
@@ -79,7 +80,7 @@ struct FeelingShape: View {
             .resizable().scaledToFit()
             .frame(maxWidth: .infinity)
             .scaleEffect(shapeScale)
-            .onChange(of: currentFeelingShape, perform: { _ in
+            .onChange(of: currentFeelingShape) { _, _ in
                 withAnimation {
                     shapeScale = 0
                 }
@@ -88,7 +89,7 @@ struct FeelingShape: View {
                         shapeScale = 1
                     }
                 }
-            })
+            }
         
             .onAppear() {
                 withAnimation(.linear(duration: 3).repeatForever(autoreverses: false)) {

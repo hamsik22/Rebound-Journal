@@ -32,6 +32,17 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    var dayLabel: String {
+        return Date.dayLabelFormatter.string(from: self)
+    }
+
+    private static let dayLabelFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "d일"
+        return formatter
+    }()
+
     func string(format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format

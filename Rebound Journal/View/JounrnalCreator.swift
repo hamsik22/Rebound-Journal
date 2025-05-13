@@ -16,7 +16,9 @@ struct JounrnalCreator: View {
     
     var body: some View {
         VStack {
-            TopProgressBarView
+            ModalHeaderBar(onDismiss:  {
+                manager.fullScreenMode = nil
+            }, hasAlert: true)
             switch viewModel.currentStep {
             case .shoot: SelectShootTypeView(viewModel: viewModel)
             case .emotion: EmotionInputView(viewModel: viewModel)
@@ -25,29 +27,6 @@ struct JounrnalCreator: View {
             }
         }
         .ignoresSafeArea(.keyboard)
-    }
-    
-    private var TopProgressBarView: some View {
-        HStack {
-            Spacer()
-            Button {
-                manager.fullScreenMode = nil
-            } label: {
-                Image(systemName: Constants.ImageStrings.xMark)
-                    .font(.system(size: 20, weight: .semibold))
-                    .tint(.default)
-                    .padding()
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text(Constants.Strings.exitFlow),
-                      message: Text(Constants.Strings.exitDescription),
-                      primaryButton: .default(Text("OK"), action: {
-                    manager.fullScreenMode = nil
-                }),
-                      secondaryButton: .cancel(Text("Cancel"))
-                )
-            }
-        }
     }
 }
 

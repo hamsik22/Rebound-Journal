@@ -33,14 +33,14 @@ struct VerticalSlider: View {
                                     }
                                 }
                             }
-                                .rotationEffect(.degrees(-90))
-                                .frame(width: geometry.size.height, height: 30))
-                        .onChange(of: sliderValue, perform: {
-                            newValue in
-                            print(newValue)
-                        })
+                        )
                 }
-                .frame(maxWidth: .infinity)
+                            .rotationEffect(.degrees(-90))
+                            .frame(width: 350, height: 30)
+                    .onChange(of: sliderValue) {
+                        _, newValue in
+                        debugPrint(newValue)
+                    }
             }
             
             Text("긍정")

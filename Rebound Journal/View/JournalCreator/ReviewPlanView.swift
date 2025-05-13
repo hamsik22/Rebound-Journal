@@ -16,6 +16,7 @@ struct ReviewPlanView: View {
     // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext) private var modelContext
     
     // UI State
     @FocusState private var currentField: Field?
@@ -53,7 +54,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .review ? .default : .gray)
                 TextEditor(text: $reviewText)
-                    .onChange(of: reviewText) { newValue in
+                    .onChange(of: reviewText) { _, newValue in
                         viewModel.reviewText = newValue
                     }
                     .focused($currentField, equals: .review)
@@ -78,7 +79,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .plan ? .default : .gray)
                 TextEditor(text: $planText)
-                    .onChange(of: planText) { newValue in
+                    .onChange(of: planText) { _, newValue in
                         viewModel.nextPlanText = newValue
                     }
                     .focused($currentField, equals: .plan)
@@ -95,21 +96,19 @@ struct ReviewPlanView: View {
                     }
             }
             
-        }
-        .padding()
-        
-        // StepControll
-        StepControlView(onPrevious: {
-            viewModel.currentStep = .emotion
-        }, onNext: {
-            manager.fullScreenMode = nil
-            viewModel.saveShooting(manager: manager)
-        }, canGoNext: canSave,
-                        nextButtonText: systemText.saveButton)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("키보드 내리기") {
-                    currentField = .none
+            // StepControll
+            StepControlView(onPrevious: {
+                viewModel.currentStep = .emotion
+            }, onNext: {
+                manager.fullScreenMode = nil
+                viewModel.saveJournalToSwiftData(context: modelContext)
+            }, canGoNext: canSave,
+                            nextButtonText: systemText.saveButton)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Button("키보드 내리기") {
+                        currentField = .none
+                    }
                 }
             }
         }
