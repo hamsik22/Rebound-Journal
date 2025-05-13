@@ -33,9 +33,10 @@ struct VerticalSlider: View {
                                     }
                                 }
                             }
-                        }
+                        )
+                }
                             .rotationEffect(.degrees(-90))
-                            .frame(width: 350, height: 30))
+                            .frame(width: 350, height: 30)
                     .onChange(of: sliderValue) {
                         _, newValue in
                         print(newValue)

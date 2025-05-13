@@ -104,10 +104,11 @@ struct ReviewPlanView: View {
                 viewModel.saveJournalToSwiftData(context: modelContext)
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("키보드 내리기") {
-                    currentField = .none
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Button("키보드 내리기") {
+                        currentField = .none
+                    }
                 }
             }
         }
