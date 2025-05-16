@@ -11,9 +11,9 @@ import SwiftData
 @Model
 final class JournalData {
 
-    var id: String // 식별값
-    var date: Date // 생성 일자
-    var hasDeleted: Bool // 삭제 여부
+    var id: String? // 식별값
+    var date: Date? // 생성 일자
+    var hasDeleted: Bool? // 삭제 여부
     var isGoalIn: Bool? // 골인여부
     var emotionValue: Int? // 감정 수치
     var emotionText: String? // 감정 태그
@@ -25,7 +25,8 @@ final class JournalData {
     var mainGoal: String? // 큰 목표
     var subGoal: String? // 작은 목표
     
-    init(id: String, date: Date,
+    init(id: String? = nil,
+         date: Date? = nil,
          hasDeleted: Bool = false,
          isGoalIn: Bool? = nil,
          emotionValue: Int? = nil,
