@@ -10,6 +10,8 @@ import SwiftUI
 struct DashboardContentView: View {
     
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext)private var modelContext
+    @Environment(\.managedObjectContext)private var context
     @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
@@ -53,6 +55,7 @@ struct DashboardContentView: View {
             if manager.savedPasscode.count == 4 && !manager.didEnterCorrectPasscode {
                 manager.fullScreenMode = .passcodeView
             }
+            manager.convertDupicateDataToSwiftData(nsContext: context, modelContext: modelContext)
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
             SettingsView() // 모달로 표시될 View
