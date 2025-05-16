@@ -46,20 +46,25 @@ class JournalCreatorViewModel: ObservableObject {
     }
     
     /// SwiftData로 저장하는 로직
-    func saveJournalToSwiftData(context: ModelContext) {
-        print("Save Journal To SwiftData")
+    func saveJournal(context: ModelContext) {
+        debugPrint("Save Journal To SwiftData")
         
         let journal = JournalData(id: UUID().uuidString,
                                   date: Date(),
+                                  hasDeleted: false,
                                   isGoalIn: goalType,
                                   emotionValue: Int(emotionValue ?? 0.0),
                                   emotionText: emotionText?.first,
                                   review: reviewText,
                                   nextPlan: nextPlanText,
+                                  isRebounded: false,
                                   purpose: purpose,
                                   mainGoal: mainGoal,
-                                  subGoal: subGoal)
-        print("Journal ReviewText: \(String(describing: reviewText))")
+                                  subGoal: subGoal
+        )
+        debugPrint("Journal ReviewText: \(String(describing: reviewText))")
+        
         context.insert(journal) // 데이터 저장
+        debugPrint("Successfully Saved Journal")
     }
 }
