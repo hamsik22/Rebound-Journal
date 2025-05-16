@@ -19,12 +19,23 @@ final class JournalData {
     var emotionText: String? // 감정 태그
     var review: String? // 느낀 점
     var nextPlan: String? // 향후 계획
+    var isRebounded: Bool? // 리바운드 여부
     
     var purpose: String? // 목적
     var mainGoal: String? // 큰 목표
     var subGoal: String? // 작은 목표
     
-    init(id: String, date: Date, hasDeleted: Bool = false, isGoalIn: Bool? = nil, emotionValue: Int? = nil, emotionText: String? = nil, review: String? = nil, nextPlan: String? = nil, purpose: String? = nil, mainGoal: String? = nil, subGoal: String? = nil) {
+    init(id: String, date: Date,
+         hasDeleted: Bool = false,
+         isGoalIn: Bool? = nil,
+         emotionValue: Int? = nil,
+         emotionText: String? = nil,
+         review: String? = nil,
+         nextPlan: String? = nil,
+         isRebounded: Bool? = nil,
+         purpose: String? = nil,
+         mainGoal: String? = nil,
+         subGoal: String? = nil) {
         self.id = id
         self.date = date
         self.hasDeleted = hasDeleted
@@ -33,6 +44,7 @@ final class JournalData {
         self.emotionText = emotionText
         self.review = review
         self.nextPlan = nextPlan
+        self.isRebounded = isRebounded
         self.purpose = purpose
         self.mainGoal = mainGoal
         self.subGoal = subGoal
