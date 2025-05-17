@@ -46,7 +46,7 @@ struct StepControlView: View {
                 
                 Button {
                     if canGoNext {
-                        debugPrint("다음으로")
+                        print("다음으로")
                         onNext()
                     }
                 } label: {

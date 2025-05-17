@@ -79,22 +79,22 @@ struct ModalHeaderBar: View {
 
 #Preview("Dismiss") {
     ModalHeaderBar(onDismiss: {
-        debugPrint("onDismiss")
+        print("onDismiss")
     })
 }
 #Preview("onBack") {
-    ModalHeaderBar(onBack: { debugPrint("onBack") })
+    ModalHeaderBar(onBack: { print("onBack") })
 }
 #Preview("Title") {
     ModalHeaderBar(title: "Title")
 }
 #Preview("onBack&Dismiss") {
-    ModalHeaderBar(onBack: { debugPrint("onBack") },
-                   onDismiss: { debugPrint("onDismiss") })
+    ModalHeaderBar(onBack: { print("onBack") },
+                   onDismiss: { print("onDismiss") })
 }
 #Preview("All") {
-    ModalHeaderBar(onBack: { debugPrint("onBack") }, title: "Title", onDismiss: { debugPrint("onDismiss") })
+    ModalHeaderBar(onBack: { print("onBack") }, title: "Title", onDismiss: { print("onDismiss") })
 }
 #Preview("Title&Dismiss") {
-    ModalHeaderBar(title: "Title", onDismiss: { debugPrint("onDismiss") })
+    ModalHeaderBar(title: "Title", onDismiss: { print("onDismiss") })
 }

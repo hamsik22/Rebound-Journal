@@ -38,7 +38,7 @@ struct VerticalSlider: View {
                 }
                     .onChange(of: sliderValue) {
                         _, newValue in
-                        debugPrint(newValue)
+                        print(newValue)
                     }
             }
             

@@ -48,7 +48,7 @@ struct SelectTargetView: View {
                 Spacer()
                 
                 Button(action: {
-                    debugPrint("다음 화면으로 이동")
+                    print("다음 화면으로 이동")
                 }) {
                     Text("건너뛰기")
                         .font(.system(size: 18, weight: .bold))

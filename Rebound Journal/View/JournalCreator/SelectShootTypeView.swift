@@ -38,8 +38,8 @@ struct SelectShootTypeView: View {
                 
                 Button(action: {
                     toggleSelection(type: false)
-                    debugPrint("Type : \(viewModel.goalType ?? false)")
-                    debugPrint("리바운드")
+                    print("Type : \(viewModel.goalType ?? false)")
+                    print("리바운드")
                 }) {
                     ShootTypeButton(type: false)
                         .padding()
@@ -54,7 +54,7 @@ struct SelectShootTypeView: View {
             }
             Spacer()
             Button(action: {
-                debugPrint("다음 화면으로 이동")
+                print("다음 화면으로 이동")
                 viewModel.currentStep = .emotion
             }) {
                 Text("다음으로")

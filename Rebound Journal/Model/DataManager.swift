@@ -299,10 +299,10 @@ extension DataManager {
                                           subGoal: nil)
                 modelContext.insert(newData)
             }
-            debugPrint("Sync \(data.count) Data")
+            print("Sync \(data.count) Data")
         }
         else {
-            debugPrint("There is no data to sync")
+            print("There is no data to sync")
         }
     }
 }
