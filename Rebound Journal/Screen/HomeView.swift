@@ -91,6 +91,7 @@ struct HomeView: View {
                 
                 Spacer()
                 
+                // MARK: 슛 쏘기 버튼
                 Button {
                     manager.fullScreenMode = .entryCreator
                 } label: {

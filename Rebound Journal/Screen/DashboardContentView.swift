@@ -57,6 +57,7 @@ struct DashboardContentView: View {
             if manager.savedPasscode.count == 4 && !manager.didEnterCorrectPasscode {
                 manager.fullScreenMode = .passcodeView
             }
+            // 중복되지 않는 CoreData를 SwiftData로 옮기는 함수
             manager.convertDupicateDataToSwiftData(nsContext: context, modelContext: modelContext)
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
@@ -102,7 +103,7 @@ struct DashboardContentView: View {
                             .scaledToFit()
                             .frame(width: 25)
                     }
-
+                    
                 }
             }
             Spacer()
@@ -145,8 +146,8 @@ struct DashboardContentView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 44, height: 39, alignment: .center)
                     .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
-                    // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                    //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
+                // MARK: 08. 3항 연산자로 if문을 줄이는 방법
+                //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
                 if entries.count > 0 {
                     Image("Ball")
                         .resizable()
@@ -156,14 +157,14 @@ struct DashboardContentView: View {
                 }
                 Text(date.string(format: "d"))
                     .font(.system(size: 22, weight: .semibold))
-                    //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
+                //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
                     .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
             }
             // MARK: 09. 요일을 한국어로 표기하는 방법
             Text(DateFormatter.koreanWeekdayFormatter()
                 .string(from: date))
-                .font(.system(size: 12))
-                .foregroundColor(.text)
+            .font(.system(size: 12))
+            .foregroundColor(.text)
         }
         .padding(5)
         .background(Color.diarySecondary.cornerRadius(10))
