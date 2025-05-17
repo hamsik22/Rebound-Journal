@@ -26,7 +26,7 @@ class DataManager: NSObject, ObservableObject {
     @Published var performance: [String: MoodLevel] = [String: MoodLevel]()
     @Published var selectedDate: Date = Date()
     @Published var selectedEntryImage: UIImage?
-    @Published var seledtedEntry: JournalEntry?
+    @Published var seledtedEntry: JournalData?
     //@Published var quotes: QuotesList = QuotesList()
     @Published var didEnterCorrectPasscode: Bool = false
     
@@ -153,17 +153,17 @@ extension DataManager {
 
 // MARK: - Update Journal Entry to Core Data
 extension DataManager {
-    func updateSelectedEntry(with selectedEntry: JournalEntry) {
+    func updateSelectedEntry(modelContext: ModelContext, with selectedEntry: JournalData) {
         selectedEntry.isRebounded = true
-        try? container.viewContext.save()
+        try? modelContext.save()
     }
 }
 
 // MARK: - Delete Journal Entry to Core Data
 extension DataManager {
-    func deleteSelectedEntry(with selectedEntry: JournalEntry) {
+    func deleteSelectedEntry(modelContext: ModelContext, with selectedEntry: JournalData) {
         selectedEntry.hasDeleted = true
-        try? container.viewContext.save()
+        try? modelContext.save()
     }
 }
 
@@ -279,6 +279,7 @@ extension DataManager {
         }
     }
     
+    /// 중복되지 않은 데이터가 있다면 저장하는 함수
     func convertDupicateDataToSwiftData(nsContext: NSManagedObjectContext, modelContext: ModelContext) {
         let data = fetchNonDuplicateCoreDataEntries(context: nsContext, modelContext: modelContext)
         

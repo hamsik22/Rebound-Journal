@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DashboardContentView: View {
     
@@ -15,6 +16,7 @@ struct DashboardContentView: View {
     @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
+    @Query private var journals: [JournalData]
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
     
@@ -133,7 +135,7 @@ struct DashboardContentView: View {
     
     // MARK: 06. 뷰를 따로 떼어놓는 것에 대한 방법2 -> 변수를 받기
     private func CalendarItem(atIndex index: Int) -> some View {
-        let entries = results.filter({ $0.date?.longFormat == manager.calendarDays[index].longFormat })
+        let entries = journals.filter({ $0.date?.longFormat == manager.calendarDays[index].longFormat })
         let date = manager.calendarDays[index]
         // MARK: 07. 날짜를 비교하는 간단한 방법
         let isTodayItem = date.longFormat == Date().longFormat

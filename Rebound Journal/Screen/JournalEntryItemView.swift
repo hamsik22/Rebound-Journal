@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct JournalEntryItemView: View {
-    let model: JournalEntry
+    let model: JournalData
 
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 10) {
                 JournalEntryHeaderView(model: model)
                 
-                if let entryText = model.moodText {
+                if let entryText = model.emotionText {
                     Text(entryText)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 20, weight: .regular))
@@ -24,7 +24,7 @@ struct JournalEntryItemView: View {
                 
                 Color.dark.frame(height: 1).opacity(0.5)
                 
-                if let entryText = model.reboundText {
+                if let entryText = model.nextPlan {
                     Text(entryText)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 20, weight: .regular))
@@ -59,20 +59,22 @@ struct JournalEntryItemView: View {
 
 struct JournalEntryHeaderView: View {
     @EnvironmentObject var manager: DataManager
-    let model: JournalEntry
+    let model: JournalData
 
     var body: some View {
         HStack(alignment: .top) {
-            Image("level\(model.moodLevel)")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .clipShape(.rect(cornerRadius: 10))
-                .frame(width: 50, height: 50, alignment: .center)
+            if let isGoalIn = model.isGoalIn {
+                Image("level\(isGoalIn ? 1 : 2)")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(.rect(cornerRadius: 10))
+                    .frame(width: 50, height: 50, alignment: .center)
+            }
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(Constants.Strings.myMood)
                     .font(.system(size: 16, weight: .light))
-                if let mood = model.moodText?.uppercased() {
+                if let mood = model.emotionText?.uppercased() {
                     Text(mood)
                         .font(.system(size: 20, weight: .bold))
                 }
@@ -80,7 +82,10 @@ struct JournalEntryHeaderView: View {
             
             Spacer()
             
-            if model.moodLevel == 2 {
+            if let isGoalIn = model.isGoalIn {
+                
+            
+            if !isGoalIn {
                 Spacer()
                 Button {
                     manager.fullScreenMode = .reboundCreator
@@ -94,9 +99,10 @@ struct JournalEntryHeaderView: View {
                             .foregroundColor(.light)
                     }
                 }
-                .disabled(model.isRebounded)
-                .opacity(model.isRebounded ? 0.3 : 1)
+                .disabled(model.isRebounded ?? false)
+                .opacity((model.isRebounded ?? false) ? 0.3 : 1)
                 .frame(width: 88, height: 42)
+            }
             }
         }
         .foregroundColor(.text)
@@ -107,7 +113,7 @@ import SwiftUI
 
 struct JournalEntryPhotosView: View {
     @EnvironmentObject var manager: DataManager
-    var model: JournalEntry
+    var model: JournalData
 
     var body: some View {
         let width = UIScreen.main.bounds.width - 60
@@ -172,7 +178,7 @@ struct EntryImageView: View {
 
 
 struct JournalEntryFooterView: View {
-    let model: JournalEntry
+    let model: JournalData
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

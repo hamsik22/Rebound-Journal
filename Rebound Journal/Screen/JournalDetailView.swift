@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct JournalDetailView: View {
+    
+    @Environment(\.modelContext)private var modelContext
     @EnvironmentObject var manager: DataManager
     @State private var todayText: String = ""
     @State private var showAlert = false
@@ -26,17 +28,19 @@ struct JournalDetailView: View {
                 }
             }
             
-            Image("level\(manager.seledtedEntry!.moodLevel)")
+            if let isGoalIn = manager.seledtedEntry!.isGoalIn {
+            Image("level\(isGoalIn ? 1 : 2)")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50)
                 .clipShape(.rect(cornerRadius: 10))
+            }
             
             Text(Constants.Strings.whatIshoot)
                 .multilineTextAlignment(.leading)
                 .font(.system(size: 28, weight: .semibold))
             HStack {
-                Text(manager.seledtedEntry?.moodText ?? "empty")
+                Text(manager.seledtedEntry?.emotionText ?? "empty")
                     .padding()
                 Spacer()
             }
@@ -50,7 +54,7 @@ struct JournalDetailView: View {
                 .font(.system(size: 28, weight: .semibold))
             
             HStack {
-                Text(manager.seledtedEntry?.reboundText ?? "empty")
+                Text(manager.seledtedEntry?.nextPlan ?? "empty")
                     .padding()
                 Spacer()
             }
@@ -79,7 +83,7 @@ struct JournalDetailView: View {
                     title: Text("삭제"),
                     message: Text("정말 삭제하시겠습니까?"),
                     primaryButton: .destructive(Text("삭제"), action: {
-                        manager.deleteSelectedEntry(with: manager.seledtedEntry!)
+                        manager.deleteSelectedEntry(modelContext: modelContext, with: manager.seledtedEntry!)
                         manager.fullScreenMode = nil
                     }),
                     secondaryButton: .cancel(Text("취소"))

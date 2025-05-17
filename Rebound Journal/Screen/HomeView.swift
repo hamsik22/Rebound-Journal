@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
 
 /// Main home tab for the app
 struct HomeView: View {
     
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext) private var modelContext
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
+    @Query private var journals: [JournalData]
     
     // MARK: - Main rendering function
     var body: some View {
@@ -53,19 +56,19 @@ struct HomeView: View {
         }.padding(.top, 10)
     }
     
-    private func checkReboundList() -> [JournalEntry] {
+    private func checkReboundList() -> [JournalData] {
         let isTodaySelected = Date().longFormat == manager.selectedDate.longFormat
         
-        let filteredByDate = results.filter {
-            $0.date?.longFormat == manager.selectedDate.longFormat && !$0.hasDeleted
+        let filteredByDate = journals.filter {
+            $0.date?.longFormat == manager.selectedDate.longFormat && !($0.hasDeleted ?? false)
         }
         
         guard isTodaySelected else {
             return filteredByDate
         }
         
-        let nonReboundedNonDeleted = results.filter {
-            !$0.isRebounded && !$0.hasDeleted && $0.moodLevel == 2
+        let nonReboundedNonDeleted = journals.filter {
+            !($0.isRebounded ?? false) && !($0.hasDeleted ?? false) && ($0.isGoalIn != nil)
         }
         
         return Array(Set(nonReboundedNonDeleted + filteredByDate))
