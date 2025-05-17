@@ -13,10 +13,11 @@ struct DashboardContentView: View {
     @EnvironmentObject var manager: DataManager
     @Environment(\.modelContext)private var modelContext
     @Environment(\.managedObjectContext)private var context
-    @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
+    @StateObject var journalCreatorViewModel = JournalCreatorViewModel()
     @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @Query private var journals: [JournalData]
+    @Query private var subGoals: [SubGoalData]
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
     
@@ -59,6 +60,9 @@ struct DashboardContentView: View {
             }
             // 중복되지 않는 CoreData를 SwiftData로 옮기는 함수
             manager.convertDupicateDataToSwiftData(nsContext: context, modelContext: modelContext)
+            // 작은 목표 유무에 따라 슛 생성 화면 상태값 수정
+            journalCreatorViewModel.currentStep = subGoals.isEmpty ? .shoot : .selectSubGoal
+            
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
             SettingsView() // 모달로 표시될 View

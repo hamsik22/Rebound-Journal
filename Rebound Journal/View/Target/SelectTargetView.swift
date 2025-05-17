@@ -13,6 +13,9 @@ struct SelectTargetView: View {
         "목표 내용 2 목표 내용 2 목표 내용 2 목표 내용 2 ",
         "목표 내용 3 목표 내용 3 목표 내용 3 "
     ]
+    @ObservedObject var viewModel: JournalCreatorViewModel
+    var subGoals: [SubGoalData]
+    
     var body: some View {
             VStack {
                 // 질문
@@ -33,15 +36,17 @@ struct SelectTargetView: View {
                 
                 // 목표 리스트
                 VStack(alignment: .leading, spacing: 8) {
-                    ForEach(dummyShoots, id: \.self) { item in
-                        HStack {
-                            Text(item)
-                                .padding()
-                            Spacer()
+                    ForEach(subGoals, id: \.self) { item in
+                        if let text = item.goalText {
+                            HStack {
+                                Text(text)
+                                    .padding()
+                                Spacer()
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background(.gray.opacity(0.5))
+                            .clipShape(.rect(cornerRadius: 12))
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(.gray.opacity(0.5))
-                        .clipShape(.rect(cornerRadius: 12))
                     }
                 }
                 
@@ -49,6 +54,7 @@ struct SelectTargetView: View {
                 
                 Button(action: {
                     print("다음 화면으로 이동")
+                    viewModel.currentStep = .shoot
                 }) {
                     Text("건너뛰기")
                         .font(.system(size: 18, weight: .bold))
@@ -66,5 +72,5 @@ struct SelectTargetView: View {
 }
 
 #Preview {
-    SelectTargetView()
+    SelectTargetView(viewModel: JournalCreatorViewModel(), subGoals: [SubGoalData(goalText: "작은목표")])
 }

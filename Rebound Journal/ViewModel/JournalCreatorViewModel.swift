@@ -9,14 +9,15 @@ import Foundation
 import SwiftData
 
 enum ReboundProcessStep: CaseIterable {
-    case shoot, // 슛 타입
+    case selectSubGoal, // 작은 목표 설정
+         shoot, // 슛 타입
          emotion, // 현재 감정
          review // 느낀점 & 향후계획
 }
 class JournalCreatorViewModel: ObservableObject {
     
     // UI State
-    @Published var currentStep: ReboundProcessStep = .shoot
+    @Published var currentStep: ReboundProcessStep = .selectSubGoal
     @Published var isSliderEditing: Bool = false
     
     // Data

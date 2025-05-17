@@ -15,7 +15,8 @@ struct ReboundJournalApp: App {
     @StateObject private var manager: DataManager = DataManager(preview: false)
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            JournalData.self
+            JournalData.self,
+            SubGoalData.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
