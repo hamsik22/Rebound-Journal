@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum EmotionLevel {
+    case level0 // emotionTextsLevel0
+    case level1 // emotionTextsLevel1
+    case level2 // emotionTextsLevel2
+    case level3 // emotionTextsLevel3
+}
+
 struct Constants {
     struct ContentText {
         let shootTypeTitle = "어떤 슛을 남겨볼까요?"
@@ -19,10 +26,32 @@ struct Constants {
         let reviewShootingField = "짧아도 좋아요. 경험에 대해 적어봐요."
         let whatNextPlan = "앞으로의 계획은 어떤 것인가요?"
         let whatNextPlanField = "작은 것부터 생각해보아도 좋아요."
+
+        /// 긍정적
+        let emotionTextsLevel0 = ["기분이 좋은", "신나는", "자랑스러운", "의욕적인", "뿌듯한",
+                                  "상쾌한", "설레는", "감사한", "행복한", "자신감이 생긴",
+                                  "편안한", "만족한", "열정적인", "기대되는", "용기있는"]
+
+        /// 보통
+        let emotionTextsLevel1 = ["평범한", "일상적인", "중립적인", "무난한", "일반적인",
+                                  "보통의", "냉정한", "무감각한", "무관심한", "무표정한"]
+
+        /// 부정적
+        let emotionTextsLevel2 = ["실망스러운", "지루한", "어수선한", "괴로운", "불만족스러운",
+                                  "피곤한", "짜증나는", "슬픈", "불안한"]
+
+        /// 매우 부정적
+        let emotionTextsLevel3 = ["절망적인", "끔찍한", "비참한", "혐오스러운", "무서운",
+                                  "파괴적인", "쓸쓸한", "분노스러운", "좌절스러운", "무력한"]
         
-        let emotionTexts = ["기분이 좋은", "신나는", "자랑스러운", "의욕적인", "뿌듯한",
-                            "상쾌한", "설레는", "감사한", "행복한", "자신감이 생긴",
-                            "편안한", "만족한", "열정적인", "기대되는", "용기있는"]
+        func getEmotions(for level: EmotionLevel) -> [String] {
+            switch level {
+            case .level0: return emotionTextsLevel0
+            case .level1: return emotionTextsLevel1
+            case .level2: return emotionTextsLevel2
+            case .level3: return emotionTextsLevel3
+            }
+        }
     }
     
     struct SystemText {

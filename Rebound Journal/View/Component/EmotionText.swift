@@ -10,7 +10,7 @@ import SwiftUI
 struct EmotionText: View {
     
     // UI State
-    @State var emotions = Constants.ContentText().emotionTexts
+    @Binding var emotions: [String]
     @Binding var selectedTags: [String]
     @State private var showSheet = false
     @State private var inputText = ""
@@ -229,5 +229,5 @@ struct CreateEmotionView: View {
 }
 
 #Preview {
-    EmotionText(selectedTags: .constant([]))
+    //EmotionText(selectedTags: .constant([]))
 }
