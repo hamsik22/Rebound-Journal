@@ -6,16 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SelectTargetView: View {
-    var dummyShoots = [
-        "목표내용 1 목표내용 1 목표내용 1 목표내용 1 목표내용 1 목표내용 1",
-        "목표 내용 2 목표 내용 2 목표 내용 2 목표 내용 2 ",
-        "목표 내용 3 목표 내용 3 목표 내용 3 "
-    ]
+    
     @ObservedObject var viewModel: JournalCreatorViewModel
-    var subGoals: [SubGoalData]
-        
+    @State var subGoals: [SubGoalData]
     @State private var selectedGoal: SubGoalData?
     
     var body: some View {
@@ -92,5 +88,5 @@ struct SelectTargetView: View {
 }
 
 #Preview {
-    SelectTargetView(viewModel: JournalCreatorViewModel(), subGoals: [SubGoalData(goalText: "작은목표")])
+    SelectTargetView(viewModel: JournalCreatorViewModel(), subGoals: [])
 }

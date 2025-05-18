@@ -97,13 +97,24 @@ struct ReviewPlanView: View {
             }
             
             // StepControll
-            StepControlView(onPrevious: {
-                viewModel.currentStep = .emotion
-            }, onNext: {
-                manager.fullScreenMode = nil
-                viewModel.saveJournal(context: modelContext)
-            }, canGoNext: canSave,
-                            nextButtonText: systemText.saveButton)
+            StepControlView(
+                onPrevious: {
+                    if viewModel.subGoal == nil {
+                        viewModel.currentStep = .createSubGoal
+                    } else {
+                        viewModel.currentStep = .emotion
+                    }
+                },
+                onNext: {
+                    if viewModel.subGoal != nil {
+                        viewModel.saveJournal(context: modelContext)
+                        manager.fullScreenMode = nil
+                    }
+                    else { viewModel.currentStep = .createSubGoal }
+
+                },
+                canGoNext: canSave,
+                nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Button("키보드 내리기") {

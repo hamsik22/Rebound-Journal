@@ -13,7 +13,7 @@ struct DashboardContentView: View {
     @EnvironmentObject var manager: DataManager
     @Environment(\.modelContext)private var modelContext
     @Environment(\.managedObjectContext)private var context
-    @StateObject var journalCreatorViewModel = JournalCreatorViewModel()
+    @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @Query private var journals: [JournalData]

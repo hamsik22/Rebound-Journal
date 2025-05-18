@@ -12,7 +12,8 @@ enum ReboundProcessStep: CaseIterable {
     case selectSubGoal, // 작은 목표 설정
          shoot, // 슛 타입
          emotion, // 현재 감정
-         review // 느낀점 & 향후계획
+         review, // 느낀점 & 향후계획
+         createSubGoal // 작은 목표 생성
 }
 class JournalCreatorViewModel: ObservableObject {
     
@@ -29,22 +30,6 @@ class JournalCreatorViewModel: ObservableObject {
     @Published var purpose: String? = nil
     @Published var mainGoal: String? = nil
     @Published var subGoal: String? = nil
-    
-    /// 코어 데이터로 저장하는 로직
-    func saveShooting(manager: DataManager) {
-        print("기록 저장하기(No Image)")
-        guard let text = reviewText,
-              let moodLevel = goalType,
-              let moodText = emotionText?.first,
-              let reasons = reviewText,
-              let reboundText = nextPlanText
-        else { return }
-        manager.saveEntry_V2(text: text,
-                          moodLevel: moodLevel ? 1 : 2,
-                          moodText: moodText,
-                          reboundText: reboundText,
-                          reasons: reasons)
-    }
     
     /// SwiftData로 저장하는 로직
     func saveJournal(context: ModelContext) {
@@ -63,9 +48,31 @@ class JournalCreatorViewModel: ObservableObject {
                                   mainGoal: mainGoal,
                                   subGoal: subGoal
         )
-        print("Journal ReviewText: \(String(describing: reviewText))")
-        
         context.insert(journal) // 데이터 저장
-        print("Successfully Saved Journal")
+        print("""
+        저장된 Journal:
+        - ID: \(String(describing: journal.id))
+        - Date: \(String(describing: journal.date))
+        - hasDeleted: \(String(describing: journal.hasDeleted))
+        - isGoalIn: \(String(describing: journal.isGoalIn))
+        - Emotion Value: \(String(describing: journal.emotionValue))
+        - Emotion Text: \(journal.emotionText ?? "nil")
+        - Review: \(journal.review ?? "nil")
+        - Next Plan: \(journal.nextPlan ?? "nil")
+        - isRebounded: \(String(describing: journal.isRebounded))
+        - Purpose: \(journal.purpose ?? "nil")
+        - Main Goal: \(journal.mainGoal ?? "nil")
+        - Sub Goal: \(journal.subGoal ?? "nil")
+        """)
+    }
+    
+    func saveSubGoal(context: ModelContext) {
+        print("Save SubGoal To SwiftData")
+        
+        let subGoalData = SubGoalData(id: UUID().uuidString,
+                                      date: Date(),
+                                      goalText: subGoal)
+        context.insert(subGoalData)
+        print("저장된 SubGoal: \(String(describing: subGoalData.goalText))")
     }
 }

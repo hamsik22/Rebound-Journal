@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateTargetView: View {
     
-    @State var targetText: String = "계획을 세우고 실천하면 매일이 성장의 기회가 됩니다@@"
+    @Environment(\.modelContext)private var modelContext
+    @EnvironmentObject var manager: DataManager
+    @State var targetText: String = ""
+    @ObservedObject var viewModel: JournalCreatorViewModel
     
     var body: some View {
         // 전체
@@ -53,7 +57,7 @@ struct CreateTargetView: View {
                 }
                 .frame(height: 65)
                 .padding(5)
-                .background(Color.gray.opacity(0.2))
+                .background(Color("CellColor"))
                 .clipShape(.rect(cornerRadius: 12))
             }
             
@@ -63,15 +67,29 @@ struct CreateTargetView: View {
             Text("다음 슈팅 때 선택할 수 있어요.\n언제든지 다시 확인할 수 있어요.")
                 .multilineTextAlignment(.center)
             
-            StepControlView(onPrevious: {print(" 이전")}, onNext: {print("저장하기")}, canGoNext: true, nextButtonText: targetText.isEmpty ? "건너뛰기" :"저장하기")
+            StepControlView(
+                onPrevious: {
+                print("이전")
+                viewModel.currentStep = .review
+            },
+                onNext: {
+                print("저장하기")
+                viewModel.subGoal = targetText
+                viewModel.saveJournal(context: modelContext)
+                viewModel.saveSubGoal(context: modelContext)
+                manager.fullScreenMode = nil
+                viewModel.currentStep = .selectSubGoal
+            },
+                canGoNext: !targetText.isEmpty,
+                nextButtonText: "저장하기")
         }
         .padding()
     }
 }
 
 #Preview("!targetText.isEmpty") {
-    CreateTargetView()
+    CreateTargetView(viewModel: JournalCreatorViewModel())
 }
 #Preview("targetText.isEmpty") {
-    CreateTargetView(targetText: "")
+    CreateTargetView(targetText: "", viewModel: JournalCreatorViewModel())
 }
