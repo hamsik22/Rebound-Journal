@@ -15,7 +15,7 @@ struct JournalEntryItemView: View {
             VStack(alignment: .leading, spacing: 10) {
                 JournalEntryHeaderView(model: model)
                 
-                if let entryText = model.emotionText {
+                if let entryText = model.review {
                     Text(entryText)
                         .multilineTextAlignment(.leading)
                         .font(.system(size: 20, weight: .regular))
