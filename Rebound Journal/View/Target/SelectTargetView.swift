@@ -15,6 +15,8 @@ struct SelectTargetView: View {
     ]
     @ObservedObject var viewModel: JournalCreatorViewModel
     var subGoals: [SubGoalData]
+        
+    @State private var selectedGoal: SubGoalData?
     
     var body: some View {
         VStack {
@@ -44,8 +46,16 @@ struct SelectTargetView: View {
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
-                        .background(.gray.opacity(0.5))
-                        .clipShape(.rect(cornerRadius: 12))
+                        .background(Color("CellColor"))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(selectedGoal == item ? Color.accentColor : .clear, lineWidth: 2)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .onTapGesture {
+                            selectedGoal = item
+                            viewModel.subGoal = item.goalText
+                        }
                     }
                 }
             }
@@ -56,13 +66,23 @@ struct SelectTargetView: View {
                 print("다음 화면으로 이동")
                 viewModel.currentStep = .shoot
             }) {
-                Text("건너뛰기")
-                    .font(.system(size: 18, weight: .bold))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.accentColor)
-                    .foregroundColor(.white)
-                    .clipShape(.rect(cornerRadius: 90))
+                if let _ = selectedGoal {
+                    Text("다음으로")
+                        .font(.system(size: 18, weight: .bold))
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .clipShape(.rect(cornerRadius: 90))
+                } else {
+                    Text("건너뛰기")
+                        .font(.system(size: 18, weight: .bold))
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .clipShape(.rect(cornerRadius: 90))                    
+                }
             }
             .disabled(false)
             .animation(.easeInOut, value: 1)
