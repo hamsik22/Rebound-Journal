@@ -125,6 +125,7 @@ struct ReviewPlanView: View {
                 }
             }
         }
+        .padding()
     }
 }
 
