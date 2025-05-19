@@ -17,8 +17,10 @@ struct DashboardContentView: View {
     @ObservedObject var chartViewModel = ChartViewModel()
     @FetchRequest(sortDescriptors: []) private var results: FetchedResults<JournalEntry>
     @Query private var journals: [JournalData]
+    @Query private var subGoals: [SubGoalData]
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
+    @State private var journalCreatorStep: ReboundProcessStep = .createSubGoal
     
     var body: some View {
         ZStack {
@@ -32,7 +34,7 @@ struct DashboardContentView: View {
         .fullScreenCover(item: $manager.fullScreenMode) { type in
             switch type {
             case .entryCreator:
-                JounrnalCreator(viewModel: journalCreatorViewModel)
+                JounrnalCreator(viewModel: journalCreatorViewModel, currentStep: $journalCreatorStep)
                     .environmentObject(manager)
             case .readJournalView:
                 JournalDetailView()
@@ -57,7 +59,11 @@ struct DashboardContentView: View {
             if manager.savedPasscode.count == 4 && !manager.didEnterCorrectPasscode {
                 manager.fullScreenMode = .passcodeView
             }
+            // 중복되지 않는 CoreData를 SwiftData로 옮기는 함수
             manager.convertDupicateDataToSwiftData(nsContext: context, modelContext: modelContext)
+            // 작은 목표 유무에 따라 슛 생성 화면 상태값 수정
+            journalCreatorStep = subGoals.isEmpty ? .shoot : .selectSubGoal
+            
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
             SettingsView() // 모달로 표시될 View
@@ -102,7 +108,7 @@ struct DashboardContentView: View {
                             .scaledToFit()
                             .frame(width: 25)
                     }
-
+                    
                 }
             }
             Spacer()
@@ -145,8 +151,8 @@ struct DashboardContentView: View {
                 RoundedRectangle(cornerRadius: 8)
                     .frame(width: 44, height: 39, alignment: .center)
                     .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
-                    // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                    //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
+                // MARK: 08. 3항 연산자로 if문을 줄이는 방법
+                //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
                 if entries.count > 0 {
                     Image("Ball")
                         .resizable()
@@ -156,14 +162,14 @@ struct DashboardContentView: View {
                 }
                 Text(date.string(format: "d"))
                     .font(.system(size: 22, weight: .semibold))
-                    //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
+                //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
                     .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
             }
             // MARK: 09. 요일을 한국어로 표기하는 방법
             Text(DateFormatter.koreanWeekdayFormatter()
                 .string(from: date))
-                .font(.system(size: 12))
-                .foregroundColor(.text)
+            .font(.system(size: 12))
+            .foregroundColor(.text)
         }
         .padding(5)
         .background(Color.diarySecondary.cornerRadius(10))

@@ -16,6 +16,7 @@ struct EmotionInputView: View {
     @State private var sliderValue: Double = 0.5
     var canGoNext: Bool {
         viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)}
+    @Binding var currentStep: ReboundProcessStep
     // etc
     var text = Constants.ContentText()
     
@@ -32,9 +33,9 @@ struct EmotionInputView: View {
                 .padding()
             Spacer()
             StepControlView(onPrevious: {
-                viewModel.currentStep = .shoot
+                currentStep = .shoot
             }, onNext: {
-                viewModel.currentStep = .review
+                currentStep = .review
             }, canGoNext: canGoNext,
                             nextButtonText: "다음으로")
             .padding()
@@ -65,7 +66,7 @@ struct EmotionInputView: View {
         vm.goalType = true
         return vm
     }()
-    EmotionInputView(viewModel: viewModel)
+    EmotionInputView(viewModel: viewModel, currentStep: .constant(.createSubGoal))
 }
 
 #Preview("EmotionInputView: Rebound") {
@@ -74,5 +75,5 @@ struct EmotionInputView: View {
         vm.goalType = false
         return vm
     }()
-    EmotionInputView(viewModel: viewModel)
+    EmotionInputView(viewModel: viewModel, currentStep: .constant(.createSubGoal))
 }

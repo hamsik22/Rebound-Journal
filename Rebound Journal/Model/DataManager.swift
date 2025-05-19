@@ -256,7 +256,7 @@ extension DataManager {
             let journalData: [JournalData] = try context.fetch(FetchDescriptor<JournalData>())
             return journalData.compactMap { $0.id }
         } catch {
-            print("Learner 데이터를 찾을 수 없습니다.")
+            print("데이터를 찾을 수 없습니다.")
             return []
         }
     }

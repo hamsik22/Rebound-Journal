@@ -22,6 +22,7 @@ struct ReviewPlanView: View {
     @FocusState private var currentField: Field?
     @State var reviewText: String = ""
     @State var planText: String = ""
+    @Binding var currentStep: ReboundProcessStep
     var canSave: Bool {
         guard let reviewText = viewModel.reviewText else { return false }
         guard let planText = viewModel.nextPlanText else { return false }
@@ -97,13 +98,25 @@ struct ReviewPlanView: View {
             }
             
             // StepControll
-            StepControlView(onPrevious: {
-                viewModel.currentStep = .emotion
-            }, onNext: {
-                manager.fullScreenMode = nil
-                viewModel.saveJournal(context: modelContext)
-            }, canGoNext: canSave,
-                            nextButtonText: systemText.saveButton)
+            StepControlView(
+                onPrevious: {
+                    if viewModel.subGoal == nil {
+                        currentStep = .createSubGoal
+                    } else {
+                        currentStep = .emotion
+                    }
+                },
+                onNext: {
+                    if viewModel.subGoal != nil {
+                        viewModel.saveJournal(context: modelContext)
+                        currentStep = .selectSubGoal
+                        manager.fullScreenMode = nil
+                    }
+                    else { currentStep = .createSubGoal }
+
+                },
+                canGoNext: canSave,
+                nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Button("키보드 내리기") {
@@ -112,6 +125,7 @@ struct ReviewPlanView: View {
                 }
             }
         }
+        .padding()
     }
 }
 
@@ -124,5 +138,5 @@ struct ReviewPlanView: View {
         vm.emotionText = ["기분이 좋은"]
         return vm
     }()
-    ReviewPlanView(viewModel: mockViewModel)
+    ReviewPlanView(viewModel: mockViewModel, currentStep: .constant(.review))
 }
