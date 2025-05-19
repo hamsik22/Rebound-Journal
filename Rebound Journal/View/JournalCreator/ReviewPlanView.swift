@@ -101,7 +101,7 @@ struct ReviewPlanView: View {
                 viewModel.currentStep = .emotion
             }, onNext: {
                 manager.fullScreenMode = nil
-                viewModel.saveJournalToSwiftData(context: modelContext)
+                viewModel.saveJournal(context: modelContext)
             }, canGoNext: canSave,
                             nextButtonText: systemText.saveButton)
             .toolbar {

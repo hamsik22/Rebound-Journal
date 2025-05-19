@@ -31,7 +31,7 @@ class JournalCreatorViewModel: ObservableObject {
     
     /// 코어 데이터로 저장하는 로직
     func saveShooting(manager: DataManager) {
-        debugPrint("기록 저장하기(No Image)")
+        print("기록 저장하기(No Image)")
         guard let text = reviewText,
               let moodLevel = goalType,
               let moodText = emotionText?.first,
@@ -46,20 +46,25 @@ class JournalCreatorViewModel: ObservableObject {
     }
     
     /// SwiftData로 저장하는 로직
-    func saveJournalToSwiftData(context: ModelContext) {
+    func saveJournal(context: ModelContext) {
         print("Save Journal To SwiftData")
         
         let journal = JournalData(id: UUID().uuidString,
                                   date: Date(),
+                                  hasDeleted: false,
                                   isGoalIn: goalType,
                                   emotionValue: Int(emotionValue ?? 0.0),
                                   emotionText: emotionText?.first,
                                   review: reviewText,
                                   nextPlan: nextPlanText,
+                                  isRebounded: false,
                                   purpose: purpose,
                                   mainGoal: mainGoal,
-                                  subGoal: subGoal)
+                                  subGoal: subGoal
+        )
         print("Journal ReviewText: \(String(describing: reviewText))")
+        
         context.insert(journal) // 데이터 저장
+        print("Successfully Saved Journal")
     }
 }

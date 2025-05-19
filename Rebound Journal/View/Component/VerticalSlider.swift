@@ -19,7 +19,7 @@ struct VerticalSlider: View {
             GeometryReader { geometry in
                 ZStack {
                     Color.clear
-                        .frame(width: 20)
+                        .frame(width: 35)
                         .frame(maxHeight: geometry.size.height)
                         .overlay(
                             Slider(value: $sliderValue, in: 0...3) { editing in
@@ -33,13 +33,12 @@ struct VerticalSlider: View {
                                     }
                                 }
                             }
-                        )
+                                .rotationEffect(.degrees(-90))
+                                .frame(width: 350, height: 30))
                 }
-                            .rotationEffect(.degrees(-90))
-                            .frame(width: 350, height: 30)
                     .onChange(of: sliderValue) {
                         _, newValue in
-                        debugPrint(newValue)
+                        print(newValue)
                     }
             }
             
