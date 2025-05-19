@@ -9,8 +9,10 @@ import SwiftUI
 import SwiftData
 
 struct SelectTargetView: View {
-    
+    // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
+    @Binding var currentStep: ReboundProcessStep
+    // UI State
     @State var subGoals: [SubGoalData]
     @State private var selectedGoal: SubGoalData?
     
@@ -60,7 +62,7 @@ struct SelectTargetView: View {
             
             Button(action: {
                 print("다음 화면으로 이동")
-                viewModel.currentStep = .shoot
+                currentStep = .shoot
             }) {
                 if let _ = selectedGoal {
                     Text("다음으로")
@@ -84,9 +86,12 @@ struct SelectTargetView: View {
             .animation(.easeInOut, value: 1)
         }
         .padding()
+        .onAppear {
+            print("SelectTargetView : \(subGoals.count)")
+        }
     }
 }
 
 #Preview {
-    SelectTargetView(viewModel: JournalCreatorViewModel(), subGoals: [])
+    SelectTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal), subGoals: [])
 }

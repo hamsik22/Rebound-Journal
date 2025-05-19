@@ -12,6 +12,7 @@ struct SelectShootTypeView: View {
     @ObservedObject var viewModel: JournalCreatorViewModel
     // UI State
     var isTypeSelected: Bool {viewModel.goalType == nil ? true : false}
+    @Binding var currentStep: ReboundProcessStep
     // etc
     var text = Constants.ContentText()
     
@@ -55,7 +56,7 @@ struct SelectShootTypeView: View {
             Spacer()
             Button(action: {
                 print("다음 화면으로 이동")
-                viewModel.currentStep = .emotion
+                currentStep = .emotion
             }) {
                 Text("다음으로")
                     .font(.system(size: 18, weight: .bold))
@@ -110,5 +111,5 @@ extension SelectShootTypeView {
 }
 
 #Preview("SelectShootTypeView") {
-    SelectShootTypeView(viewModel: JournalCreatorViewModel())
+    SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
 }

@@ -22,6 +22,7 @@ struct ReviewPlanView: View {
     @FocusState private var currentField: Field?
     @State var reviewText: String = ""
     @State var planText: String = ""
+    @Binding var currentStep: ReboundProcessStep
     var canSave: Bool {
         guard let reviewText = viewModel.reviewText else { return false }
         guard let planText = viewModel.nextPlanText else { return false }
@@ -100,17 +101,18 @@ struct ReviewPlanView: View {
             StepControlView(
                 onPrevious: {
                     if viewModel.subGoal == nil {
-                        viewModel.currentStep = .createSubGoal
+                        currentStep = .createSubGoal
                     } else {
-                        viewModel.currentStep = .emotion
+                        currentStep = .emotion
                     }
                 },
                 onNext: {
                     if viewModel.subGoal != nil {
                         viewModel.saveJournal(context: modelContext)
+                        currentStep = .selectSubGoal
                         manager.fullScreenMode = nil
                     }
-                    else { viewModel.currentStep = .createSubGoal }
+                    else { currentStep = .createSubGoal }
 
                 },
                 canGoNext: canSave,
@@ -135,5 +137,5 @@ struct ReviewPlanView: View {
         vm.emotionText = ["기분이 좋은"]
         return vm
     }()
-    ReviewPlanView(viewModel: mockViewModel)
+    ReviewPlanView(viewModel: mockViewModel, currentStep: .constant(.review))
 }

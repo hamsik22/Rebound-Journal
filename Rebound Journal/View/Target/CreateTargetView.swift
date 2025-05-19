@@ -9,11 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct CreateTargetView: View {
-    
+    // Shared Dependencies
     @Environment(\.modelContext)private var modelContext
     @EnvironmentObject var manager: DataManager
-    @State var targetText: String = ""
     @ObservedObject var viewModel: JournalCreatorViewModel
+    @Binding var currentStep: ReboundProcessStep
+    // UI State
+    @State var targetText: String = ""
     
     var body: some View {
         // 전체
@@ -70,26 +72,26 @@ struct CreateTargetView: View {
             StepControlView(
                 onPrevious: {
                 print("이전")
-                viewModel.currentStep = .review
+                currentStep = .review
             },
                 onNext: {
                 print("저장하기")
                 viewModel.subGoal = targetText
+                currentStep = .selectSubGoal
                 viewModel.saveJournal(context: modelContext)
                 viewModel.saveSubGoal(context: modelContext)
                 manager.fullScreenMode = nil
-                viewModel.currentStep = .selectSubGoal
             },
                 canGoNext: !targetText.isEmpty,
-                nextButtonText: "저장하기")
+                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기")
         }
         .padding()
     }
 }
 
 #Preview("!targetText.isEmpty") {
-    CreateTargetView(viewModel: JournalCreatorViewModel())
+    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
 }
 #Preview("targetText.isEmpty") {
-    CreateTargetView(targetText: "", viewModel: JournalCreatorViewModel())
+    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
 }
