@@ -51,4 +51,3 @@ struct VerticalSlider: View {
 #Preview {
     VerticalSlider(sliderValue: .constant(1), isEdited: .constant(false))
 }
-

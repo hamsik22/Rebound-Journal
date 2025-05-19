@@ -10,14 +10,30 @@ import SwiftUI
 struct EmotionTracker: View {
     // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
+    
     // UI State
     @State var emotionShape: ImageResource = .positiveCircle
     @State var emotionValue: Double = 0.0
     @State var emotionText: [String] = []
+    @State var selectedEmotionTags: [String] = []
+    
+    var currentEmotionLevel: EmotionLevel {
+        switch emotionValue {
+        case 0..<0.5: return .level0
+        case 0.5..<1.5: return .level1
+        case 1.5..<2.5: return .level2
+        default: return .level3
+        }
+    }
+    
+    // 기타 상태
     var isFirstEnter: Bool {
-        !viewModel.isSliderEditing && viewModel.emotionValue == nil}
-    var isSliderEditing: Bool {viewModel.isSliderEditing}
-    // etc
+        !viewModel.isSliderEditing && viewModel.emotionValue == nil
+    }
+    var isSliderEditing: Bool {
+        viewModel.isSliderEditing
+    }
+    
     var text = Constants.SystemText()
     
     var body: some View {
@@ -32,34 +48,48 @@ struct EmotionTracker: View {
                             .bold()
                             .padding()
                     } else if !isSliderEditing {
-                        EmotionText(selectedTags: $emotionText)
-                            .onChange(of: emotionText) { _, newValue in
+                        EmotionText(emotions: $emotionText, selectedTags: $selectedEmotionTags)
+                            .onChange(of: selectedEmotionTags) { _, newValue in
                                 viewModel.emotionText = newValue
                             }
-                            
-                    }
-                    else {
+                    } else {
                         FeelingShape(value: $emotionValue,
                                      currentFeelingShape: $emotionShape)
                     }
+                    
                     Spacer()
+                    
                     VerticalSlider(sliderValue: $emotionValue, isEdited: $viewModel.isSliderEditing)
                         .onChange(of: emotionValue) { _, newValue in
                             print("Slider: \(newValue)")
+                            
+                            // 감정 모양 업데이트
                             switch newValue {
-                            case 0...0.5:
+                            case 0..<0.5:
                                 emotionShape = .positiveCircle
-                            case 0.5...1.5:
+                            case 0.5..<1.5:
                                 emotionShape = .softSpikes
-                            case 1.5...2.5:
+                            case 1.5..<2.5:
                                 emotionShape = .sharpSpike
-                            case 2.5...3:
+                            case 2.5...:
                                 emotionShape = .thornball
                             default:
-                                emotionShape = .softSpikes
+                                emotionShape = .positiveCircle
+                            }
+                            
+                            // 감정 텍스트 업데이트
+                            switch currentEmotionLevel {
+                            case .level0:
+                                emotionText = Constants.ContentText().emotionTextsLevel0
+                            case .level1:
+                                emotionText = Constants.ContentText().emotionTextsLevel1
+                            case .level2:
+                                emotionText = Constants.ContentText().emotionTextsLevel2
+                            case .level3:
+                                emotionText = Constants.ContentText().emotionTextsLevel3
                             }
                         }
-                        .onChange(of: viewModel.isSliderEditing) { _, newValue in
+                        .onChange(of: viewModel.isSliderEditing) { _, _ in
                             viewModel.emotionValue = emotionValue
                         }
                         .frame(width: 60)
@@ -68,6 +98,7 @@ struct EmotionTracker: View {
         }
     }
 }
+
 
 struct FeelingShape: View {
     @Binding var value: Double
