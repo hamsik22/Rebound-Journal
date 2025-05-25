@@ -22,6 +22,7 @@ struct SelectShootTypeView: View {
                                 description: text.shootTypeDescription)
             Spacer()
             HStack {
+								// 골인 버튼
                 Button(action: {
                     toggleSelection(type: true)
                 }) {
@@ -29,27 +30,34 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(.clear)
+												.background(
+														RoundedRectangle(cornerRadius: 10)
+																.fill(Color.white)
+																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+												)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == true ? Color.accentColor : Color.gray, lineWidth: 2)
+																.stroke(viewModel.goalType == true ? Color.accentColor : .shootTypeButtonBorder, lineWidth: 1)
                         )
                 }
                 Spacer(minLength: 30)
-                
+
+								// 리바운드 버튼
                 Button(action: {
                     toggleSelection(type: false)
-										debugPrint("Type : \(viewModel.goalType ?? false)")
-										debugPrint("리바운드")
                 }) {
                     ShootTypeButton(type: false)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(.clear)
+												.background(
+														RoundedRectangle(cornerRadius: 10)
+																.fill(Color.white)
+																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+												)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == false ? Color.accentColor : Color.gray, lineWidth: 2)
+                                .stroke(viewModel.goalType == false ? Color.accentColor : Color.shootTypeButtonBorder, lineWidth: 1)
                         )
                 }
             }
