@@ -110,11 +110,11 @@ final class ChartViewModel: ObservableObject {
         self.journalSummary = JournalSummary(entries: self.journals)
         self.makeChartItems(from: self.journals)
         self.makeGroupedJournalData()
-        print("Journals = \(self.journals.count)")
-        print("JournalData = \(self.journalData.count)")
-        print("JournalSummary = \(self.journalSummary.total)")
-        print("JournalChartItems = \(self.journalChart.count)")
-        print("GroupedJournalData = \(self.groupedJournalData.count)")
+				debugPrint("Journals = \(self.journals.count)")
+        debugPrint("JournalData = \(self.journalData.count)")
+        debugPrint("JournalSummary = \(self.journalSummary.total)")
+        debugPrint("JournalChartItems = \(self.journalChart.count)")
+        debugPrint("GroupedJournalData = \(self.groupedJournalData.count)")
     }
 }
 

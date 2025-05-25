@@ -71,11 +71,11 @@ struct CreateTargetView: View {
             
             StepControlView(
                 onPrevious: {
-                print("이전")
+								debugPrint("이전")
                 currentStep = .review
             },
                 onNext: {
-                print("저장하기")
+								debugPrint("저장하기")
                 viewModel.subGoal = targetText
                 currentStep = .selectSubGoal
                 viewModel.saveJournal(context: modelContext)

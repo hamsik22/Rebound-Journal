@@ -46,7 +46,7 @@ struct StepControlView: View {
                 
                 Button {
                     if canGoNext {
-                        print("다음으로")
+                        debugPrint("다음으로")
                         onNext()
                     }
                 } label: {
@@ -68,8 +68,8 @@ struct StepControlView: View {
 }
 
 #Preview("Enabled") {
-    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: true, nextButtonText: "다음으로")
+    StepControlView(onPrevious: {debugPrint("이전")}, onNext: {debugPrint("다음으로")}, canGoNext: true, nextButtonText: "다음으로")
 }
 #Preview("Disabled") {
-    StepControlView(onPrevious: {print("이전")}, onNext: {print("다음으로")}, canGoNext: false, nextButtonText: "다음으로")
+    StepControlView(onPrevious: {debugPrint("이전")}, onNext: {debugPrint("다음으로")}, canGoNext: false, nextButtonText: "다음으로")
 }

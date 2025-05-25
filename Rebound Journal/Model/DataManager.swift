@@ -235,12 +235,12 @@ extension DataManager {
     static func loadJournalEntries(context: NSManagedObjectContext) -> [JournalEntry] {
         let request = NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
         
-        print("뷰모델 : \(context)")
+        debugPrint("뷰모델 : \(context)")
         do {
             let items = try context.fetch(request)
             return items
         } catch {
-            print("데이터 읽기 실패: \(error)")
+            debugPrint("데이터 읽기 실패: \(error)")
             return []
         }
     }
@@ -256,7 +256,7 @@ extension DataManager {
             let journalData: [JournalData] = try context.fetch(FetchDescriptor<JournalData>())
             return journalData.compactMap { $0.id }
         } catch {
-            print("데이터를 찾을 수 없습니다.")
+            debugPrint("데이터를 찾을 수 없습니다.")
             return []
         }
     }
@@ -274,7 +274,7 @@ extension DataManager {
             }
             return nonDuplicateEntries
         } catch {
-            print("Error fetching non-duplicate CoreData entries: \(error)")
+            debugPrint("Error fetching non-duplicate CoreData entries: \(error)")
             return []
         }
     }
@@ -299,10 +299,10 @@ extension DataManager {
                                           subGoal: nil)
                 modelContext.insert(newData)
             }
-            print("Sync \(data.count) Data")
+            debugPrint("Sync \(data.count) Data")
         }
         else {
-            print("There is no data to sync")
+            debugPrint("There is no data to sync")
         }
     }
 }

@@ -121,7 +121,7 @@ struct EmotionTagLayout: Layout {
         // Placing Views
         var origin = bounds.origin
         let maxWidth = bounds.width
-        print(maxWidth, bounds.maxX)
+        debugPrint(maxWidth, bounds.maxX)
         let rows = generateRows(maxWidth, proposal, subviews)
         
         for row in rows {

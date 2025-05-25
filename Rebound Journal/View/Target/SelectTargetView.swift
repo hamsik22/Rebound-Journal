@@ -61,7 +61,7 @@ struct SelectTargetView: View {
             Spacer()
             
             Button(action: {
-                print("다음 화면으로 이동")
+                debugPrint("다음 화면으로 이동")
                 currentStep = .shoot
             }) {
                 if let _ = selectedGoal {
@@ -87,7 +87,7 @@ struct SelectTargetView: View {
         }
         .padding()
         .onAppear {
-            print("SelectTargetView : \(subGoals.count)")
+            debugPrint("SelectTargetView : \(subGoals.count)")
         }
     }
 }
