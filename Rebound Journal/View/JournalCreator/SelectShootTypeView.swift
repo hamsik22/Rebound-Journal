@@ -39,8 +39,8 @@ struct SelectShootTypeView: View {
                 
                 Button(action: {
                     toggleSelection(type: false)
-                    print("Type : \(viewModel.goalType ?? false)")
-                    print("리바운드")
+										debugPrint("Type : \(viewModel.goalType ?? false)")
+										debugPrint("리바운드")
                 }) {
                     ShootTypeButton(type: false)
                         .padding()
@@ -55,18 +55,28 @@ struct SelectShootTypeView: View {
             }
             Spacer()
             Button(action: {
-                print("다음 화면으로 이동")
+								debugPrint("다음 화면으로 이동")
                 currentStep = .emotion
             }) {
-                Text("다음으로")
-                    .font(.system(size: 18, weight: .bold))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.accentColor)
-                    .foregroundColor(.default)
-                    .cornerRadius(90)
+								if viewModel.goalType == nil {
+										Text("다음으로")
+												.font(.system(size: 18, weight: .bold))
+												.padding()
+												.frame(maxWidth: .infinity)
+												.background(.disabledButtonBackground)
+												.foregroundColor(.disabledButtonText)
+												.cornerRadius(90)
+												.disabled(true)
+								} else {
+										Text("다음으로")
+												.font(.system(size: 18, weight: .bold))
+												.padding()
+												.frame(maxWidth: .infinity)
+												.background(Color.accentColor)
+												.foregroundColor(.white)
+												.cornerRadius(90)
+								}
             }
-            .disabled(viewModel.goalType == nil)
             .animation(.easeInOut, value: viewModel.goalType)
         }
         .padding()
