@@ -83,7 +83,7 @@ struct EmotionText: View {
                 .font(.system(size: 16, weight: .light))
         }
         .frame(height: 35)
-        .foregroundStyle(isSelected ? .accent : .default)
+				.foregroundStyle(isSelected ? .accent : .black)
         .padding(.horizontal, 10)
         .background {
             Capsule()
@@ -230,4 +230,5 @@ struct CreateEmotionView: View {
 
 #Preview {
     EmotionText(emotions: .constant(["감정태그", "기분이 좋은"]),selectedTags: .constant(["감정태그"]))
+				.preferredColorScheme(.dark)
 }

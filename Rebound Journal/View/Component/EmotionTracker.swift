@@ -131,5 +131,5 @@ struct FeelingShape: View {
 }
 
 #Preview {
-    EmotionTracker(viewModel: JournalCreatorViewModel())
+		EmotionTracker(viewModel: JournalCreatorViewModel());
 }

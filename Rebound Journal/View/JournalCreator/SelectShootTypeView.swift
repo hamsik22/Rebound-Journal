@@ -113,7 +113,7 @@ extension SelectShootTypeView {
                     .frame(width: 60, height: 70)
                 Spacer()
                 Text("골인")
-                    .foregroundStyle(.default)
+										.foregroundStyle(.black)
             }
         case false :
             VStack {
@@ -124,7 +124,7 @@ extension SelectShootTypeView {
                     .frame(width: 60, height: 70)
                 Spacer()
                 Text("리바운드")
-                    .foregroundStyle(.default)
+                    .foregroundStyle(.black)
             }
         }
     }
@@ -132,4 +132,5 @@ extension SelectShootTypeView {
 
 #Preview("SelectShootTypeView") {
     SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
+				.preferredColorScheme(.dark)
 }
