@@ -42,6 +42,7 @@ struct CreateTargetView: View {
                 HStack {
                     TextEditor(text: $targetText)
                         .font(.system(size: 15))
+												.foregroundStyle(.black)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity)
                         .scrollContentBackground(.hidden)
@@ -50,11 +51,12 @@ struct CreateTargetView: View {
                                 Text("목표를 적어주세요")
                                     .font(.system(size: 15))
                                     .padding(.horizontal, 10)
-                                    .opacity(0.3)
+																		.foregroundStyle(.description)
                             }
                         }
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
+												.foregroundStyle(.description)
                         .padding(.horizontal, 5)
                 }
                 .frame(height: 65)
@@ -66,9 +68,14 @@ struct CreateTargetView: View {
             Spacer()
             
             // MARK: 안내문구 2
-            Text("다음 슈팅 때 선택할 수 있어요.\n언제든지 다시 확인할 수 있어요.")
-                .multilineTextAlignment(.center)
-            
+						VStack(alignment: .center, spacing: 4) {
+								Text("다음 슈팅 때 선택할 수 있어요.")
+										.font(.system(size: 13))
+								Text("언제든지 다시 확인할 수 있어요.")
+										.font(.system(size: 13))
+						}
+						.padding(.bottom, 40)
+
             StepControlView(
                 onPrevious: {
 								debugPrint("이전")

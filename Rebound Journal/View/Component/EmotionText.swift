@@ -82,9 +82,9 @@ struct EmotionText: View {
             Text(tag)
                 .font(.system(size: 16, weight: .light))
         }
-        .frame(height: 35)
 				.foregroundStyle(isSelected ? .accent : .black)
         .padding(.horizontal, 10)
+				.padding(.vertical, 12)
         .background {
             Capsule()
                 .fill(color)
