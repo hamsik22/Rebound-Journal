@@ -97,11 +97,7 @@ struct ReviewPlanView: View {
             // StepControll
             StepControlView(
                 onPrevious: {
-                    if viewModel.subGoal == nil {
-                        currentStep = .createSubGoal
-                    } else {
-                        currentStep = .emotion
-                    }
+                    currentStep = .emotion
                 },
                 onNext: {
                     if viewModel.subGoal != nil {
@@ -110,7 +106,7 @@ struct ReviewPlanView: View {
                         manager.fullScreenMode = nil
                     }
                     else { currentStep = .createSubGoal }
-
+                    
                 },
                 canGoNext: canSave,
                 nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton)
