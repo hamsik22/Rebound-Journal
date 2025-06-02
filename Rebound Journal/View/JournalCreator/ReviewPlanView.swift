@@ -23,10 +23,7 @@ struct ReviewPlanView: View {
     @State var reviewText: String = ""
     @State var planText: String = ""
     @Binding var currentStep: ReboundProcessStep
-    var canSave: Bool {
-        guard let reviewText = viewModel.reviewText else { return false }
-        guard let planText = viewModel.nextPlanText else { return false }
-        return !reviewText.isEmpty && !planText.isEmpty}
+    var canSave: Bool { return !reviewText.isEmpty && !planText.isEmpty }
     var isReviewed: Bool {!reviewText.isEmpty || currentField == .review}
     var isPlaned: Bool {!planText.isEmpty || currentField == .plan}
     
@@ -124,6 +121,10 @@ struct ReviewPlanView: View {
                     }
                 }
             }
+        }
+        .onAppear() {
+            reviewText = viewModel.reviewText ?? ""
+            planText = viewModel.nextPlanText ?? ""
         }
         .padding()
     }
