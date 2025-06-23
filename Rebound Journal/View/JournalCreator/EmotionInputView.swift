@@ -41,23 +41,6 @@ struct EmotionInputView: View {
             .padding()
         }
     }
-    
-    /// 세로형 슬라이더
-    private var verticalSlider: some View {
-        VStack {
-            Text("부정")
-            ZStack {
-                Color.clear
-                    .frame(width: 30, height: 400)
-                    .overlay(
-                        Slider(value: $sliderValue, in: 0...3, step: 1)
-                            .rotationEffect(.degrees(-90))
-                            .frame(width: 400, height: 30))
-            }
-            .animation(.easeIn(duration: 0.3), value: sliderValue)
-            Text("긍정")
-        }
-    }
 }
 
 #Preview("EmotionInputView: GoalIn") {
