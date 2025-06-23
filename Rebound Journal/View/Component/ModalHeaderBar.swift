@@ -61,10 +61,10 @@ struct ModalHeaderBar: View {
                         Alert(
                             title: Text( Constants.Strings.exitFlow),
                             message: Text( Constants.Strings.exitDescription),
-                            primaryButton: .default(Text("OK"), action: {
+														primaryButton: .default(Text(Constants.Strings.continueText), action: {
                                 action()
                             }),
-                            secondaryButton: .cancel(Text("Cancel"))
+														secondaryButton: .cancel(Text(Constants.Strings.exitText))
                         )
                     }
                 } else {
@@ -79,22 +79,22 @@ struct ModalHeaderBar: View {
 
 #Preview("Dismiss") {
     ModalHeaderBar(onDismiss: {
-        print("onDismiss")
+        debugPrint("onDismiss")
     })
 }
 #Preview("onBack") {
-    ModalHeaderBar(onBack: { print("onBack") })
+    ModalHeaderBar(onBack: { debugPrint("onBack") })
 }
 #Preview("Title") {
     ModalHeaderBar(title: "Title")
 }
 #Preview("onBack&Dismiss") {
-    ModalHeaderBar(onBack: { print("onBack") },
-                   onDismiss: { print("onDismiss") })
+    ModalHeaderBar(onBack: { debugPrint("onBack") },
+                   onDismiss: { debugPrint("onDismiss") })
 }
 #Preview("All") {
-    ModalHeaderBar(onBack: { print("onBack") }, title: "Title", onDismiss: { print("onDismiss") })
+    ModalHeaderBar(onBack: { debugPrint("onBack") }, title: "Title", onDismiss: { debugPrint("onDismiss") })
 }
 #Preview("Title&Dismiss") {
-    ModalHeaderBar(title: "Title", onDismiss: { print("onDismiss") })
+    ModalHeaderBar(title: "Title", onDismiss: { debugPrint("onDismiss") })
 }

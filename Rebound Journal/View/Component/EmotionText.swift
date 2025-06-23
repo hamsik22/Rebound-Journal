@@ -82,9 +82,9 @@ struct EmotionText: View {
             Text(tag)
                 .font(.system(size: 16, weight: .light))
         }
-        .frame(height: 35)
-        .foregroundStyle(isSelected ? .accent : .default)
+				.foregroundStyle(isSelected ? .accent : .black)
         .padding(.horizontal, 10)
+				.padding(.vertical, 12)
         .background {
             Capsule()
                 .fill(color)
@@ -121,7 +121,7 @@ struct EmotionTagLayout: Layout {
         // Placing Views
         var origin = bounds.origin
         let maxWidth = bounds.width
-        print(maxWidth, bounds.maxX)
+        debugPrint(maxWidth, bounds.maxX)
         let rows = generateRows(maxWidth, proposal, subviews)
         
         for row in rows {
@@ -230,4 +230,5 @@ struct CreateEmotionView: View {
 
 #Preview {
     EmotionText(emotions: .constant(["감정태그", "기분이 좋은"]),selectedTags: .constant(["감정태그"]))
+				.preferredColorScheme(.dark)
 }

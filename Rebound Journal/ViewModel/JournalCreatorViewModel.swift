@@ -33,7 +33,7 @@ class JournalCreatorViewModel: ObservableObject {
     
     /// SwiftData로 저장하는 로직
     func saveJournal(context: ModelContext) {
-        print("Save Journal To SwiftData")
+        debugPrint("Save Journal To SwiftData")
         
         let journal = JournalData(id: UUID().uuidString,
                                   date: Date(),
@@ -49,7 +49,7 @@ class JournalCreatorViewModel: ObservableObject {
                                   subGoal: subGoal
         )
         context.insert(journal) // 데이터 저장
-        print("""
+        debugPrint("""
         저장된 Journal:
         - ID: \(String(describing: journal.id))
         - Date: \(String(describing: journal.date))
@@ -67,12 +67,12 @@ class JournalCreatorViewModel: ObservableObject {
     }
     
     func saveSubGoal(context: ModelContext) {
-        print("Save SubGoal To SwiftData")
+        debugPrint("Save SubGoal To SwiftData")
         
         let subGoalData = SubGoalData(id: UUID().uuidString,
                                       date: Date(),
                                       goalText: subGoal)
         context.insert(subGoalData)
-        print("저장된 SubGoal: \(String(describing: subGoalData.goalText))")
+        debugPrint("저장된 SubGoal: \(String(describing: subGoalData.goalText))")
     }
 }

@@ -61,8 +61,8 @@ struct EmotionTracker: View {
                     
                     VerticalSlider(sliderValue: $emotionValue, isEdited: $viewModel.isSliderEditing)
                         .onChange(of: emotionValue) { _, newValue in
-                            print("Slider: \(newValue)")
-                            
+                            debugPrint("Slider: \(newValue)")
+
                             // 감정 모양 업데이트
                             switch newValue {
                             case 0..<0.5:
@@ -131,5 +131,5 @@ struct FeelingShape: View {
 }
 
 #Preview {
-    EmotionTracker(viewModel: JournalCreatorViewModel())
+		EmotionTracker(viewModel: JournalCreatorViewModel());
 }

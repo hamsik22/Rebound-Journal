@@ -17,8 +17,6 @@ struct SettingsView: View {
     // MARK: - Main rendering function
     var body: some View {
         ZStack {
-            RoundedCorner(radius: 30, corners: [.topLeft, .topRight])
-                .foregroundColor(Color("ListColor")).ignoresSafeArea()
             VStack(alignment: .center, spacing: 0) {
                 Capsule()
                     .frame(width: 50, height: 5)
@@ -54,7 +52,9 @@ struct SettingsView: View {
     /// Create custom header view
     private func CustomHeader(title: String) -> some View {
         HStack {
-            Text(title).font(.system(size: 18, weight: .medium))
+						Text(title)
+								.font(.system(size: 18, weight: .medium))
+								.foregroundStyle(.default)
             Spacer()
         }.foregroundColor(Color("TextColor"))
     }
@@ -251,6 +251,7 @@ struct SettingsView: View {
 #Preview {
     SettingsView()
         .environmentObject(DataManager(preview: true))
+				.environment(\.colorScheme, .dark)
 }
 
 // MARK: - Mail presenter for SwiftUI

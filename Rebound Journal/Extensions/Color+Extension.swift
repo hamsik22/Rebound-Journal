@@ -10,4 +10,5 @@ import SwiftUI
 extension Color {
     static let backgroundColor = Color("DairyBackgroundColor")
     static let lightColor = Color("LightColor")
+		static let cellColor = Color("CellColor")
 }

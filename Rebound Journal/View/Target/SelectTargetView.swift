@@ -23,12 +23,13 @@ struct SelectTargetView: View {
                 HStack {
                     Text("어떤 슛을 남겨볼까요?")
                         .font(.system(size: 25).bold())
+												.foregroundStyle(.default)
                     Spacer()
                 }
                 HStack {
                     Text("목표에 대한 슛인가요?")
                         .font(.system(size: 18))
-                        .opacity(0.5)
+												.foregroundStyle(.description)
                     Spacer()
                 }
             }
@@ -41,10 +42,11 @@ struct SelectTargetView: View {
                         HStack {
                             Text(text)
                                 .padding()
+																.foregroundStyle(.black)
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
-                        .background(Color("CellColor"))
+												.background(Color.cellColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(selectedGoal == item ? Color.accentColor : .clear, lineWidth: 2)
@@ -61,7 +63,7 @@ struct SelectTargetView: View {
             Spacer()
             
             Button(action: {
-                print("다음 화면으로 이동")
+                debugPrint("다음 화면으로 이동")
                 currentStep = .shoot
             }) {
                 if let _ = selectedGoal {
@@ -87,7 +89,7 @@ struct SelectTargetView: View {
         }
         .padding()
         .onAppear {
-            print("SelectTargetView : \(subGoals.count)")
+            debugPrint("SelectTargetView : \(subGoals.count)")
         }
     }
 }

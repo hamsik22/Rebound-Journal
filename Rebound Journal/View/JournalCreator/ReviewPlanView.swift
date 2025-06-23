@@ -35,13 +35,12 @@ struct ReviewPlanView: View {
         VStack(alignment: .leading) {
             Text(viewModel.emotionText?.first ?? "감정태그")
                 .font(.system(size: 16))
-                .fontWeight(.semibold)
-                .frame(height: 35)
-                .foregroundStyle(.default)
+								.foregroundStyle(.black)
                 .padding(.horizontal, 10)
+								.padding(.vertical, 12)
                 .background {
                     Capsule()
-                        .fill(.accent.gradient)
+												.fill(.unselectedTagBackground)
                 }
             
             // Reviewing Shoot

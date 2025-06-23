@@ -100,9 +100,12 @@ struct Constants {
         static let myReboundPlan = "내 다음 계획은 이래요"// "My rebound plan"
         static let myMood = "지금 내 기분은"
         
-        static let exitFlow = "정말 나가시나요?"// "Exit Flow"
-        static let exitDescription = "지금 그만두시면 진행정보를 모두 잃게됩니다."//"Are you sure you want to leave this flow? You will lose your current progress"
-        
+        static let exitFlow = "슈팅을 그만하시겠어요?"// "Exit Flow"
+        static let exitDescription = "지금 나가시면 기록했던 내용들이\n모두 사라집니다."//"Are you sure you want to leave this flow? You will lose your current progress"
+
+				static let exitText = "나가기"
+				static let continueText = "계속 작성하기"
+
         
         // SettingsView
         static let setting = "설정"// "setting"

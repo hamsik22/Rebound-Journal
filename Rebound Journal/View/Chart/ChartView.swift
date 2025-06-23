@@ -66,7 +66,7 @@ extension ChartView {
             
             let dateStrings = sorted.map { formatter.string(from: $0.date) }
             
-            dateStrings.forEach { print($0) }
+            dateStrings.forEach { debugPrint($0) }
         }
     }
     
@@ -78,7 +78,7 @@ extension ChartView {
                 Text("월별")
                     .bold()
                 Button {
-                    print("날짜 변경")
+                    debugPrint("날짜 변경")
                     viewModel.isDatePickerShown.toggle()
                 } label: {
                     HStack {
@@ -129,7 +129,7 @@ extension ChartView {
             }
             HStack {
                 Button {
-                    print("골인 기록 보여주기")
+                    debugPrint("골인 기록 보여주기")
                     isDetailViewPresented.toggle()
                     viewModel.selectedDetailType = true
                 } label: {
@@ -152,7 +152,7 @@ extension ChartView {
                 }
                 
                 Button {
-                    print("리바운드 기록 보여주기")
+                    debugPrint("리바운드 기록 보여주기")
                     isDetailViewPresented.toggle()
                     viewModel.selectedDetailType = false
                 } label: {
