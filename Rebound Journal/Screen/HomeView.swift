@@ -67,11 +67,11 @@ struct HomeView: View {
             return filteredByDate
         }
         
-        let nonReboundedNonDeleted = journals.filter {
-            !($0.isRebounded ?? false) && !($0.hasDeleted ?? false) && ($0.isGoalIn != nil)
+        let nonReboundedNonDeleted = filteredByDate.filter {
+            !($0.isRebounded ?? false) && !($0.hasDeleted ?? false)
         }
         
-        return Array(Set(nonReboundedNonDeleted + filteredByDate))
+        return nonReboundedNonDeleted
     }
     
     /// Check-in banner view
