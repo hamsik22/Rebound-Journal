@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CreateTargetView: View {
-    
-    @State var targetText: String = "계획을 세우고 실천하면 매일이 성장의 기회가 됩니다@@"
+    // Shared Dependencies
+    @Environment(\.modelContext)private var modelContext
+    @EnvironmentObject var manager: DataManager
+    @ObservedObject var viewModel: JournalCreatorViewModel
+    @Binding var currentStep: ReboundProcessStep
+    // UI State
+    @State var targetText: String = ""
     
     var body: some View {
         // 전체
@@ -36,6 +42,7 @@ struct CreateTargetView: View {
                 HStack {
                     TextEditor(text: $targetText)
                         .font(.system(size: 15))
+												.foregroundStyle(.black)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity)
                         .scrollContentBackground(.hidden)
@@ -44,34 +51,54 @@ struct CreateTargetView: View {
                                 Text("목표를 적어주세요")
                                     .font(.system(size: 15))
                                     .padding(.horizontal, 10)
-                                    .opacity(0.3)
+																		.foregroundStyle(.description)
                             }
                         }
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
+												.foregroundStyle(.description)
                         .padding(.horizontal, 5)
                 }
                 .frame(height: 65)
                 .padding(5)
-                .background(Color.gray.opacity(0.2))
+                .background(Color("CellColor"))
                 .clipShape(.rect(cornerRadius: 12))
             }
             
             Spacer()
             
             // MARK: 안내문구 2
-            Text("다음 슈팅 때 선택할 수 있어요.\n언제든지 다시 확인할 수 있어요.")
-                .multilineTextAlignment(.center)
-            
-            StepControlView(onPrevious: {print(" 이전")}, onNext: {print("저장하기")}, canGoNext: true, nextButtonText: targetText.isEmpty ? "건너뛰기" :"저장하기")
+						VStack(alignment: .center, spacing: 4) {
+								Text("다음 슈팅 때 선택할 수 있어요.")
+										.font(.system(size: 13))
+								Text("언제든지 다시 확인할 수 있어요.")
+										.font(.system(size: 13))
+						}
+						.padding(.bottom, 40)
+
+            StepControlView(
+                onPrevious: {
+								debugPrint("이전")
+                currentStep = .review
+            },
+                onNext: {
+								debugPrint("저장하기")
+                viewModel.subGoal = targetText
+                currentStep = .selectSubGoal
+                viewModel.saveJournal(context: modelContext)
+                viewModel.saveSubGoal(context: modelContext)
+                manager.fullScreenMode = nil
+            },
+                canGoNext: !targetText.isEmpty,
+                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기")
         }
         .padding()
     }
 }
 
 #Preview("!targetText.isEmpty") {
-    CreateTargetView()
+    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
 }
 #Preview("targetText.isEmpty") {
-    CreateTargetView(targetText: "")
+    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
 }

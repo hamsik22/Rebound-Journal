@@ -61,10 +61,10 @@ struct ModalHeaderBar: View {
                         Alert(
                             title: Text( Constants.Strings.exitFlow),
                             message: Text( Constants.Strings.exitDescription),
-                            primaryButton: .default(Text("OK"), action: {
+														primaryButton: .default(Text(Constants.Strings.continueText), action: {
                                 action()
                             }),
-                            secondaryButton: .cancel(Text("Cancel"))
+														secondaryButton: .cancel(Text(Constants.Strings.exitText))
                         )
                     }
                 } else {

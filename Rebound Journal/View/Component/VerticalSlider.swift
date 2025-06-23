@@ -15,12 +15,14 @@ struct VerticalSlider: View {
     var body: some View {
         VStack {
             Text("부정")
+                .padding(.bottom, 16)
             
             GeometryReader { geometry in
+                let height = geometry.size.height
                 ZStack {
                     Color.clear
-                        .frame(width: 20)
-                        .frame(maxHeight: geometry.size.height)
+                        .frame(width: 35)
+                        .frame(maxHeight: height)
                         .overlay(
                             Slider(value: $sliderValue, in: 0...3) { editing in
                                 isEdited = editing
@@ -34,16 +36,16 @@ struct VerticalSlider: View {
                                 }
                             }
                                 .rotationEffect(.degrees(-90))
-                                .frame(width: geometry.size.height, height: 30))
-                        .onChange(of: sliderValue, perform: {
-                            newValue in
-                            print(newValue)
-                        })
+                                .frame(width: height, height: 30))
                 }
-                .frame(maxWidth: .infinity)
+                .onChange(of: sliderValue) {
+                    _, newValue in
+                    debugPrint(newValue)
+                }
             }
             
             Text("긍정")
+                .padding(.top, 16)
         }
         .padding(10)
     }
@@ -52,4 +54,3 @@ struct VerticalSlider: View {
 #Preview {
     VerticalSlider(sliderValue: .constant(1), isEdited: .constant(false))
 }
-

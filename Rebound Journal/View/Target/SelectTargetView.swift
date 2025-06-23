@@ -6,65 +6,94 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SelectTargetView: View {
-    var dummyShoots = [
-        "목표내용 1 목표내용 1 목표내용 1 목표내용 1 목표내용 1 목표내용 1",
-        "목표 내용 2 목표 내용 2 목표 내용 2 목표 내용 2 ",
-        "목표 내용 3 목표 내용 3 목표 내용 3 "
-    ]
+    // Shared Dependencies
+    @ObservedObject var viewModel: JournalCreatorViewModel
+    @Binding var currentStep: ReboundProcessStep
+    // UI State
+    @State var subGoals: [SubGoalData]
+    @State private var selectedGoal: SubGoalData?
+    
     var body: some View {
-            VStack {
-                // 질문
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Text("어떤 슛을 남겨볼까요?")
-                            .font(.system(size: 25).bold())
-                        Spacer()
-                    }
-                    HStack {
-                        Text("목표에 대한 슛인가요?")
-                            .font(.system(size: 18))
-                            .opacity(0.5)
-                        Spacer()
-                    }
+        VStack {
+            // 질문
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("어떤 슛을 남겨볼까요?")
+                        .font(.system(size: 25).bold())
+												.foregroundStyle(.default)
+                    Spacer()
                 }
-                .padding(.vertical)
-                
-                // 목표 리스트
-                VStack(alignment: .leading, spacing: 8) {
-                    ForEach(dummyShoots, id: \.self) { item in
+                HStack {
+                    Text("목표에 대한 슛인가요?")
+                        .font(.system(size: 18))
+												.foregroundStyle(.description)
+                    Spacer()
+                }
+            }
+            .padding(.vertical)
+            
+            // 목표 리스트
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(subGoals, id: \.self) { item in
+                    if let text = item.goalText {
                         HStack {
-                            Text(item)
+                            Text(text)
                                 .padding()
+																.foregroundStyle(.black)
                             Spacer()
                         }
                         .frame(maxWidth: .infinity)
-                        .background(.gray.opacity(0.5))
-                        .clipShape(.rect(cornerRadius: 12))
+												.background(Color.cellColor)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(selectedGoal == item ? Color.accentColor : .clear, lineWidth: 2)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .onTapGesture {
+                            selectedGoal = item
+                            viewModel.subGoal = item.goalText
+                        }
                     }
                 }
-                
-                Spacer()
-                
-                Button(action: {
-                    debugPrint("다음 화면으로 이동")
-                }) {
-                    Text("건너뛰기")
+            }
+            
+            Spacer()
+            
+            Button(action: {
+                debugPrint("다음 화면으로 이동")
+                currentStep = .shoot
+            }) {
+                if let _ = selectedGoal {
+                    Text("다음으로")
                         .font(.system(size: 18, weight: .bold))
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(Color.accentColor)
                         .foregroundColor(.white)
                         .clipShape(.rect(cornerRadius: 90))
+                } else {
+                    Text("건너뛰기")
+                        .font(.system(size: 18, weight: .bold))
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .clipShape(.rect(cornerRadius: 90))                    
                 }
-                .disabled(false)
-                .animation(.easeInOut, value: 1)
             }
-            .padding()
+            .disabled(false)
+            .animation(.easeInOut, value: 1)
+        }
+        .padding()
+        .onAppear {
+            debugPrint("SelectTargetView : \(subGoals.count)")
+        }
     }
 }
 
 #Preview {
-    SelectTargetView()
+    SelectTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal), subGoals: [])
 }

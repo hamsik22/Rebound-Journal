@@ -10,7 +10,7 @@ import SwiftUI
 struct EmotionText: View {
     
     // UI State
-    @State var emotions = Constants.ContentText().emotionTexts
+    @Binding var emotions: [String]
     @Binding var selectedTags: [String]
     @State private var showSheet = false
     @State private var inputText = ""
@@ -25,7 +25,7 @@ struct EmotionText: View {
                     // MARK: alignment를 수정하면 태그 정렬 위치가 바뀜
                     EmotionTagLayout(alignment: .leading , spacing: 10) {
                         ForEach(emotions.filter{ selectedTags.contains($0) }, id: \.self) { tag in
-                            EmotionTagView(tag, .accentColor)
+                            EmotionTagView(tag, .selectedTagBackground)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
@@ -37,7 +37,7 @@ struct EmotionText: View {
                         }
                         // MARK: 선택한 태그는 보이지 않게 필터링
                         ForEach(emotions.filter{ !selectedTags.contains($0) }, id: \.self) { tag in
-                            EmotionTagView(tag, .gray)
+                            EmotionTagView(tag, .unselectedTagBackground)
                             // MARK: 애니메이션이 좀 더 이뻐짐
                                 .matchedGeometryEffect(id: tag, in: animation)
                                 .onTapGesture {
@@ -77,17 +77,17 @@ struct EmotionText: View {
     
     @ViewBuilder
     func EmotionTagView(_ tag: String, _ color: Color) -> some View {
+        let isSelected = color == Color.selectedTagBackground ? true : false
         HStack(spacing: 8) {
             Text(tag)
-                .font(.system(size: 16))
-                .fontWeight(.semibold)
+                .font(.system(size: 16, weight: .light))
         }
-        .frame(height: 35)
-        .foregroundStyle(.default)
+				.foregroundStyle(isSelected ? .accent : .black)
         .padding(.horizontal, 10)
+				.padding(.vertical, 12)
         .background {
             Capsule()
-                .fill(color.gradient)
+                .fill(color)
         }
     }
 }
@@ -121,7 +121,7 @@ struct EmotionTagLayout: Layout {
         // Placing Views
         var origin = bounds.origin
         let maxWidth = bounds.width
-        print(maxWidth, bounds.maxX)
+        debugPrint(maxWidth, bounds.maxX)
         let rows = generateRows(maxWidth, proposal, subviews)
         
         for row in rows {
@@ -229,5 +229,6 @@ struct CreateEmotionView: View {
 }
 
 #Preview {
-    EmotionText(selectedTags: .constant([]))
+    EmotionText(emotions: .constant(["감정태그", "기분이 좋은"]),selectedTags: .constant(["감정태그"]))
+				.preferredColorScheme(.dark)
 }

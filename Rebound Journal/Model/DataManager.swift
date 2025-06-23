@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import SwiftData
 import Foundation
 
 
@@ -25,7 +26,7 @@ class DataManager: NSObject, ObservableObject {
     @Published var performance: [String: MoodLevel] = [String: MoodLevel]()
     @Published var selectedDate: Date = Date()
     @Published var selectedEntryImage: UIImage?
-    @Published var seledtedEntry: JournalEntry?
+    @Published var seledtedEntry: JournalData?
     //@Published var quotes: QuotesList = QuotesList()
     @Published var didEnterCorrectPasscode: Bool = false
     
@@ -152,17 +153,17 @@ extension DataManager {
 
 // MARK: - Update Journal Entry to Core Data
 extension DataManager {
-    func updateSelectedEntry(with selectedEntry: JournalEntry) {
+    func updateSelectedEntry(modelContext: ModelContext, with selectedEntry: JournalData) {
         selectedEntry.isRebounded = true
-        try? container.viewContext.save()
+        try? modelContext.save()
     }
 }
 
 // MARK: - Delete Journal Entry to Core Data
 extension DataManager {
-    func deleteSelectedEntry(with selectedEntry: JournalEntry) {
+    func deleteSelectedEntry(modelContext: ModelContext, with selectedEntry: JournalData) {
         selectedEntry.hasDeleted = true
-        try? container.viewContext.save()
+        try? modelContext.save()
     }
 }
 
@@ -234,13 +235,74 @@ extension DataManager {
     static func loadJournalEntries(context: NSManagedObjectContext) -> [JournalEntry] {
         let request = NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
         
-        print("뷰모델 : \(context)")
+        debugPrint("뷰모델 : \(context)")
         do {
             let items = try context.fetch(request)
             return items
         } catch {
-            print("데이터 읽기 실패: \(error)")
+            debugPrint("데이터 읽기 실패: \(error)")
             return []
+        }
+    }
+}
+
+// MARK: Sync SwiftData with CoreData
+
+extension DataManager {
+
+    /// SwiftData 내의 ID만 반환하는 함수
+    func fetchSwiftDataIDs(context: ModelContext) -> [String] {
+        do {
+            let journalData: [JournalData] = try context.fetch(FetchDescriptor<JournalData>())
+            return journalData.compactMap { $0.id }
+        } catch {
+            debugPrint("데이터를 찾을 수 없습니다.")
+            return []
+        }
+    }
+
+    /// 중복되지 않는 JournalEntry를 반환하는 함수
+    func fetchNonDuplicateCoreDataEntries(context: NSManagedObjectContext, modelContext: ModelContext) -> [JournalEntry] {
+        let fetchRequest = NSFetchRequest<JournalEntry>(entityName: "JournalEntry")
+        let swiftDataIDs = fetchSwiftDataIDs(context: modelContext)
+        
+        do {
+            let coreDataEntries = try context.fetch(fetchRequest)
+            let nonDuplicateEntries = coreDataEntries.filter { entry in
+                guard let entryID = entry.id else { return false }
+                return !swiftDataIDs.contains(entryID)
+            }
+            return nonDuplicateEntries
+        } catch {
+            debugPrint("Error fetching non-duplicate CoreData entries: \(error)")
+            return []
+        }
+    }
+    
+    /// 중복되지 않은 데이터가 있다면 저장하는 함수
+    func convertDupicateDataToSwiftData(nsContext: NSManagedObjectContext, modelContext: ModelContext) {
+        let data = fetchNonDuplicateCoreDataEntries(context: nsContext, modelContext: modelContext)
+        
+        if !data.isEmpty {
+            for item in data {
+                let newData = JournalData(id: item.id,
+                                          date: item.date,
+                                          hasDeleted: item.hasDeleted,
+                                          isGoalIn: (item.moodLevel == 1) ? true : false,
+                                          emotionValue: 0,
+                                          emotionText: item.moodText,
+                                          review: item.text,
+                                          nextPlan: item.reboundText,
+                                          isRebounded: item.isRebounded,
+                                          purpose: nil,
+                                          mainGoal: nil,
+                                          subGoal: nil)
+                modelContext.insert(newData)
+            }
+            debugPrint("Sync \(data.count) Data")
+        }
+        else {
+            debugPrint("There is no data to sync")
         }
     }
 }

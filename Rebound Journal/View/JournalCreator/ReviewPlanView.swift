@@ -16,15 +16,14 @@ struct ReviewPlanView: View {
     // Shared Dependencies
     @ObservedObject var viewModel: JournalCreatorViewModel
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext) private var modelContext
     
     // UI State
     @FocusState private var currentField: Field?
     @State var reviewText: String = ""
     @State var planText: String = ""
-    var canSave: Bool {
-        guard let reviewText = viewModel.reviewText else { return false }
-        guard let planText = viewModel.nextPlanText else { return false }
-        return !reviewText.isEmpty && !planText.isEmpty}
+    @Binding var currentStep: ReboundProcessStep
+    var canSave: Bool { return !reviewText.isEmpty && !planText.isEmpty }
     var isReviewed: Bool {!reviewText.isEmpty || currentField == .review}
     var isPlaned: Bool {!planText.isEmpty || currentField == .plan}
     
@@ -36,13 +35,12 @@ struct ReviewPlanView: View {
         VStack(alignment: .leading) {
             Text(viewModel.emotionText?.first ?? "감정태그")
                 .font(.system(size: 16))
-                .fontWeight(.semibold)
-                .frame(height: 35)
-                .foregroundStyle(.default)
+								.foregroundStyle(.black)
                 .padding(.horizontal, 10)
+								.padding(.vertical, 12)
                 .background {
                     Capsule()
-                        .fill(.accent.gradient)
+												.fill(.unselectedTagBackground)
                 }
             
             // Reviewing Shoot
@@ -53,7 +51,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .review ? .default : .gray)
                 TextEditor(text: $reviewText)
-                    .onChange(of: reviewText) { newValue in
+                    .onChange(of: reviewText) { _, newValue in
                         viewModel.reviewText = newValue
                     }
                     .focused($currentField, equals: .review)
@@ -78,7 +76,7 @@ struct ReviewPlanView: View {
                     .padding(.bottom, 3)
                     .foregroundStyle(currentField == .plan ? .default : .gray)
                 TextEditor(text: $planText)
-                    .onChange(of: planText) { newValue in
+                    .onChange(of: planText) { _, newValue in
                         viewModel.nextPlanText = newValue
                     }
                     .focused($currentField, equals: .plan)
@@ -95,24 +93,35 @@ struct ReviewPlanView: View {
                     }
             }
             
-        }
-        .padding()
-        
-        // StepControll
-        StepControlView(onPrevious: {
-            viewModel.currentStep = .emotion
-        }, onNext: {
-            manager.fullScreenMode = nil
-            viewModel.saveShooting(manager: manager)
-        }, canGoNext: canSave,
-                        nextButtonText: systemText.saveButton)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("키보드 내리기") {
-                    currentField = .none
+            // StepControll
+            StepControlView(
+                onPrevious: {
+                    currentStep = .emotion
+                },
+                onNext: {
+                    if viewModel.subGoal != nil {
+                        viewModel.saveJournal(context: modelContext)
+                        currentStep = .selectSubGoal
+                        manager.fullScreenMode = nil
+                    }
+                    else { currentStep = .createSubGoal }
+                    
+                },
+                canGoNext: canSave,
+                nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Button("키보드 내리기") {
+                        currentField = .none
+                    }
                 }
             }
         }
+        .onAppear() {
+            reviewText = viewModel.reviewText ?? ""
+            planText = viewModel.nextPlanText ?? ""
+        }
+        .padding()
     }
 }
 
@@ -125,5 +134,5 @@ struct ReviewPlanView: View {
         vm.emotionText = ["기분이 좋은"]
         return vm
     }()
-    ReviewPlanView(viewModel: mockViewModel)
+    ReviewPlanView(viewModel: mockViewModel, currentStep: .constant(.review))
 }

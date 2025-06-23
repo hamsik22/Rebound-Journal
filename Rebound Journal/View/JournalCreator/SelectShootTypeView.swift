@@ -12,6 +12,7 @@ struct SelectShootTypeView: View {
     @ObservedObject var viewModel: JournalCreatorViewModel
     // UI State
     var isTypeSelected: Bool {viewModel.goalType == nil ? true : false}
+    @Binding var currentStep: ReboundProcessStep
     // etc
     var text = Constants.ContentText()
     
@@ -21,6 +22,7 @@ struct SelectShootTypeView: View {
                                 description: text.shootTypeDescription)
             Spacer()
             HStack {
+								// 골인 버튼
                 Button(action: {
                     toggleSelection(type: true)
                 }) {
@@ -28,44 +30,61 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(.clear)
+												.background(
+														RoundedRectangle(cornerRadius: 10)
+																.fill(Color.white)
+																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+												)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == true ? Color.accentColor : Color.gray, lineWidth: 2)
+																.stroke(viewModel.goalType == true ? Color.accentColor : .shootTypeButtonBorder, lineWidth: 1)
                         )
                 }
                 Spacer(minLength: 30)
-                
+
+								// 리바운드 버튼
                 Button(action: {
                     toggleSelection(type: false)
-                    debugPrint("Type : \(viewModel.goalType ?? false)")
-                    debugPrint("리바운드")
                 }) {
                     ShootTypeButton(type: false)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-                        .background(.clear)
+												.background(
+														RoundedRectangle(cornerRadius: 10)
+																.fill(Color.white)
+																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+												)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == false ? Color.accentColor : Color.gray, lineWidth: 2)
+                                .stroke(viewModel.goalType == false ? Color.accentColor : Color.shootTypeButtonBorder, lineWidth: 1)
                         )
                 }
             }
             Spacer()
             Button(action: {
-                debugPrint("다음 화면으로 이동")
-                viewModel.currentStep = .emotion
+								debugPrint("다음 화면으로 이동")
+                currentStep = .emotion
             }) {
-                Text("다음으로")
-                    .font(.system(size: 18, weight: .bold))
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.accentColor)
-                    .foregroundColor(.default)
-                    .cornerRadius(90)
+								if viewModel.goalType == nil {
+										Text("다음으로")
+												.font(.system(size: 18, weight: .bold))
+												.padding()
+												.frame(maxWidth: .infinity)
+												.background(.disabledButtonBackground)
+												.foregroundColor(.disabledButtonText)
+												.cornerRadius(90)
+												.disabled(true)
+								} else {
+										Text("다음으로")
+												.font(.system(size: 18, weight: .bold))
+												.padding()
+												.frame(maxWidth: .infinity)
+												.background(Color.accentColor)
+												.foregroundColor(.white)
+												.cornerRadius(90)
+								}
             }
-            .disabled(viewModel.goalType == nil)
             .animation(.easeInOut, value: viewModel.goalType)
         }
         .padding()
@@ -90,25 +109,28 @@ extension SelectShootTypeView {
                 Spacer()
                 Image(.goalIn)
                     .resizable()
+										.aspectRatio(contentMode: .fill)
                     .frame(width: 60, height: 70)
                 Spacer()
                 Text("골인")
-                    .foregroundStyle(.default)
+										.foregroundStyle(.black)
             }
         case false :
             VStack {
                 Spacer()
                 Image(.rebound)
                     .resizable()
+										.aspectRatio(contentMode: .fill)
                     .frame(width: 60, height: 70)
                 Spacer()
                 Text("리바운드")
-                    .foregroundStyle(.default)
+                    .foregroundStyle(.black)
             }
         }
     }
 }
 
 #Preview("SelectShootTypeView") {
-    SelectShootTypeView(viewModel: JournalCreatorViewModel())
+    SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
+				.preferredColorScheme(.dark)
 }

@@ -42,6 +42,7 @@ enum EntryCreationStep: CaseIterable, Identifiable {
 struct JournalEntryCreatorView: View {
     
     @EnvironmentObject var manager: DataManager
+    @Environment(\.modelContext)private var modelContext
     @Environment(\.colorScheme) var colorScheme
     @State private var showPhotoPicker: Bool = false
     @State private var selectedPhotoIndex: Int?
@@ -114,10 +115,10 @@ struct JournalEntryCreatorView: View {
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text(Constants.Strings.exitFlow),
                           message: Text(Constants.Strings.exitDescription),
-                          primaryButton: .default(Text("OK"), action: {
+													primaryButton: .default(Text(Constants.Strings.continueText), action: {
                         manager.fullScreenMode = nil
                     }),
-                          secondaryButton: .cancel(Text("Cancel"))
+													secondaryButton: .cancel(Text(Constants.Strings.exitText))
                     )
                 }
             }
@@ -150,7 +151,7 @@ struct JournalEntryCreatorView: View {
                 if let level = moodLevel, !todayText.isEmpty, !reboundText.isEmpty, !text.isEmpty {
                     manager.saveEntry(text: text, moodLevel: level.rawValue, moodText: todayText, reboundText: reboundText, reasons: reasons, images: images)
                     if isRebounded {
-                        manager.updateSelectedEntry(with: manager.seledtedEntry!)
+                        manager.updateSelectedEntry(modelContext: modelContext, with: manager.seledtedEntry!)
                     }
                     manager.fullScreenMode = nil
                 } else {

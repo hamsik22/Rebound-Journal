@@ -129,7 +129,7 @@ extension ChartView {
             }
             HStack {
                 Button {
-                    print("골인 기록 보여주기")
+                    debugPrint("골인 기록 보여주기")
                     isDetailViewPresented.toggle()
                     viewModel.selectedDetailType = true
                 } label: {
@@ -152,7 +152,7 @@ extension ChartView {
                 }
                 
                 Button {
-                    print("리바운드 기록 보여주기")
+                    debugPrint("리바운드 기록 보여주기")
                     isDetailViewPresented.toggle()
                     viewModel.selectedDetailType = false
                 } label: {
