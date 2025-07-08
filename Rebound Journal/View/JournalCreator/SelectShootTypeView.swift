@@ -132,5 +132,4 @@ extension SelectShootTypeView {
 
 #Preview("SelectShootTypeView") {
     SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
-        .preferredColorScheme(.dark)
 }
