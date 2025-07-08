@@ -121,7 +121,7 @@ extension SelectShootTypeView {
                 Image(.rebound)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 70)
+                    .frame(width: 70, height: 105)
                 Spacer()
                 Text("리바운드")
                     .foregroundStyle(.black)
