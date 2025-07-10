@@ -171,6 +171,7 @@ struct DashboardContentView: View {
                     .lineLimit(1)
                     .font(.system(size: 18))
                     .padding(.bottom, 10)
+                    .minimumScaleFactor(0.7)
                 HStack {
                     Spacer()
                     Text("\(count)번")
