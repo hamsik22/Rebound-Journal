@@ -44,6 +44,7 @@ struct DashboardContentView: View {
             }
             bottomButton
         }
+        .padding()
         // MARK: 10. 화면이동 중 전체화면을 덮는 방법
         .fullScreenCover(item: $manager.fullScreenMode) { type in
             switch type {
@@ -105,6 +106,7 @@ struct DashboardContentView: View {
                     .scaledToFit()
                     .frame(width: 25)
             }
+            .tint(.black)
             
             Button {
                 isSettingsSheetPresented.toggle()
@@ -114,31 +116,74 @@ struct DashboardContentView: View {
                     .scaledToFit()
                     .frame(width: 25)
             }
+            .tint(.black)
         }
         .padding()
     }
     private var goalStatusText: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             // TODO: 목표 갯수 연동
             Text("목표(8)")
+                .font(.system(size: 22))
+                .bold()
             Text("오늘은 어떤 목표에 시도했나요?")
+                .font(.system(size: 18))
+                .foregroundStyle(.secondary)
         }
+        .padding(.bottom, 30)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding()
     }
     private var subGoalList: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 24) {
                 // TODO: 목표 리스트 연동
                 ForEach(dummyGoals, id: \.self) { item in
-                    if let goalText = item.goalText {
-                        Text(goalText)
-                            .padding(.horizontal, 6)
-                    } else { Text("목표 없음") }
+                    let text = item.goalText ?? "목표 없음"
+                    let count = Int.random(in: 0...10)
+                    goalCell([text: count])
                 }
             }
+            Color.clear
+                .frame(height: 200)
         }
         .scrollIndicators(.hidden)
+    }
+    private func goalCell(_ data: [String: Int]) -> some View {
+        var highlightColor: Color = .gray
+        
+        if let count = data.values.first {
+            switch count {
+            case 0..<3:
+                highlightColor = .goalFreqLow
+            case 3..<8:
+                highlightColor = .goalFreqMid
+            case 8...:
+                highlightColor = .goalFreqHigh
+            default:
+                break
+            }
+        }
+        
+        return VStack(alignment: .leading) {
+            if let goal = data.keys.first,
+               let count = data.values.first {
+                Text(goal)
+                    .lineLimit(1)
+                    .font(.system(size: 18))
+                    .padding(.bottom, 10)
+                HStack {
+                    Spacer()
+                    Text("\(count)번")
+                        .font(.system(size: 14, weight: .bold))
+                }
+            } else {
+                Text("데이터 없음")
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding()
+        .background(highlightColor)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
     }
     private var bottomButton: some View {
         VStack {
@@ -149,13 +194,28 @@ struct DashboardContentView: View {
                     print("목표 추가하기 버튼")
                 } label: {
                     Text("목표 추가하기")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                        .bold()
+                        .background(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 90))
                 }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 90)
+                        .stroke(Color.orange, lineWidth: 2)
+                )
                 
                 Button {
                     // TODO: 슛 생성 화면으로 이동
                     print("슛-쏘기 버튼")
                 } label: {
                     Text("슛-쏘기")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                        .bold()
+                        .background(.tint)
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 90))
                 }
             }
         }
