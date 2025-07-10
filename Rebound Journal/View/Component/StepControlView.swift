@@ -15,61 +15,128 @@ import SwiftUI
 /// - nextButtonText : <다음으로>가 아닌 다른 문자로 수정할 시
 /// - previousButtonText : <이전>이 아닌 다른 문자로 수정할 시
 struct StepControlView: View {
-    // Action
-    let onPrevious: () -> Void
+    // MARK: - Properties
+    let hasBackButton: Bool
+    let canGoNext: Bool
+    let onPrevious: (() -> Void)?
     let onNext: () -> Void
-    // UI State
-    var canGoNext: Bool
-    // Content
-    var nextButtonText: String = "다음으로"
-    var previousButtonText: String = "이전"
-    
+    let nextButtonText: String
+    let previousButtonText: String
+
+    private let constants = Constants.SystemText()
+
+    // MARK: - Initializer
+    init(
+        hasBackButton: Bool = false,
+        canGoNext: Bool = true,
+        onPrevious: (() -> Void)? = nil,
+        onNext: @escaping () -> Void,
+        nextButtonText: String? = nil,
+        previousButtonText: String? = nil
+    ) {
+        self.hasBackButton = hasBackButton
+        self.canGoNext = canGoNext
+        self.onPrevious = onPrevious
+        self.onNext = onNext
+        self.nextButtonText = nextButtonText ?? constants.nextButton
+        self.previousButtonText = previousButtonText ?? constants.previousButton
+    }
+
+    // MARK: - Body
     var body: some View {
         GeometryReader { geometry in
-            let totalWidth = geometry.size.width
-            let previousWidth = totalWidth * 0.25
-            let nextWidth = totalWidth * 0.57
-            
-            HStack {
-                Button {
-                    onPrevious()
-                } label: {
-                    Text(previousButtonText)
-                        .frame(width: previousWidth)
-                        .tint(.default)
-                        .padding()
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 90)
-                                .stroke(Color.gray, lineWidth: 2)
-                        )
+            HStack(spacing: 16) {
+                if hasBackButton {
+                    previousButton
+                        .frame(width: (geometry.size.width - 16) / 3)
                 }
-                
-                Button {
-                    if canGoNext {
-                        debugPrint("다음으로")
-                        onNext()
-                    }
-                } label: {
-                    Text(nextButtonText)
-                        .frame(width: nextWidth)
-                        .foregroundColor(canGoNext ? .white : .black.opacity(0.5))
-                        .padding()
-                        .cornerRadius(90)
-                        .font(.system(size: 18, weight: .bold))
-                        .background(Color.accentColor)
-                        .foregroundColor(.default)
-                        .cornerRadius(90)
-                }
-                .disabled(!canGoNext)
+
+                nextButton
+                    .frame(width: hasBackButton ? (geometry.size.width - 16) * 2 / 3 : geometry.size.width)
             }
         }
-        .frame(height: 60)
+        .frame(height: 50) // 버튼 높이 고정
+    }
+
+    var previousButton: some View {
+        Button {
+            onPrevious?()
+        } label: {
+						Text(previousButtonText)
+								.font(.system(size: 18, weight: .bold))
+                .padding()
+								.frame(maxWidth: .infinity)
+								.foregroundColor(.backButtonText)
+                .background(Color.clear)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 90)
+												.stroke(.backButtonBorder, lineWidth: 2)
+                )
+        }
+    }
+
+    var nextButton: some View {
+        Button {
+            if canGoNext {
+                onNext()
+            }
+        } label: {
+						Text(nextButtonText)
+                .font(.system(size: 18, weight: .bold))
+								.frame(maxWidth: .infinity)
+                .padding()
+                .background(canGoNext ? Color.accentColor : .disabledButtonBackground)
+                .foregroundColor(canGoNext ? .white : .disabledButtonText)
+                .cornerRadius(90)
+        }
+        .disabled(!canGoNext)
+        .animation(.easeInOut, value: canGoNext)
     }
 }
 
-#Preview("Enabled") {
-    StepControlView(onPrevious: {debugPrint("이전")}, onNext: {debugPrint("다음으로")}, canGoNext: true, nextButtonText: "다음으로")
+// MARK: - Preview
+#Preview("Both Buttons - Enabled") {
+   VStack(spacing: 20) {
+       StepControlView(
+           hasBackButton: true,
+           canGoNext: true,
+           onPrevious: { print("Previous tapped") },
+           onNext: { print("Next tapped") }
+       )
+       .padding()
+   }
 }
-#Preview("Disabled") {
-    StepControlView(onPrevious: {debugPrint("이전")}, onNext: {debugPrint("다음으로")}, canGoNext: false, nextButtonText: "다음으로")
+
+#Preview("Both Buttons - Disabled Next") {
+   VStack(spacing: 20) {
+       StepControlView(
+           hasBackButton: true,
+           canGoNext: false,
+           onPrevious: { print("Previous tapped") },
+           onNext: { print("Next tapped") }
+       )
+       .padding()
+   }
+}
+
+#Preview("Next Button Only - Enabled") {
+   VStack(spacing: 20) {
+       StepControlView(
+           hasBackButton: false,
+           canGoNext: true,
+           onNext: { print("Next tapped") }
+       )
+       .padding()
+   }
+}
+
+#Preview("Next Button Only - Disabled") {
+   VStack(spacing: 20) {
+       StepControlView(
+           hasBackButton: false,
+           canGoNext: false,
+           onNext: { print("Next tapped") }
+       )
+       .padding()
+   }
 }
