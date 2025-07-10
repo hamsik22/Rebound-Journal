@@ -22,13 +22,27 @@ struct DashboardContentView: View {
     @State private var isHistorySheetPresented = false
     @State private var journalCreatorStep: ReboundProcessStep = .createSubGoal
     
+    private let dummyGoals: [SubGoalData] = [
+        SubGoalData(id: UUID().uuidString, date: Date(), goalText: "미루지 말고 해보자"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, goalText: "하루 10분 독서하기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, goalText: "물 2리터 마시기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -3, to: Date())!, goalText: "30분 산책하기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -4, to: Date())!, goalText: "뉴스 읽기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -5, to: Date())!, goalText: "간단한 요리해보기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -6, to: Date())!, goalText: "노트 정리하기"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -7, to: Date())!, goalText: "앱 리팩토링 1시간"),
+        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -8, to: Date())!, goalText: "운동 스트레칭하기")
+    ]
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         ZStack {
-            // MARK: 00. 색상을 정의하는 방법에 대하여
-            Color.diaryBackground
-                .ignoresSafeArea()
-            MainContainer
-            PreviewImageFullScreen
+            VStack {
+                topTrailingButton
+                goalStatusText
+                subGoalList
+            }
+            bottomButton
         }
         // MARK: 10. 화면이동 중 전체화면을 덮는 방법
         .fullScreenCover(item: $manager.fullScreenMode) { type in
@@ -73,130 +87,77 @@ struct DashboardContentView: View {
     // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
     private var MainContainer: some View {
         VStack(spacing: 15) {
-            HeaderTitle
-            HeaderCalendarView
-            HomeView()
-                .environmentObject(manager)
-        }
-    }
-    
-    private var HeaderTitle: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading) {
-                // MARK: 02. date format을 사용하는 것에 대하여
-                Text(manager.selectedDate.headerTitle)
-                // MARK: 03. 고정 문구를 관리하는 것에 대하여
-                HStack {
-                    Text(Constants.Strings.mainTitle)
-                        .font(.largeTitle)
-                        .bold()
-                    Spacer()
-                    Button {
-                        manager.fullScreenMode = .chartView
-                    } label: {
-                        Image(systemName: "chart.bar.xaxis")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25)
-                    }
-                    
-                    Button {
-                        isSettingsSheetPresented.toggle()
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25)
-                    }
-                    
-                }
-            }
+            topTrailingButton
+            goalStatusText
+            subGoalList
             Spacer()
         }
-        .padding(.horizontal)
-        .foregroundColor(.lightColor)
     }
     
-    private var HeaderCalendarView: some View {
-        // MARK: 04. ScrollViewReader를 활용한 스크롤뷰의 위치 조정
-        ScrollViewReader { proxy in
-            // MARK: 05. 제공하는 기능들을 잘 알고 쓰기
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    Spacer(minLength: 0)
-                    ForEach(manager.calendarDays.indices, id: \.self) { index in
-                        CalendarItem(atIndex: index)
-                            .id(index)
-                            .onTapGesture {
-                                manager.selectedDate = manager.calendarDays[index]
-                            }
-                    }
-                    Spacer(minLength: 0)
-                }.onAppear {
-                    proxy.scrollTo(manager.calendarDays.count-1)
+    private var topTrailingButton: some View {
+        HStack {
+            Spacer()
+            Button {
+                manager.fullScreenMode = .chartView
+            } label: {
+                Image(systemName: "chart.bar.xaxis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25)
+            }
+            
+            Button {
+                isSettingsSheetPresented.toggle()
+            } label: {
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25)
+            }
+        }
+        .padding()
+    }
+    private var goalStatusText: some View {
+        VStack(alignment: .leading) {
+            // TODO: 목표 갯수 연동
+            Text("목표(8)")
+            Text("오늘은 어떤 목표에 시도했나요?")
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+    }
+    private var subGoalList: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 24) {
+                // TODO: 목표 리스트 연동
+                ForEach(dummyGoals, id: \.self) { item in
+                    if let goalText = item.goalText {
+                        Text(goalText)
+                            .padding(.horizontal, 6)
+                    } else { Text("목표 없음") }
                 }
             }
         }
+        .scrollIndicators(.hidden)
     }
-    
-    // MARK: 06. 뷰를 따로 떼어놓는 것에 대한 방법2 -> 변수를 받기
-    private func CalendarItem(atIndex index: Int) -> some View {
-        let entries = journals.filter({ $0.date?.longFormat == manager.calendarDays[index].longFormat })
-        let date = manager.calendarDays[index]
-        // MARK: 07. 날짜를 비교하는 간단한 방법
-        let isTodayItem = date.longFormat == Date().longFormat
-        return VStack(spacing: 2) {
-            ZStack {
+    private var bottomButton: some View {
+        VStack {
+            Spacer()
+            VStack {
+                Button {
+                    // TODO: 목표 추가하기 화면으로 이동
+                    print("목표 추가하기 버튼")
+                } label: {
+                    Text("목표 추가하기")
+                }
                 
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 44, height: 39, alignment: .center)
-                    .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
-                // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
-                if entries.count > 0 {
-                    Image("Ball")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 44, height: 39, alignment: .center)
-                        .opacity(0.35)
+                Button {
+                    // TODO: 슛 생성 화면으로 이동
+                    print("슛-쏘기 버튼")
+                } label: {
+                    Text("슛-쏘기")
                 }
-                Text(date.string(format: "d"))
-                    .font(.system(size: 22, weight: .semibold))
-                //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
-                    .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
-            }
-            // MARK: 09. 요일을 한국어로 표기하는 방법
-            Text(DateFormatter.koreanWeekdayFormatter()
-                .string(from: date))
-            .font(.system(size: 12))
-            .foregroundColor(.text)
-        }
-        .padding(5)
-        .background(Color.diarySecondary.cornerRadius(10))
-    }
-    
-    /// Preview image full screen
-    private var PreviewImageFullScreen: some View {
-        ZStack {
-            if let entryImage = manager.selectedEntryImage {
-                PhotoDetailView(image: entryImage).ignoresSafeArea()
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            manager.selectedEntryImage = nil
-                        } label: {
-                            ZStack {
-                                Color.clear.frame(width: 25, height: 25, alignment: .center)
-                                Image(systemName: "xmark").resizable().aspectRatio(contentMode: .fit)
-                                    .frame(width: 18, height: 18, alignment: .center)
-                            }
-                        }.foregroundColor(Color("LightColor"))
-                    }
-                    Spacer()
-                }.padding(.horizontal)
             }
         }
     }
 }
-
