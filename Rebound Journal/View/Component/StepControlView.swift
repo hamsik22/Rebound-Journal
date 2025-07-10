@@ -9,11 +9,13 @@ import SwiftUI
 
 // MARK: 하단의 <이전><다음으로> 버튼을 만드는 뷰
 
-/// - onPrevious : <이전>을 눌렀을 때, 동작할 코드
-/// - onNext : <다음으로>을 눌렀을 때, 동작할 코드
-/// - canGoNext : <다음으로>를 활성화하는 Bool값
-/// - nextButtonText : <다음으로>가 아닌 다른 문자로 수정할 시
-/// - previousButtonText : <이전>이 아닌 다른 문자로 수정할 시
+/// 화면 하단에 표시되는 이전/다음 버튼 컴포넌트
+/// - hasBackButton: 이전 버튼을 표시할지 여부 (기본값: false)
+/// - canGoNext: 다음 버튼 활성화 상태 (기본값: true)
+/// - onPrevious: 이전 버튼을 눌렀을 때 실행할 코드 (옵셔널)
+/// - onNext: 다음 버튼을 눌렀을 때 실행할 코드 (필수)
+/// - nextButtonText: 다음 버튼 텍스트 (기본값: "다음으로")
+/// - previousButtonText: 이전 버튼 텍스트 (기본값: "이전")
 struct StepControlView: View {
     // MARK: - Properties
     let hasBackButton: Bool
