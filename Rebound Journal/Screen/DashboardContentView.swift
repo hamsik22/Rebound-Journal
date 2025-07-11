@@ -123,7 +123,7 @@ struct DashboardContentView: View {
     private var goalStatusText: some View {
         VStack(alignment: .leading, spacing: 12) {
             // TODO: 목표 갯수 연동
-            Text("목표(8)")
+            Text("목표(\(subGoals.count))")
                 .font(.system(size: 22))
                 .bold()
             Text("오늘은 어떤 목표에 시도했나요?")
@@ -135,16 +135,19 @@ struct DashboardContentView: View {
     }
     private var subGoalList: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 24) {
-                // TODO: 목표 리스트 연동
-                ForEach(dummyGoals, id: \.self) { item in
-                    let text = item.goalText ?? "목표 없음"
-                    let count = Int.random(in: 0...10)
-                    goalCell([text: count])
+            if !subGoals.isEmpty {
+                LazyVGrid(columns: columns, spacing: 24) {
+                    // TODO: 목표 리스트 연동
+                    ForEach(subGoals, id: \.self) { item in
+                        let text = item.goalText ?? "목표 없음"
+                        goalCell([text: 0])
+                    }
                 }
+                Color.clear
+                    .frame(height: 200)
+            } else {
+                Text("목표를 생성해주세요!")
             }
-            Color.clear
-                .frame(height: 200)
         }
         .scrollIndicators(.hidden)
     }
@@ -209,6 +212,7 @@ struct DashboardContentView: View {
                 Button {
                     // TODO: 슛 생성 화면으로 이동
                     print("슛-쏘기 버튼")
+                    manager.fullScreenMode = .entryCreator
                 } label: {
                     Text("슛-쏘기")
                         .frame(maxWidth: .infinity)
