@@ -22,17 +22,6 @@ struct DashboardContentView: View {
     @State private var isHistorySheetPresented = false
     @State private var journalCreatorStep: ReboundProcessStep = .createSubGoal
     
-    private let dummyGoals: [SubGoalData] = [
-        SubGoalData(id: UUID().uuidString, date: Date(), goalText: "미루지 말고 해보자"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -1, to: Date())!, goalText: "하루 10분 독서하기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -2, to: Date())!, goalText: "물 2리터 마시기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -3, to: Date())!, goalText: "30분 산책하기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -4, to: Date())!, goalText: "뉴스 읽기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -5, to: Date())!, goalText: "간단한 요리해보기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -6, to: Date())!, goalText: "노트 정리하기"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -7, to: Date())!, goalText: "앱 리팩토링 1시간"),
-        SubGoalData(id: UUID().uuidString, date: Calendar.current.date(byAdding: .day, value: -8, to: Date())!, goalText: "운동 스트레칭하기")
-    ]
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
     var body: some View {
@@ -84,17 +73,7 @@ struct DashboardContentView: View {
             SettingsView() // 모달로 표시될 View
         }
     }
-    
-    // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
-    private var MainContainer: some View {
-        VStack(spacing: 15) {
-            topTrailingButton
-            goalStatusText
-            subGoalList
-            Spacer()
-        }
-    }
-    
+    /// 우측상단 버튼
     private var topTrailingButton: some View {
         HStack {
             Spacer()
@@ -120,9 +99,9 @@ struct DashboardContentView: View {
         }
         .padding()
     }
+    /// 목표현황 텍스트
     private var goalStatusText: some View {
         VStack(alignment: .leading, spacing: 12) {
-            // TODO: 목표 갯수 연동
             Text("목표(\(subGoals.count))")
                 .font(.system(size: 22))
                 .bold()
@@ -133,14 +112,15 @@ struct DashboardContentView: View {
         .padding(.bottom, 30)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
+    /// 목표 리스트
     private var subGoalList: some View {
         ScrollView {
             if !subGoals.isEmpty {
                 LazyVGrid(columns: columns, spacing: 24) {
-                    // TODO: 목표 리스트 연동
                     ForEach(subGoals, id: \.self) { item in
                         let text = item.goalText ?? "목표 없음"
-                        goalCell([text: 0])
+                        let count = journals.count(where: { $0.subGoal == item.goalText })
+                        goalCell([text: count])
                     }
                 }
                 Color.clear
@@ -151,6 +131,7 @@ struct DashboardContentView: View {
         }
         .scrollIndicators(.hidden)
     }
+    /// 목표 리스트 셀
     private func goalCell(_ data: [String: Int]) -> some View {
         var highlightColor: Color = .gray
         
@@ -189,6 +170,7 @@ struct DashboardContentView: View {
         .background(highlightColor)
         .clipShape(RoundedRectangle(cornerRadius: 4))
     }
+    /// 하단 버튼
     private var bottomButton: some View {
         VStack {
             Spacer()
@@ -210,8 +192,6 @@ struct DashboardContentView: View {
                 )
                 
                 Button {
-                    // TODO: 슛 생성 화면으로 이동
-                    print("슛-쏘기 버튼")
                     manager.fullScreenMode = .entryCreator
                 } label: {
                     Text("슛-쏘기")
