@@ -97,7 +97,6 @@ struct DashboardContentView: View {
             }
             .tint(.black)
         }
-        .padding()
     }
     /// 목표현황 텍스트
     private var goalStatusText: some View {
