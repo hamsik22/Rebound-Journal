@@ -173,34 +173,16 @@ struct DashboardContentView: View {
     private var bottomButton: some View {
         VStack {
             Spacer()
-            VStack {
-                Button {
-                    // TODO: 목표 추가하기 화면으로 이동
-                    print("목표 추가하기 버튼")
-                } label: {
-                    Text("목표 추가하기")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 60)
-                        .bold()
-                        .background(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 90))
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 90)
-                        .stroke(Color.orange, lineWidth: 2)
-                )
-                
-                Button {
-                    manager.fullScreenMode = .entryCreator
-                } label: {
-                    Text("슛-쏘기")
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 60)
-                        .bold()
-                        .background(.tint)
-                        .foregroundStyle(.white)
-                        .clipShape(RoundedRectangle(cornerRadius: 90))
-                }
+            Button {
+                manager.fullScreenMode = .entryCreator
+            } label: {
+                Text("슛-쏘기")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .bold()
+                    .background(.tint)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 90))
             }
         }
     }
