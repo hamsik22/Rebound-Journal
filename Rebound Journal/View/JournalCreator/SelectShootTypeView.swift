@@ -22,7 +22,7 @@ struct SelectShootTypeView: View {
                                 description: text.shootTypeDescription)
             Spacer()
             HStack {
-								// 골인 버튼
+                // 골인 버튼
                 Button(action: {
                     toggleSelection(type: true)
                 }) {
@@ -30,19 +30,19 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-												.background(
-														RoundedRectangle(cornerRadius: 10)
-																.fill(Color.white)
-																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
-												)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.white)
+                                .shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+                        )
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-																.stroke(viewModel.goalType == true ? Color.accentColor : .shootTypeButtonBorder, lineWidth: 1)
+                                .stroke(viewModel.goalType == true ? Color.accentColor : .shootTypeButtonBorder, lineWidth: 1)
                         )
                 }
                 Spacer(minLength: 30)
-
-								// 리바운드 버튼
+                
+                // 리바운드 버튼
                 Button(action: {
                     toggleSelection(type: false)
                 }) {
@@ -50,11 +50,11 @@ struct SelectShootTypeView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .frame(height: 160)
-												.background(
-														RoundedRectangle(cornerRadius: 10)
-																.fill(Color.white)
-																.shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
-												)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.white)
+                                .shadow(color: Color.black.opacity(0.25), radius: 6, x: 0, y: 4)
+                        )
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(viewModel.goalType == false ? Color.accentColor : Color.shootTypeButtonBorder, lineWidth: 1)
@@ -95,19 +95,19 @@ extension SelectShootTypeView {
                 Spacer()
                 Image(.goalIn)
                     .resizable()
-										.aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 60, height: 70)
                 Spacer()
                 Text("골인")
-										.foregroundStyle(.black)
+                    .foregroundStyle(.black)
             }
         case false :
             VStack {
                 Spacer()
                 Image(.rebound)
                     .resizable()
-										.aspectRatio(contentMode: .fill)
-                    .frame(width: 60, height: 70)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 70, height: 105)
                 Spacer()
                 Text("리바운드")
                     .foregroundStyle(.black)
@@ -118,5 +118,4 @@ extension SelectShootTypeView {
 
 #Preview("SelectShootTypeView") {
     SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
-				.preferredColorScheme(.dark)
 }
