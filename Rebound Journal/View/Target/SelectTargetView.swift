@@ -62,30 +62,15 @@ struct SelectTargetView: View {
             
             Spacer()
             
-            Button(action: {
-                debugPrint("다음 화면으로 이동")
-                currentStep = .shoot
-            }) {
-                if let _ = selectedGoal {
-                    Text("다음으로")
-                        .font(.system(size: 18, weight: .bold))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .clipShape(.rect(cornerRadius: 90))
-                } else {
-                    Text("건너뛰기")
-                        .font(.system(size: 18, weight: .bold))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .clipShape(.rect(cornerRadius: 90))                    
-                }
-            }
-            .disabled(false)
-            .animation(.easeInOut, value: 1)
+						StepControlView(
+                hasBackButton: false,
+                canGoNext: true,
+                onNext: {
+                    debugPrint("다음 화면으로 이동")
+                    currentStep = .shoot
+                },
+                nextButtonText: selectedGoal != nil ? "다음으로" : "건너뛰기"
+            )
         }
         .padding()
         .onAppear {

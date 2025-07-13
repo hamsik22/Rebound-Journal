@@ -77,20 +77,20 @@ struct CreateTargetView: View {
 						.padding(.bottom, 40)
 
             StepControlView(
-                onPrevious: {
-								debugPrint("이전")
-                currentStep = .review
-            },
-                onNext: {
-								debugPrint("저장하기")
-                viewModel.subGoal = targetText
-                currentStep = .selectSubGoal
-                viewModel.saveJournal(context: modelContext)
-                viewModel.saveSubGoal(context: modelContext)
-                manager.fullScreenMode = nil
-            },
+                hasBackButton: true,
                 canGoNext: !targetText.isEmpty,
-                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기")
+                onPrevious: {
+                    currentStep = .review
+                },
+                onNext: {
+                    viewModel.subGoal = targetText
+                    currentStep = .selectSubGoal
+                    viewModel.saveJournal(context: modelContext)
+                    viewModel.saveSubGoal(context: modelContext)
+                    manager.fullScreenMode = nil
+                },
+                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기"
+            )
         }
         .padding()
     }

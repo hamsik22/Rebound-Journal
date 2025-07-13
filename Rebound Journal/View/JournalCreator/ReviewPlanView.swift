@@ -95,6 +95,8 @@ struct ReviewPlanView: View {
             
             // StepControll
             StepControlView(
+                hasBackButton: true,
+                canGoNext: canSave,
                 onPrevious: {
                     currentStep = .emotion
                 },
@@ -107,8 +109,8 @@ struct ReviewPlanView: View {
                     else { currentStep = .createSubGoal }
                     
                 },
-                canGoNext: canSave,
-                nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton)
+                nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton
+            )
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Button("키보드 내리기") {

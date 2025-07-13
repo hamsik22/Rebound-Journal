@@ -62,29 +62,15 @@ struct SelectShootTypeView: View {
                 }
             }
             Spacer()
-            Button(action: {
-                debugPrint("다음 화면으로 이동")
-                currentStep = .emotion
-            }) {
-                if viewModel.goalType == nil {
-                    Text("다음으로")
-                        .font(.system(size: 18, weight: .bold))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(.disabledButtonBackground)
-                        .foregroundColor(.disabledButtonText)
-                        .cornerRadius(90)
-                        .disabled(true)
-                } else {
-                    Text("다음으로")
-                        .font(.system(size: 18, weight: .bold))
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .foregroundColor(.white)
-                        .cornerRadius(90)
-                }
-            }
+            StepControlView(
+                hasBackButton: false,
+                canGoNext: viewModel.goalType != nil,
+                onNext: {
+                    debugPrint("다음 화면으로 이동")
+                    currentStep = .emotion
+                },
+                nextButtonText: "다음으로"
+            )
             .animation(.easeInOut, value: viewModel.goalType)
         }
         .padding()
