@@ -217,12 +217,19 @@ struct CreateEmotionView: View {
                         isTextFieldFocused = true
                     }
                 }
-            StepControlView(onPrevious: {
-                isPresented = false
-            }, onNext: {
-                onConfirm(tempText)
-                isPresented = false
-            }, canGoNext: !tempText.isEmpty, nextButtonText: "확인", previousButtonText: "취소")
+            StepControlView(
+                hasBackButton: true,
+                canGoNext: !tempText.isEmpty,
+                onPrevious: {
+                    isPresented = false
+                },
+                onNext: {
+                    onConfirm(tempText)
+                    isPresented = false
+                },
+                nextButtonText: "확인",
+                previousButtonText: "취소"
+            )
         }
         .padding()
     }
