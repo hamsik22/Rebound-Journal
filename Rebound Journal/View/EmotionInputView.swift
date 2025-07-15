@@ -31,12 +31,17 @@ struct EmotionInputView: View {
                 .frame(maxWidth: .infinity)
                 .padding()
             Spacer()
-            StepControlView(onPrevious: {
-                viewModel.currentStep = .shoot
-            }, onNext: {
-                viewModel.currentStep = .review
-            }, canGoNext: canGoNext,
-            nextButtonText: "다음으로")
+            StepControlView(
+                hasBackButton: true,
+                canGoNext: canGoNext,
+                onPrevious: {
+                    viewModel.currentStep = .shoot
+                },
+                onNext: {
+                    viewModel.currentStep = .review
+                },
+                nextButtonText: "다음으로"
+            )
         }
     }
     

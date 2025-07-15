@@ -22,14 +22,18 @@ struct DashboardContentView: View {
     @State private var isHistorySheetPresented = false
     @State private var journalCreatorStep: ReboundProcessStep = .createSubGoal
     
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+    
     var body: some View {
         ZStack {
-            // MARK: 00. 색상을 정의하는 방법에 대하여
-            Color.diaryBackground
-                .ignoresSafeArea()
-            MainContainer
-            PreviewImageFullScreen
+            VStack {
+                topTrailingButton
+                goalStatusText
+                subGoalList
+            }
+            bottomButton
         }
+        .padding()
         // MARK: 10. 화면이동 중 전체화면을 덮는 방법
         .fullScreenCover(item: $manager.fullScreenMode) { type in
             switch type {
@@ -69,134 +73,117 @@ struct DashboardContentView: View {
             SettingsView() // 모달로 표시될 View
         }
     }
-    
-    // MARK: 01. 뷰를 따로 떼어놓는 것에 대한 방법
-    private var MainContainer: some View {
-        VStack(spacing: 15) {
-            HeaderTitle
-            HeaderCalendarView
-            HomeView()
-                .environmentObject(manager)
-        }
-    }
-    
-    private var HeaderTitle: some View {
-        HStack(alignment: .top) {
-            VStack(alignment: .leading) {
-                // MARK: 02. date format을 사용하는 것에 대하여
-                Text(manager.selectedDate.headerTitle)
-                // MARK: 03. 고정 문구를 관리하는 것에 대하여
-                HStack {
-                    Text(Constants.Strings.mainTitle)
-                        .font(.largeTitle)
-                        .bold()
-                    Spacer()
-                    Button {
-                        manager.fullScreenMode = .chartView
-                    } label: {
-                        Image(systemName: "chart.bar.xaxis")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25)
-                    }
-                    
-                    Button {
-                        isSettingsSheetPresented.toggle()
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25)
-                    }
-                    
-                }
-            }
+    /// 우측상단 버튼
+    private var topTrailingButton: some View {
+        HStack {
             Spacer()
+            Button {
+                manager.fullScreenMode = .chartView
+            } label: {
+                Image(systemName: "chart.bar.xaxis")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25)
+            }
+            .tint(.black)
+            
+            Button {
+                isSettingsSheetPresented.toggle()
+            } label: {
+                Image(systemName: "gearshape.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 25)
+            }
+            .tint(.black)
         }
-        .padding(.horizontal)
-        .foregroundColor(.lightColor)
     }
-    
-    private var HeaderCalendarView: some View {
-        // MARK: 04. ScrollViewReader를 활용한 스크롤뷰의 위치 조정
-        ScrollViewReader { proxy in
-            // MARK: 05. 제공하는 기능들을 잘 알고 쓰기
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
-                    Spacer(minLength: 0)
-                    ForEach(manager.calendarDays.indices, id: \.self) { index in
-                        CalendarItem(atIndex: index)
-                            .id(index)
-                            .onTapGesture {
-                                manager.selectedDate = manager.calendarDays[index]
-                            }
+    /// 목표현황 텍스트
+    private var goalStatusText: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("목표(\(subGoals.count))")
+                .font(.system(size: 22))
+                .bold()
+            Text("오늘은 어떤 목표에 시도했나요?")
+                .font(.system(size: 18))
+                .foregroundStyle(.secondary)
+        }
+        .padding(.bottom, 30)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    /// 목표 리스트
+    private var subGoalList: some View {
+        ScrollView {
+            if !subGoals.isEmpty {
+                LazyVGrid(columns: columns, spacing: 24) {
+                    ForEach(subGoals, id: \.self) { item in
+                        let text = item.goalText ?? "목표 없음"
+                        let count = journals.count(where: { $0.subGoal == item.goalText })
+                        goalCell([text: count])
                     }
-                    Spacer(minLength: 0)
-                }.onAppear {
-                    proxy.scrollTo(manager.calendarDays.count-1)
                 }
+                Color.clear
+                    .frame(height: 200)
+            } else {
+                Text("목표를 생성해주세요!")
             }
         }
+        .scrollIndicators(.hidden)
     }
-    
-    // MARK: 06. 뷰를 따로 떼어놓는 것에 대한 방법2 -> 변수를 받기
-    private func CalendarItem(atIndex index: Int) -> some View {
-        let entries = journals.filter({ $0.date?.longFormat == manager.calendarDays[index].longFormat })
-        let date = manager.calendarDays[index]
-        // MARK: 07. 날짜를 비교하는 간단한 방법
-        let isTodayItem = date.longFormat == Date().longFormat
-        return VStack(spacing: 2) {
-            ZStack {
-                
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 44, height: 39, alignment: .center)
-                    .foregroundColor(isTodayItem ? .diaryBackground : .diarySecondaryBackground)
-                // MARK: 08. 3항 연산자로 if문을 줄이는 방법
-                //.opacity(isTodayItem ? 1 : (isSelectedItem ? 0.65 : 0.1))
-                if entries.count > 0 {
-                    Image("Ball")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 44, height: 39, alignment: .center)
-                        .opacity(0.35)
-                }
-                Text(date.string(format: "d"))
-                    .font(.system(size: 22, weight: .semibold))
-                //.foregroundStyle(isTodayItem || isSelectedItem ? .light : .diaryPrimary) 어떻게 할까 고민 중
-                    .foregroundStyle(entries.count > 0 ? .light : .diaryPrimary)
+    /// 목표 리스트 셀
+    private func goalCell(_ data: [String: Int]) -> some View {
+        var highlightColor: Color = .gray
+        
+        if let count = data.values.first {
+            switch count {
+            case 0..<3:
+                highlightColor = .goalFreqLow
+            case 3..<8:
+                highlightColor = .goalFreqMid
+            case 8...:
+                highlightColor = .goalFreqHigh
+            default:
+                break
             }
-            // MARK: 09. 요일을 한국어로 표기하는 방법
-            Text(DateFormatter.koreanWeekdayFormatter()
-                .string(from: date))
-            .font(.system(size: 12))
-            .foregroundColor(.text)
         }
-        .padding(5)
-        .background(Color.diarySecondary.cornerRadius(10))
-    }
-    
-    /// Preview image full screen
-    private var PreviewImageFullScreen: some View {
-        ZStack {
-            if let entryImage = manager.selectedEntryImage {
-                PhotoDetailView(image: entryImage).ignoresSafeArea()
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            manager.selectedEntryImage = nil
-                        } label: {
-                            ZStack {
-                                Color.clear.frame(width: 25, height: 25, alignment: .center)
-                                Image(systemName: "xmark").resizable().aspectRatio(contentMode: .fit)
-                                    .frame(width: 18, height: 18, alignment: .center)
-                            }
-                        }.foregroundColor(Color("LightColor"))
-                    }
+        
+        return VStack(alignment: .leading) {
+            if let goal = data.keys.first,
+               let count = data.values.first {
+                Text(goal)
+                    .lineLimit(1)
+                    .font(.system(size: 18))
+                    .padding(.bottom, 10)
+                    .minimumScaleFactor(0.7)
+                HStack {
                     Spacer()
-                }.padding(.horizontal)
+                    Text("\(count)번")
+                        .font(.system(size: 14, weight: .bold))
+                }
+            } else {
+                Text("데이터 없음")
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding()
+        .background(highlightColor)
+        .clipShape(RoundedRectangle(cornerRadius: 4))
+    }
+    /// 하단 버튼
+    private var bottomButton: some View {
+        VStack {
+            Spacer()
+            Button {
+                manager.fullScreenMode = .entryCreator
+            } label: {
+                Text("슛-쏘기")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .bold()
+                    .background(.tint)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 90))
             }
         }
     }
 }
-
