@@ -39,7 +39,7 @@ extension Date {
     private static let dayLabelFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
-        formatter.dateFormat = "d일"
+        formatter.dateFormat = "M.d"
         return formatter
     }()
 
