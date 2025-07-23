@@ -200,7 +200,7 @@ extension ChartView {
                     VStack(alignment: .leading, spacing: 10) {
                         Text(group.key)
                             .font(.title3.bold())
-                            .opacity(0.5)
+                            .foregroundStyle(.description)
                             .padding(.leading, 5)
                         
                         ForEach(group.value) { item in
