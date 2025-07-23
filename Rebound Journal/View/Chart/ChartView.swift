@@ -193,7 +193,7 @@ extension ChartView {
                     .opacity(0.5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 100)
-                    .background(Color.gray.opacity(0.2))
+                    .background(.journalDetail)
                     .cornerRadius(10)
             } else {
                 ForEach(viewModel.groupedJournals, id: \.key) { group in
@@ -214,7 +214,7 @@ extension ChartView {
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.gray.opacity(0.2))
+                            .background(.journalDetail)
                             .cornerRadius(10)
                         }
                     }
