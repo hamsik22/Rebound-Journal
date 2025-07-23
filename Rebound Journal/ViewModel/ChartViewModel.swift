@@ -6,72 +6,85 @@
 //
 
 import Foundation
-import CoreData
 import SwiftUI
 
 final class ChartViewModel: ObservableObject {
     
-    @Published var journals: [JournalModel] = []
-    @Published var journalSummary: JournalSummary = .init(entries: [])
-    @Published var journalData: [JournalMetaData] = []
-    @Published var groupedJournalData: GroupedJournal = []
-    @Published var journalChart: [JournalChart] = []
+    var journals: [JournalData] = []
     @Published var selectedDate = Date()
     @Published var selectedDetailType: Bool = false
     @Published var isDatePickerShown: Bool = false
     
-    /// 모델에서 가져온 데이터를 차트로 보여주기 위한 데이터 로직
-    /// 가장 오래된 순으로 정렬하고 지웠던 이력이 있는 데이터를 제외하고
-    /// 객체를 저장하는 함수
-    func makeChartItems(from journals: [JournalModel]) {
+    @Published var journalSummaries: JournalSummary = .init(entries: [])
+    @Published var journalDetails: [JournalMetaData] = []
+    @Published var groupedJournals: GroupedJournal = []
+    @Published var journalCharts: [JournalChart] = []
+    
+    /// 뷰모델 내의 데이터를 초기화하는 함수
+    func fetch(from journals: [JournalData]) {
+        generateJournalSummaries(from: journals)
+        generateJournalCharts(from: journals)
+        generateJournalDetails(from: journals)
+        makeGroupedJournalDetailsByDate()
+    }
+    
+    /// 기록 요약 초기화(연속일수, 전체/타입별 갯수)
+    private func generateJournalSummaries(from journals: [JournalData]) {
+        self.journalSummaries = JournalSummary(entries: journals)
+    }
+    /// 차트 데이터 초기화
+    private func generateJournalCharts(from journals: [JournalData]) {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
-        
         // 7일치 날짜 생성: [0~6]일 전
         let last7Days = (0...6).compactMap {
             calendar.date(byAdding: .day, value: -$0, to: today)
         }.reversed()
         
-        var result: [JournalChart] = []
+        var charts: [JournalChart] = []
         
         for date in last7Days {
+            // 일별 데이터 추출
             let dayJournals = journals.filter {
-                !$0.hasDeleted && calendar.isDate($0.date, inSameDayAs: date)
+                !$0.hasDeletedUnwrapped && calendar.isDate($0.dateUnwrapped, inSameDayAs: date)
             }
             
-            let goalInCount = dayJournals.filter { $0.isGoalIn }.count
-            let reboundCount = dayJournals.filter { !$0.isGoalIn }.count
+            let goalInCount = dayJournals.filter { $0.isGoalInUnwrapped }.count
+            let reboundCount = dayJournals.filter { !$0.isGoalInUnwrapped }.count
             
             if goalInCount > 0 {
-                result.append(JournalChart(date: date, isGoalIn: true, count: goalInCount))
+                charts.append(JournalChart(date: date, isGoalIn: true, count: goalInCount))
             } else {
-                result.append(JournalChart(date: date, isGoalIn: true, count: 0))
+                charts.append(JournalChart(date: date, isGoalIn: true, count: 0))
             }
             
             if reboundCount > 0 {
-                result.append(JournalChart(date: date, isGoalIn: false, count: reboundCount))
+                charts.append(JournalChart(date: date, isGoalIn: false, count: reboundCount))
             } else {
-                result.append(JournalChart(date: date, isGoalIn: false, count: 0))
+                charts.append(JournalChart(date: date, isGoalIn: false, count: 0))
             }
         }
-        
-        self.journalChart = result
+        self.journalCharts = charts
+    }
+    /// 기록 상세정보 초기화
+    private func generateJournalDetails(from journals: [JournalData]) {
+        self.journalDetails = journals.map { JournalMetaData(entry: $0)}
     }
     
     /// 슛 기록을 날짜별로 그룹화하는 함수
-    func makeGroupedJournalData() {
-        let grouped = Dictionary(grouping: journalData) { $0.date.dayLabel }
-        groupedJournalData = grouped.sorted { $0.key < $1.key }
+    func makeGroupedJournalDetailsByDate() {
+        let grouped = Dictionary(grouping: journalDetails) { $0.date.dayLabel }
+        groupedJournals = grouped.sorted { $0.key < $1.key }
     }
     
-    /// 슛 타입별로 기록을 그룹화하여 전달하는 함수
-    func filteredGroupedJournalData(isGoalIn: Bool) -> GroupedJournal {
+    /// 슛 타입별 데이터를 반환하는 함수
+    func filteredGroupedJournalDetailsBy(isGoalIn: Bool) -> GroupedJournal {
         if isGoalIn {
-            return self.groupedJournalData
+            return self.groupedJournals
                 .map { (key, values) in (key: key, value: values.filter { $0.isGoalIn }) }
                 .filter { !$0.value.isEmpty }
         } else {
-            return self.groupedJournalData
+            return self.groupedJournals
                 .map { (key, values) in (key: key, value: values.filter { !$0.isGoalIn }) }
                 .filter { !$0.value.isEmpty }
         }
@@ -90,33 +103,14 @@ final class ChartViewModel: ObservableObject {
     private func applyJournalFilter(for year: Int, month: Int) {
         let calendar = Calendar.current
         let filtered = journals.filter {
-            !$0.hasDeleted &&
-            calendar.component(.year, from: $0.date) == year &&
-            calendar.component(.month, from: $0.date) == month
+            !$0.hasDeletedUnwrapped &&
+            calendar.component(.year, from: $0.dateUnwrapped) == year &&
+            calendar.component(.month, from: $0.dateUnwrapped) == month
         }
-        
-        self.journalData = filtered.map { JournalMetaData(entry: $0) }
-        self.journalSummary = JournalSummary(entries: filtered)
-        self.makeChartItems(from: filtered)
-        self.makeGroupedJournalData()
-    }
-    
-    func getJournals(context: NSManagedObjectContext) {
-        let entries = DataManager.loadJournalEntries(context: context)
-        self.journals = JournalModel.convertToJournalModel(entries: entries)
-        self.journalData = self.journals
-            .filter { !$0.hasDeleted}
-            .map { JournalMetaData(entry: $0) }
-        self.journalSummary = JournalSummary(entries: self.journals)
-        self.makeChartItems(from: self.journals)
-        self.makeGroupedJournalData()
-				debugPrint("Journals = \(self.journals.count)")
-        debugPrint("JournalData = \(self.journalData.count)")
-        debugPrint("JournalSummary = \(self.journalSummary.total)")
-        debugPrint("JournalChartItems = \(self.journalChart.count)")
-        debugPrint("GroupedJournalData = \(self.groupedJournalData.count)")
+
+        fetch(from: filtered)
+        self.makeGroupedJournalDetailsByDate()
     }
 }
 
-/// 날짜별로 그룹화된 딕셔너리 타입
 typealias GroupedJournal = [(key: String, value: [JournalMetaData])]

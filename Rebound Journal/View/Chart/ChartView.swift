@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Charts
+import SwiftData
 
 struct ChartView: View {
     
@@ -14,6 +15,8 @@ struct ChartView: View {
     @StateObject var viewModel: ChartViewModel
     @State var isDetailViewPresented: Bool = false
     @Environment(\.managedObjectContext) private var context
+    
+    @Query private var journals: [JournalData]
     
     var body: some View {
         GeometryReader { proxy in
@@ -25,7 +28,8 @@ struct ChartView: View {
                 // 연속 일수
                 streakText
                 // 슛 현황
-                totalShoot(data: viewModel.journalSummary)
+                totalShoot(data: viewModel.journalSummaries
+)
                 // 차트
                 chart
                     .frame(height: proxy.size.height * 0.3)
@@ -34,7 +38,7 @@ struct ChartView: View {
             }
         }
         .onAppear {
-            viewModel.getJournals(context: context)
+            viewModel.fetch(from: journals)
         }
         .fullScreenCover(isPresented: $isDetailViewPresented) {
             // 타입별 상세보기
@@ -51,7 +55,7 @@ extension ChartView {
     /// 연속기록 일수를 보여주는 화면
     private var streakText: some View {
         HStack {
-            Text("연속으로 \(viewModel.journalSummary.streak)일째 기록 중이에요!")
+            Text("연속으로 \(viewModel.journalSummaries.streak)일째 기록 중이에요!")
                 .font(.title2.bold())
             Spacer()
         }
@@ -61,10 +65,10 @@ extension ChartView {
             formatter.dateFormat = "yyyy-MM-dd"
             
             let sorted = viewModel.journals
-                .filter { !$0.hasDeleted }
-                .sorted { $0.date < $1.date }
+                .filter { !$0.hasDeletedUnwrapped }
+                .sorted { $0.dateUnwrapped < $1.dateUnwrapped }
             
-            let dateStrings = sorted.map { formatter.string(from: $0.date) }
+            let dateStrings = sorted.map { formatter.string(from: $0.dateUnwrapped) }
             
             dateStrings.forEach { debugPrint($0) }
         }
@@ -94,7 +98,7 @@ extension ChartView {
             }
             
             Chart {
-                ForEach(viewModel.journalChart) { item in
+                ForEach(viewModel.journalCharts) { item in
                     BarMark(
                         x: .value("Date", item.date.dayLabel),
                         y: .value("Count", item.count)
@@ -182,7 +186,7 @@ extension ChartView {
     /// 스크롤 뷰로 만들어야하고 날짜별로 보여줘야 함.
     private var shootLog: some View {
         VStack {
-            if viewModel.groupedJournalData.isEmpty {
+            if viewModel.groupedJournals.isEmpty {
                 Text("기록이 없어요!")
                     .padding()
                     .bold()
@@ -192,7 +196,7 @@ extension ChartView {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
             } else {
-                ForEach(viewModel.groupedJournalData, id: \.key) { group in
+                ForEach(viewModel.groupedJournals, id: \.key) { group in
                     VStack(alignment: .leading, spacing: 10) {
                         Text(group.key)
                             .font(.title3.bold())
