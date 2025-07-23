@@ -93,8 +93,8 @@ extension ChartView {
                 
                 Spacer()
                 
-                customChartLegend(circleColor: .orange, text: "골인")
-                customChartLegend(circleColor: .orange.opacity(0.2), text: "리바운드")
+                customChartLegend(circleColor: .goalInChart, text: "골인")
+                customChartLegend(circleColor: .reboundChart, text: "리바운드")
             }
             
             Chart {
@@ -103,7 +103,7 @@ extension ChartView {
                         x: .value("Date", item.date.dayLabel),
                         y: .value("Count", item.count)
                     )
-                    .foregroundStyle(item.isGoalIn ? Color.orange : Color.orange.opacity(0.2))
+                    .foregroundStyle(item.isGoalIn ? Color.goalInChart : Color.reboundChart)
                 }
             }
             .chartLegend(.hidden)
