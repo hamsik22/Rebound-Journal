@@ -14,6 +14,7 @@ struct CreateTargetView: View {
     @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: JournalCreatorViewModel
     @Binding var currentStep: ReboundProcessStep
+    @FocusState private var isTextEditorFocused: Bool
     // UI State
     @State var targetText: String = ""
     
@@ -42,7 +43,7 @@ struct CreateTargetView: View {
                 HStack {
                     TextEditor(text: $targetText)
                         .font(.system(size: 15))
-												.foregroundStyle(.black)
+                        .foregroundStyle(.black)
                         .padding(.vertical, 10)
                         .frame(maxWidth: .infinity)
                         .scrollContentBackground(.hidden)
@@ -51,12 +52,13 @@ struct CreateTargetView: View {
                                 Text("목표를 적어주세요")
                                     .font(.system(size: 15))
                                     .padding(.horizontal, 10)
-																		.foregroundStyle(.description)
+                                    .foregroundStyle(.description)
                             }
                         }
+                        .focused($isTextEditorFocused)
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
-												.foregroundStyle(.description)
+                        .foregroundStyle(.description)
                         .padding(.horizontal, 5)
                 }
                 .frame(height: 65)
@@ -68,14 +70,14 @@ struct CreateTargetView: View {
             Spacer()
             
             // MARK: 안내문구 2
-						VStack(alignment: .center, spacing: 4) {
-								Text("다음 슈팅 때 선택할 수 있어요.")
-										.font(.system(size: 13))
-								Text("언제든지 다시 확인할 수 있어요.")
-										.font(.system(size: 13))
-						}
-						.padding(.bottom, 40)
-
+            VStack(alignment: .center, spacing: 4) {
+                Text("다음 슈팅 때 선택할 수 있어요.")
+                    .font(.system(size: 13))
+                Text("언제든지 다시 확인할 수 있어요.")
+                    .font(.system(size: 13))
+            }
+            .padding(.bottom, 40)
+            
             StepControlView(
                 hasBackButton: true,
                 canGoNext: !targetText.isEmpty,
@@ -93,6 +95,8 @@ struct CreateTargetView: View {
             )
         }
         .padding()
+        .onAppear { isTextEditorFocused = true }
+        .onTapGesture { isTextEditorFocused = false }
     }
 }
 
