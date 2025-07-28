@@ -73,8 +73,16 @@ struct SelectTargetView: View {
 								hasBackButton: false,
 								canGoNext: true,
 								onNext: {
-										debugPrint("다음 화면으로 이동")
-										currentStep = .shoot
+										if selectedGoal != nil {
+												// 목표를 선택한 경우: 선택된 목표 유지하고 다음으로
+												debugPrint("목표 선택됨: \(viewModel.subGoal ?? "없음")")
+												currentStep = .shoot
+										} else {
+												// 건너뛰기: 목표 선택 없이 다음으로
+												debugPrint("목표 선택 건너뛰기")
+												viewModel.subGoal = nil
+												currentStep = .shoot
+										}
 								},
 								nextButtonText: selectedGoal != nil ? "다음으로" : "건너뛰기"
 						)

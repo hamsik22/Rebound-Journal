@@ -77,16 +77,25 @@ struct CreateTargetView: View {
             
             StepControlView(
                 hasBackButton: true,
-                canGoNext: !targetText.isEmpty,
+                canGoNext: true,  // 건너뛰기도 가능하도록 항상 활성화
                 onPrevious: {
                     currentStep = .review
                 },
                 onNext: {
-                    viewModel.subGoal = targetText
-                    currentStep = .selectSubGoal
-                    viewModel.saveJournal(context: modelContext)
-                    viewModel.saveSubGoal(context: modelContext)
-                    manager.fullScreenMode = nil
+                    if targetText.isEmpty {
+                        // 건너뛰기: 목표를 저장하지 않고 다음 단계로
+                        viewModel.subGoal = nil
+                        currentStep = .selectSubGoal
+                        viewModel.saveJournal(context: modelContext)
+                        manager.fullScreenMode = nil
+                    } else {
+                        // 저장하기: 목표를 저장하고 다음 단계로
+                        viewModel.subGoal = targetText
+                        currentStep = .selectSubGoal
+                        viewModel.saveJournal(context: modelContext)
+                        viewModel.saveSubGoal(context: modelContext)
+                        manager.fullScreenMode = nil
+                    }
                 },
                 nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기"
             )
