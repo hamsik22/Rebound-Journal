@@ -152,6 +152,7 @@ struct DashboardContentView: View {
                let count = data.values.first {
                 Text(goal)
                     .lineLimit(1)
+										.foregroundStyle(.dashboardTitle)
                     .font(.system(size: 18))
                     .padding(.bottom, 10)
                     .minimumScaleFactor(0.7)
@@ -159,6 +160,7 @@ struct DashboardContentView: View {
                     Spacer()
                     Text("\(count)번")
                         .font(.system(size: 14, weight: .bold))
+												.foregroundStyle(.dashboardTitle)
                 }
             } else {
                 Text("데이터 없음")
