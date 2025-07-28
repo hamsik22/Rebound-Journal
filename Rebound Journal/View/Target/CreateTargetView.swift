@@ -41,21 +41,18 @@ struct CreateTargetView: View {
                 Text("목표가 눈에 보이면, 동기부여의 효과가 있어요!")
                     .font(.system(size: 13))
                 HStack {
-                    TextEditor(text: $targetText)
+                    TextField("목표를 적어주세요", text: $targetText)
                         .font(.system(size: 15))
                         .foregroundStyle(.black)
-                        .padding(.vertical, 10)
+                        .padding(.horizontal, 10)
                         .frame(maxWidth: .infinity)
-                        .scrollContentBackground(.hidden)
-                        .overlay(alignment: .leading) {
-                            if targetText.isEmpty {
-                                Text("목표를 적어주세요")
-                                    .font(.system(size: 15))
-                                    .padding(.horizontal, 10)
-                                    .foregroundStyle(.description)
+                        .multilineTextAlignment(.leading)
+                        .focused($isTextEditorFocused)
+                        .onChange(of: targetText) { _, newValue in
+                            if newValue.count > 30 {
+                                targetText = String(newValue.prefix(30))
                             }
                         }
-                        .focused($isTextEditorFocused)
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
                         .foregroundStyle(.description)
