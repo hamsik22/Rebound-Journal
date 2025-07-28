@@ -111,13 +111,9 @@ struct ReviewPlanView: View {
                 },
                 nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton
             )
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Button("키보드 내리기") {
-                        currentField = .none
-                    }
-                }
-            }
+        }
+        .onTapGesture {
+            currentField = .none
         }
         .onAppear() {
             reviewText = viewModel.reviewText ?? ""

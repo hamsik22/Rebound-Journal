@@ -106,12 +106,9 @@ struct ReviewPlanView: View {
                     },
                     nextButtonText: systemText.saveButton
                 )
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("키보드 내리기") {
-                    currentField = .none
-                }
-            }
+        }
+        .onTapGesture {
+            currentField = .none
         }
     }
 }
