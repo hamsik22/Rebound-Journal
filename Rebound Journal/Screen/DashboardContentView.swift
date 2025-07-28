@@ -114,19 +114,31 @@ struct DashboardContentView: View {
     /// 목표 리스트
     private var subGoalList: some View {
         ScrollView {
-            if !subGoals.isEmpty {
-                LazyVGrid(columns: columns, spacing: 24) {
-                    ForEach(subGoals, id: \.self) { item in
-                        let text = item.goalText ?? "목표 없음"
-                        let count = journals.count(where: { $0.subGoal == item.goalText })
-                        goalCell([text: count])
-                    }
+            LazyVGrid(columns: columns, spacing: 24) {
+                // 목표 없는 저널들을 위한 카테고리
+                let noGoalCount = journals.count(where: { $0.subGoal == nil || $0.subGoal?.isEmpty == true })
+                if noGoalCount > 0 {
+                    goalCell(["목표 없음": noGoalCount])
                 }
-                Color.clear
-                    .frame(height: 200)
-            } else {
-                Text("목표를 생성해주세요!")
+                
+                // 기존 목표들
+                ForEach(subGoals, id: \.self) { item in
+                    let text = item.goalText ?? "목표 없음"
+                    let count = journals.count(where: { $0.subGoal == item.goalText })
+                    goalCell([text: count])
+                }
             }
+            
+            // 목표도 저널도 없는 경우에만 안내 메시지 표시
+            if subGoals.isEmpty && journals.isEmpty {
+                Text("목표를 생성해주세요!")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 50)
+            }
+            
+            Color.clear
+                .frame(height: 200)
         }
         .scrollIndicators(.hidden)
     }
