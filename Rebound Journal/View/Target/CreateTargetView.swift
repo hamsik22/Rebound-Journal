@@ -14,6 +14,7 @@ struct CreateTargetView: View {
     @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: JournalCreatorViewModel
     @Binding var currentStep: ReboundProcessStep
+    @FocusState private var isTextEditorFocused: Bool
     // UI State
     @State var targetText: String = ""
     
@@ -40,23 +41,21 @@ struct CreateTargetView: View {
                 Text("목표가 눈에 보이면, 동기부여의 효과가 있어요!")
                     .font(.system(size: 13))
                 HStack {
-                    TextEditor(text: $targetText)
+                    TextField("목표를 적어주세요", text: $targetText)
                         .font(.system(size: 15))
-												.foregroundStyle(.black)
-                        .padding(.vertical, 10)
+                        .foregroundStyle(.black)
+                        .padding(.horizontal, 10)
                         .frame(maxWidth: .infinity)
-                        .scrollContentBackground(.hidden)
-                        .overlay(alignment: .leading) {
-                            if targetText.isEmpty {
-                                Text("목표를 적어주세요")
-                                    .font(.system(size: 15))
-                                    .padding(.horizontal, 10)
-																		.foregroundStyle(.description)
+                        .multilineTextAlignment(.leading)
+                        .focused($isTextEditorFocused)
+                        .onChange(of: targetText) { _, newValue in
+                            if newValue.count > 30 {
+                                targetText = String(newValue.prefix(30))
                             }
                         }
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
-												.foregroundStyle(.description)
+                        .foregroundStyle(.description)
                         .padding(.horizontal, 5)
                 }
                 .frame(height: 65)
@@ -68,31 +67,42 @@ struct CreateTargetView: View {
             Spacer()
             
             // MARK: 안내문구 2
-						VStack(alignment: .center, spacing: 4) {
-								Text("다음 슈팅 때 선택할 수 있어요.")
-										.font(.system(size: 13))
-								Text("언제든지 다시 확인할 수 있어요.")
-										.font(.system(size: 13))
-						}
-						.padding(.bottom, 40)
-
+            VStack(alignment: .center, spacing: 4) {
+                Text("다음 슈팅 때 선택할 수 있어요.")
+                    .font(.system(size: 13))
+                Text("언제든지 다시 확인할 수 있어요.")
+                    .font(.system(size: 13))
+            }
+            .padding(.bottom, 40)
+            
             StepControlView(
+                hasBackButton: true,
+                canGoNext: true,  // 건너뛰기도 가능하도록 항상 활성화
                 onPrevious: {
-								debugPrint("이전")
-                currentStep = .review
-            },
+                    currentStep = .review
+                },
                 onNext: {
-								debugPrint("저장하기")
-                viewModel.subGoal = targetText
-                currentStep = .selectSubGoal
-                viewModel.saveJournal(context: modelContext)
-                viewModel.saveSubGoal(context: modelContext)
-                manager.fullScreenMode = nil
-            },
-                canGoNext: !targetText.isEmpty,
-                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기")
+                    if targetText.isEmpty {
+                        // 건너뛰기: 목표를 저장하지 않고 다음 단계로
+                        viewModel.subGoal = nil
+                        currentStep = .selectSubGoal
+                        viewModel.saveJournal(context: modelContext)
+                        manager.fullScreenMode = nil
+                    } else {
+                        // 저장하기: 목표를 저장하고 다음 단계로
+                        viewModel.subGoal = targetText
+                        currentStep = .selectSubGoal
+                        viewModel.saveJournal(context: modelContext)
+                        viewModel.saveSubGoal(context: modelContext)
+                        manager.fullScreenMode = nil
+                    }
+                },
+                nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기"
+            )
         }
         .padding()
+        .onAppear { isTextEditorFocused = true }
+        .onTapGesture { isTextEditorFocused = false }
     }
 }
 

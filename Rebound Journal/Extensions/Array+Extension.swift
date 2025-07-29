@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array where Element == JournalModel {
+extension Array where Element == JournalData {
     
     /// 연속 기록일수를 계산하는 함수
     func calculateStreak() -> Int {
@@ -16,14 +16,14 @@ extension Array where Element == JournalModel {
 
         // 날짜 기준으로 정렬된 데이터
         let sorted = self
-            .filter { !$0.hasDeleted }
-            .sorted { $0.date > $1.date }
+            .filter { !$0.hasDeletedUnwrapped }
+            .sorted { $0.dateUnwrapped > $1.dateUnwrapped }
 
         var streak = 0
         var expectedDate = today
 
         for journal in sorted {
-            let journalDate = calendar.startOfDay(for: journal.date)
+            let journalDate = calendar.startOfDay(for: journal.dateUnwrapped)
 
             if journalDate == expectedDate {
                 streak += 1

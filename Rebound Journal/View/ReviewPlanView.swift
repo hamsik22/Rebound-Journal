@@ -94,19 +94,21 @@ struct ReviewPlanView: View {
             .padding()
             
             // StepControll
-            StepControlView(onPrevious: {
-                viewModel.currentStep = .emotion
-            }, onNext: {
-                manager.fullScreenMode = nil
-                viewModel.saveShooting(manager: manager)
-            }, canGoNext: canSave,
-                            nextButtonText: systemText.saveButton)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("키보드 내리기") {
-                    currentField = .none
-                }
-            }
+                StepControlView(
+                    hasBackButton: true,
+                    canGoNext: canSave,
+                    onPrevious: {
+                        viewModel.currentStep = .emotion
+                    },
+                    onNext: {
+                        manager.fullScreenMode = nil
+                        viewModel.saveShooting(manager: manager)
+                    },
+                    nextButtonText: systemText.saveButton
+                )
+        }
+        .onTapGesture {
+            currentField = .none
         }
     }
 }

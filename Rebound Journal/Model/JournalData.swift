@@ -51,3 +51,62 @@ final class JournalData {
         self.subGoal = subGoal
     }
 }
+
+extension JournalData {
+    var isGoalInUnwrapped: Bool {
+        return isGoalIn ?? false
+    }
+
+    var dateUnwrapped: Date {
+        return date ?? Date()
+    }
+
+    var isReboundedUnwrapped: Bool {
+        return isRebounded ?? false
+    }
+
+    var hasDeletedUnwrapped: Bool {
+        return hasDeleted ?? false
+    }
+
+    var emotionValueUnwrapped: Int {
+        return emotionValue ?? 0
+    }
+
+    var emotionTextUnwrapped: String {
+        return emotionText ?? ""
+    }
+
+    var reviewUnwrapped: String {
+        return review ?? ""
+    }
+
+    var nextPlanUnwrapped: String {
+        return nextPlan ?? ""
+    }
+
+    var purposeUnwrapped: String {
+        return purpose ?? ""
+    }
+
+    var mainGoalUnwrapped: String {
+        return mainGoal ?? ""
+    }
+
+    var subGoalUnwrapped: String {
+        return subGoal ?? ""
+    }
+
+    var hasValidDate: Bool {
+        return date != nil
+    }
+
+    func isSameDay(as other: Date) -> Bool {
+        guard let selfDate = self.date else { return false }
+        return Calendar.current.isDate(selfDate, inSameDayAs: other)
+    }
+
+    var isValidForDisplay: Bool {
+        return !(hasDeleted ?? false) && date != nil
+    }
+}

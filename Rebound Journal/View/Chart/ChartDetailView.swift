@@ -25,7 +25,7 @@ struct ChartDetailView: View {
                     .opacity(0.5)
                 Spacer()
             }
-            ForEach(viewModel.filteredGroupedJournalData(isGoalIn: viewModel.selectedDetailType), id: \.key) { group in
+            ForEach(viewModel.filteredGroupedJournalDetailsBy(isGoalIn: viewModel.selectedDetailType), id: \.key) { group in
                 VStack(alignment: .leading, spacing: 10) {
                     Text(group.key)
                         .font(.title3.bold())

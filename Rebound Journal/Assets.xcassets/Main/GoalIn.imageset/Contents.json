@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "GoalIn.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Group 743.png",
+      "filename" : "GoalIn.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Group 744.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
