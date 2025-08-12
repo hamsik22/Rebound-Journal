@@ -141,14 +141,13 @@
 			children = (
 				58FE87B22E37A04E00B91E3C /* Rebound Journal.entitlements */,
 				C3A07BCB2DBBCED10057D3C3 /* ViewModel */,
-				C3A07BCA2DBBCE740057D3C3 /* View */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
-				586F229E2A338981004C7410 /* AppConfig */,
 				586F22992A338793004C7410 /* Model */,
 				589D5F412A3EDBD100DB3CCF /* Screen */,
-				58D6707A2BD0275600F581E2 /* Constants.swift */,
 				589DCCAF2D04B887003F86E5 /* AppDelegate.swift */,
+				586F229F2A338990004C7410 /* AppConfig.swift */,
 				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
+				58D6707A2BD0275600F581E2 /* Constants.swift */,
 				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
 			);
@@ -166,33 +165,22 @@
 		586F22992A338793004C7410 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				586F229A2A3387AF004C7410 /* DataManager.swift */,
-				C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */,
-				C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */,
-				C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */,
-				C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */,
-				C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */,
-				C377A9632DCFA63F000F227D /* JournalData.swift */,
-				C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */,
+				C38D927A2E4B94A900C569E9 /* Shared */,
+				C38D92782E4B947000C569E9 /* Chart */,
+				C38D92702E4B92D300C569E9 /* Journal */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		586F229E2A338981004C7410 /* AppConfig */ = {
-			isa = PBXGroup;
-			children = (
-				586F229F2A338990004C7410 /* AppConfig.swift */,
-			);
-			path = AppConfig;
 			sourceTree = "<group>";
 		};
 		589D5F412A3EDBD100DB3CCF /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				586F228D2A33861C004C7410 /* DashboardContentView.swift */,
-				586F22AA2A339261004C7410 /* JournalEntryCreationStep.swift */,
-				58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */,
-				58FAF68C2D01F0C8008BE152 /* SettingsView.swift */,
+				C38D927B2E4B94D100C569E9 /* Home */,
+				C38D92742E4B938900C569E9 /* Components */,
+				C38D92722E4B935300C569E9 /* Chart */,
+				C38D92712E4B934100C569E9 /* Target */,
+				C38D926F2E4B92BC00C569E9 /* Journal */,
+				C38D926E2E4B92AF00C569E9 /* Setting */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -214,67 +202,159 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		C3A07BCA2DBBCE740057D3C3 /* View */ = {
+		C38D926E2E4B92AF00C569E9 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				C3BAA6C32DC88F3500D17DD8 /* Target */,
-				C3A07BE52DBBCF010057D3C3 /* Component */,
-				C3A07BE42DBBCEEC0057D3C3 /* Chart */,
-				C3A07BE62DBBCF140057D3C3 /* JournalCreator */,
+				58FAF68E2D01F2C4008BE152 /* PasscodeView.swift */,
+				58FAF68C2D01F0C8008BE152 /* SettingsView.swift */,
 			);
-			path = View;
+			path = Setting;
 			sourceTree = "<group>";
 		};
-		C3A07BCB2DBBCED10057D3C3 /* ViewModel */ = {
+		C38D926F2E4B92BC00C569E9 /* Journal */ = {
 			isa = PBXGroup;
 			children = (
-				C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */,
-				C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */,
+				C3A07BE62DBBCF140057D3C3 /* Creation */,
 			);
-			path = ViewModel;
+			path = Journal;
 			sourceTree = "<group>";
 		};
-		C3A07BE42DBBCEEC0057D3C3 /* Chart */ = {
+		C38D92702E4B92D300C569E9 /* Journal */ = {
 			isa = PBXGroup;
 			children = (
-				C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */,
-				C3A07BB82DBA4B640057D3C3 /* ChartView.swift */,
+				586F22AA2A339261004C7410 /* JournalEntryCreationStep.swift */,
 			);
-			path = Chart;
+			path = Journal;
 			sourceTree = "<group>";
 		};
-		C3A07BE52DBBCF010057D3C3 /* Component */ = {
-			isa = PBXGroup;
-			children = (
-				C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */,
-				C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */,
-				C3A07BCE2DBBCEE20057D3C3 /* EmotionTracker.swift */,
-				C3A07BCF2DBBCEE20057D3C3 /* ModalHeaderBar.swift */,
-				C3A07BD02DBBCEE20057D3C3 /* ShootCreationHeader.swift */,
-				C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */,
-				C3A07BD22DBBCEE20057D3C3 /* VerticalSlider.swift */,
-			);
-			path = Component;
-			sourceTree = "<group>";
-		};
-		C3A07BE62DBBCF140057D3C3 /* JournalCreator */ = {
-			isa = PBXGroup;
-			children = (
-				C3A07BD42DBBCEE20057D3C3 /* EmotionInputView.swift */,
-				C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */,
-				C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */,
-				C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */,
-			);
-			path = JournalCreator;
-			sourceTree = "<group>";
-		};
-		C3BAA6C32DC88F3500D17DD8 /* Target */ = {
+		C38D92712E4B934100C569E9 /* Target */ = {
 			isa = PBXGroup;
 			children = (
 				C3BAA6C42DC88F4E00D17DD8 /* CreateTargetView.swift */,
 				C3BAA6C62DC8FE8400D17DD8 /* SelectTargetView.swift */,
 			);
 			path = Target;
+			sourceTree = "<group>";
+		};
+		C38D92722E4B935300C569E9 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BB82DBA4B640057D3C3 /* ChartView.swift */,
+				C38D92732E4B936800C569E9 /* SubView */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		C38D92732E4B936800C569E9 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BCC2DBBCEE20057D3C3 /* ChartDateSelector.swift */,
+				C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		C38D92742E4B938900C569E9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BCF2DBBCEE20057D3C3 /* ModalHeaderBar.swift */,
+				C3A07BD12DBBCEE20057D3C3 /* StepControlView.swift */,
+				C3A07BD22DBBCEE20057D3C3 /* VerticalSlider.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		C38D92752E4B93CA00C569E9 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		C38D92762E4B93CE00C569E9 /* Journal */ = {
+			isa = PBXGroup;
+			children = (
+				C38D927C2E4B968800C569E9 /* Creation */,
+			);
+			path = Journal;
+			sourceTree = "<group>";
+		};
+		C38D92772E4B93E500C569E9 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BD72DBBCEE20057D3C3 /* SelectShootTypeView.swift */,
+				C3A07BD62DBBCEE20057D3C3 /* ReviewPlanView.swift */,
+				C3A07BD42DBBCEE20057D3C3 /* EmotionInputView.swift */,
+				C3A07BCD2DBBCEE20057D3C3 /* EmotionText.swift */,
+				C3A07BCE2DBBCEE20057D3C3 /* EmotionTracker.swift */,
+				C3A07BD02DBBCEE20057D3C3 /* ShootCreationHeader.swift */,
+			);
+			path = SubView;
+			sourceTree = "<group>";
+		};
+		C38D92782E4B947000C569E9 /* Chart */ = {
+			isa = PBXGroup;
+			children = (
+				C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */,
+				C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */,
+				C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */,
+			);
+			path = Chart;
+			sourceTree = "<group>";
+		};
+		C38D92792E4B949100C569E9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				586F229A2A3387AF004C7410 /* DataManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C38D927A2E4B94A900C569E9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */,
+				C3A07BE72DBBF7120057D3C3 /* Database.xcdatamodeld */,
+				C3D6A50E2DAFBD9A0030FBC6 /* Protocols.swift */,
+				C377A9632DCFA63F000F227D /* JournalData.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		C38D927B2E4B94D100C569E9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				586F228D2A33861C004C7410 /* DashboardContentView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		C38D927C2E4B968800C569E9 /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */,
+			);
+			path = Creation;
+			sourceTree = "<group>";
+		};
+		C3A07BCB2DBBCED10057D3C3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C38D92792E4B949100C569E9 /* Shared */,
+				C38D92762E4B93CE00C569E9 /* Journal */,
+				C38D92752E4B93CA00C569E9 /* Chart */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C3A07BE62DBBCF140057D3C3 /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				C3A07BD52DBBCEE20057D3C3 /* JounrnalCreator.swift */,
+				C38D92772E4B93E500C569E9 /* SubView */,
+			);
+			path = Creation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
