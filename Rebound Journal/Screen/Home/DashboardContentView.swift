@@ -41,11 +41,11 @@ struct DashboardContentView: View {
                 JounrnalCreator(viewModel: journalCreatorViewModel, currentStep: $journalCreatorStep)
                     .environmentObject(manager)
             case .readJournalView:
-                JournalDetailView()
-                    .environmentObject(manager)
+                // TODO: 기록 상세화면
+                EmptyView()
             case .reboundCreator:
-                JournalEntryCreatorView(isRebounded: true)
-                    .environmentObject(manager)
+                // TODO: 리바운드 화면
+                EmptyView()
             case .passcodeView:
                 PasscodeView()
                     .environmentObject(manager)
