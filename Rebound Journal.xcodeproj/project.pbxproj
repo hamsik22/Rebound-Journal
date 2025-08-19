@@ -28,6 +28,9 @@
 		8F8ACA842E1E946100624A89 /* Alert+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8ACA832E1E946100624A89 /* Alert+Extension.swift */; };
 		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
 		C3423FD02DD8F385000F2E4D /* SubGoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */; };
+		C345BA722E50DB4C00F93049 /* TargetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA712E50DB4C00F93049 /* TargetList.swift */; };
+		C345BA782E54523B00F93049 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA772E54523B00F93049 /* HomeView.swift */; };
+		C345BA7A2E545A8900F93049 /* JournalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA792E545A8900F93049 /* JournalList.swift */; };
 		C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */; };
 		C37782F52DB4E65700BE2CF2 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F42DB4E65700BE2CF2 /* Array+Extension.swift */; };
 		C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */; };
@@ -79,6 +82,9 @@
 		8F8ACA832E1E946100624A89 /* Alert+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+Extension.swift"; sourceTree = "<group>"; };
 		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalData.swift; sourceTree = "<group>"; };
+		C345BA712E50DB4C00F93049 /* TargetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetList.swift; sourceTree = "<group>"; };
+		C345BA772E54523B00F93049 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		C345BA792E545A8900F93049 /* JournalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalList.swift; sourceTree = "<group>"; };
 		C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSummary.swift; sourceTree = "<group>"; };
 		C37782F42DB4E65700BE2CF2 /* Array+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMetaData.swift; sourceTree = "<group>"; };
@@ -200,6 +206,15 @@
 				8F8ACA832E1E946100624A89 /* Alert+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C345BA702E50DB3E00F93049 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				C345BA712E50DB4C00F93049 /* TargetList.swift */,
+				C345BA792E545A8900F93049 /* JournalList.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		C38D926E2E4B92AF00C569E9 /* Setting */ = {
@@ -325,7 +340,9 @@
 		C38D927B2E4B94D100C569E9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C345BA772E54523B00F93049 /* HomeView.swift */,
 				586F228D2A33861C004C7410 /* DashboardContentView.swift */,
+				C345BA702E50DB3E00F93049 /* SubView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -449,6 +466,7 @@
 				C3A07BDA2DBBCEE20057D3C3 /* EmotionInputView.swift in Sources */,
 				C3A07BC52DBA4B640057D3C3 /* JournalCreatorViewModel.swift in Sources */,
 				C3A07BC62DBA4B640057D3C3 /* ChartViewModel.swift in Sources */,
+				C345BA782E54523B00F93049 /* HomeView.swift in Sources */,
 				C3A07BDC2DBBCEE20057D3C3 /* SelectShootTypeView.swift in Sources */,
 				C3A07BC72DBA4B640057D3C3 /* ChartView.swift in Sources */,
 				C3A07BDB2DBBCEE20057D3C3 /* EmotionTracker.swift in Sources */,
@@ -456,6 +474,7 @@
 				58D670752BD01ED900F581E2 /* UIImage+Extension.swift in Sources */,
 				9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */,
 				C3A07BDE2DBBCEE20057D3C3 /* ShootCreationHeader.swift in Sources */,
+				C345BA7A2E545A8900F93049 /* JournalList.swift in Sources */,
 				58D670772BD01F0400F581E2 /* Binding+Extension.swift in Sources */,
 				C3A07BD92DBBCEE20057D3C3 /* ModalHeaderBar.swift in Sources */,
 				58FAF68F2D01F2C4008BE152 /* PasscodeView.swift in Sources */,
@@ -470,6 +489,7 @@
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
 				C37782F52DB4E65700BE2CF2 /* Array+Extension.swift in Sources */,
 				C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */,
+				C345BA722E50DB4C00F93049 /* TargetList.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
