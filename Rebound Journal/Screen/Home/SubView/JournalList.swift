@@ -24,13 +24,15 @@ struct JournalList: View {
     ]
     
     var body: some View {
-        LazyVStack {
-            ForEach(dummys) { dummy in
-                targetInfo(target: dummy.target, type: dummy.type)
-                journalInfo(journal: dummy.journal, description: dummy.description, date: dummy.date)
+        ScrollView {
+            LazyVStack {
+                ForEach(dummys) { dummy in
+                    targetInfo(target: dummy.target, type: dummy.type)
+                    journalInfo(journal: dummy.journal, description: dummy.description, date: dummy.date)
+                }
             }
+            .padding()            
         }
-        .padding()
     }
     
     private func targetInfo(target: String = "목표 제목", type: Bool = false) -> some View {

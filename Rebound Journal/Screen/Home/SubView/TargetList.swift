@@ -53,14 +53,13 @@ struct TargetList: View {
                             }
                         }
                     }
-                    .frame(height: geo.size.width * 0.2)
+                    .frame(height: geo.size.width * 0.25)
                     
                     HStack(spacing: 6) {
                         ForEach(0..<dummys.count, id: \.self) { index in
                             Circle()
                                 .fill(index == currentItem ? Color.white : Color.white.opacity(0.3))
-                                .frame(width: index == currentItem ? 12 : 8,
-                                       height: index == currentItem ? 12 : 8)
+                                .frame(width: 8, height:  8)
                                 .animation(.easeInOut(duration: 0.2), value: currentItem)
                         }
                     }
@@ -69,6 +68,7 @@ struct TargetList: View {
             }
             .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         }
+        .padding()
     }
     
     /// 목표현황 텍스트

@@ -14,37 +14,44 @@ struct HomeView: View {
     @Query private var subGoals: [SubGoalData]
     
     var body: some View {
-        VStack {
-            upperView
-            bottomView
-        }
-    }
-    
-    @ViewBuilder
-    private var upperView: some View {
-        VStack {
-            topTrailingButton
-            TargetList()
-        }
-        .padding(.bottom)
-        .background {
-            Image(.homeUpper)
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-        }
-    }
-    
-    @ViewBuilder
-    private var bottomView: some View {
-        VStack {
-            bottomHeader
-            ScrollView(.vertical) {
-                JournalList()
+        GeometryReader { geometry in
+            VStack {
+                // MARK: Top
+                ZStack {
+                    Image(.homeUpper)
+                        .resizable()
+                        .ignoresSafeArea()
+                        .frame(height: geometry.size.height * 0.3)
+                    VStack {
+                        topTrailingButton
+                        TargetList()
+                    }
+                }
+                
+                // MARK: Bottom
+                ZStack {
+                    Color.clear
+                        .ignoresSafeArea()
+                        .frame(height: geometry.size.height * 0.7)
+                    
+                    VStack {
+                        bottomHeader
+                        JournalList()
+                    }
+                    
+                    VStack {
+                        Spacer()
+                        Button {
+                            
+                        } label: {
+                            Text("슛-쏘기")
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    
+                }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.top)
     }
     
     private var bottomHeader: some View {
