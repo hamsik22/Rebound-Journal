@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+struct DummyData: Identifiable, Hashable {
+    let id = UUID()
+    let target: String
+    let type: Bool
+    let journal: String
+    let description: String
+    let date: Date
+}
 
 struct JournalList: View {
     
@@ -83,16 +91,8 @@ struct JournalList: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.gray.opacity(0.3))
+        .background(Color.cellColor)
         .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
-    struct DummyData: Identifiable, Hashable {
-        let id = UUID()
-        let target: String
-        let type: Bool
-        let journal: String
-        let description: String
-        let date: Date
     }
 }
 

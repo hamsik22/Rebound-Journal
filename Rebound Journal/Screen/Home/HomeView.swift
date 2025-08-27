@@ -10,60 +10,62 @@ import SwiftData
 
 struct HomeView: View {
     
-    @Query private var journals: [JournalData]
-    @Query private var subGoals: [SubGoalData]
-    
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                // MARK: Top
-                ZStack {
-                    Image(.homeUpper)
-                        .resizable()
-                        .ignoresSafeArea()
-                        .frame(height: geometry.size.height * 0.3)
-                    VStack {
-                        topTrailingButton
-                        TargetList()
-                    }
-                }
-                
-                // MARK: Bottom
-                ZStack {
-                    Color.clear
-                        .ignoresSafeArea()
-                        .frame(height: geometry.size.height * 0.7)
-                    
-                    VStack {
-                        bottomHeader
-                        JournalList()
-                    }
-                    
-                    VStack {
-                        Spacer()
-                        Button {
-                            
-                        } label: {
-                            Text("슛-쏘기")
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
-                    
-                }
+                topView(geometry)
+                bottomView(geometry)
             }
         }
     }
     
+    @ViewBuilder
+    private func topView(_ geometry: GeometryProxy) -> some View {
+        ZStack {
+            Image(.homeTop)
+                .resizable()
+                .ignoresSafeArea()
+                .frame(height: geometry.size.height * 0.3)
+            VStack {
+                topTrailingButton
+                TargetList()
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func bottomView(_ geometry: GeometryProxy) -> some View {
+        ZStack {
+            Image(.homeBottom)
+                .resizable()
+                .ignoresSafeArea()
+                .frame(height: geometry.size.height * 0.7)
+            
+            VStack(spacing: 0) {
+                bottomHeader
+                JournalList()
+            }
+            
+            VStack {
+                Spacer()
+                bottomButton
+            }
+            
+        }
+    }
+    
+    
+    
     private var bottomHeader: some View {
         HStack {
             Text("다시 리바운드-!")
-                .font(.system(size: 22, weight: .semibold)) // 590 근사치
+                .font(.system(size: 22, weight: .semibold))
                 .padding(.horizontal)
             Rectangle()
                 .frame(height: 1)
                 .foregroundStyle(.accent)
         }
-        .padding(.bottom)
+        .padding(.top, 20)
     }
     
     private var topTrailingButton: some View {
@@ -101,6 +103,25 @@ struct HomeView: View {
             .tint(.black)
         }
         .padding(.trailing)
+    }
+    private var bottomButton: some View {
+        VStack {
+            Spacer()
+            Button {
+                print("슛-쏘기 클릭")
+            } label: {
+                Text("슛-쏘기")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 60)
+                    .bold()
+                    .background(.tint)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 90))
+                    .padding(.horizontal)
+                // SE 대응 패딩
+                    .padding(.bottom, UIDevice.current.userInterfaceIdiom == .phone && UIScreen.main.bounds.height < 700 ? 16 : 0)
+            }
+        }
     }
     
 }
