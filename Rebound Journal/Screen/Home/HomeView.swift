@@ -10,6 +10,9 @@ import SwiftData
 
 struct HomeView: View {
     
+    @Query private var journals: [JournalData]
+    @Query private var subGoals: [SubGoalData]
+    
     var body: some View {
         VStack {
             upperView
@@ -17,10 +20,10 @@ struct HomeView: View {
         }
     }
     
+    @ViewBuilder
     private var upperView: some View {
         VStack {
             topTrailingButton
-            
             TargetList()
         }
         .padding(.bottom)
@@ -31,11 +34,13 @@ struct HomeView: View {
                 .ignoresSafeArea()
         }
     }
+    
+    @ViewBuilder
     private var bottomView: some View {
         VStack {
             bottomHeader
             ScrollView(.vertical) {
-                JournalList()        
+                JournalList()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

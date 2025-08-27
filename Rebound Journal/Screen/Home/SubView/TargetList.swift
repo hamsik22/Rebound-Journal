@@ -14,23 +14,61 @@ struct TargetList: View {
     
     @Query private var subGoals: [SubGoalData]
     
+    @State private var currentItem: Int = 0
+    
     let dummys = [["미루지 말고 해보자": 2], ["살을 빼고 싶다": 1], ["개발을 잘하고 싶다": 0], ["힘이 세졌으면 좋겠다": 3], ["취업하기" : 3]]
     
     var body: some View {
-        VStack {
-            goalStatusText
-            TabView {
-                ForEach(dummys, id: \.self) { dummy in
-                    goalCell(dummy)
+        GeometryReader { geo in
+            ZStack {
+                VStack(spacing: 16) {
+                    
+                    goalStatusText
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(0..<dummys.count, id: \.self) { num in
+                                GeometryReader { cardGeo in
+                                    let midX = cardGeo.frame(in: .global).midX
+                                    let screenMidX = geo.size.width / 2
+                                    
+                                    let distance = abs(midX - screenMidX)
+                                    
+                                    Color.clear
+                                        .onAppear {
+                                            if distance < 50 {
+                                                currentItem = num
+                                            }
+                                        }
+                                        .onChange(of: distance) { _, newValue in
+                                            if newValue < 50 {
+                                                currentItem = num
+                                            }
+                                        }
+                                    
+                                    goalCell(dummys[num])
+                                        .frame(width: geo.size.width * 0.6)
+                                }
+                                .frame(width: geo.size.width * 0.6)
+                            }
+                        }
+                    }
+                    .frame(height: geo.size.width * 0.2)
+                    
+                    HStack(spacing: 6) {
+                        ForEach(0..<dummys.count, id: \.self) { index in
+                            Circle()
+                                .fill(index == currentItem ? Color.white : Color.white.opacity(0.3))
+                                .frame(width: index == currentItem ? 12 : 8,
+                                       height: index == currentItem ? 12 : 8)
+                                .animation(.easeInOut(duration: 0.2), value: currentItem)
+                        }
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-            .tabViewStyle(.page)
-            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
-            .frame(height: 180)
-            .frame(height: 120)
+            .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
         }
-        .padding(.horizontal)
-        .padding(.bottom)
     }
     
     /// 목표현황 텍스트
