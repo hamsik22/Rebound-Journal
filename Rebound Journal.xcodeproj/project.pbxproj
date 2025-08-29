@@ -36,6 +36,7 @@
 		C37782F72DB4EE3000BE2CF2 /* JournalMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */; };
 		C37782F92DB4F3F800BE2CF2 /* JournalChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */; };
 		C377A9642DCFA63F000F227D /* JournalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377A9632DCFA63F000F227D /* JournalData.swift */; };
+		C37E18092E617A53000B4E5B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37E18082E617A53000B4E5B /* HomeViewModel.swift */; };
 		C3A07BBF2DBA4B640057D3C3 /* ChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */; };
 		C3A07BC52DBA4B640057D3C3 /* JournalCreatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BBA2DBA4B640057D3C3 /* JournalCreatorViewModel.swift */; };
 		C3A07BC62DBA4B640057D3C3 /* ChartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */; };
@@ -90,6 +91,7 @@
 		C37782F62DB4EE3000BE2CF2 /* JournalMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalMetaData.swift; sourceTree = "<group>"; };
 		C37782F82DB4F3F800BE2CF2 /* JournalChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalChart.swift; sourceTree = "<group>"; };
 		C377A9632DCFA63F000F227D /* JournalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalData.swift; sourceTree = "<group>"; };
+		C37E18082E617A53000B4E5B /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		C3A07BB72DBA4B640057D3C3 /* ChartDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailView.swift; sourceTree = "<group>"; };
 		C3A07BB82DBA4B640057D3C3 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 		C3A07BB92DBA4B640057D3C3 /* ChartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewModel.swift; sourceTree = "<group>"; };
@@ -215,6 +217,14 @@
 				C345BA792E545A8900F93049 /* JournalList.swift */,
 			);
 			path = SubView;
+			sourceTree = "<group>";
+		};
+		C37E18072E617A42000B4E5B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C37E18082E617A53000B4E5B /* HomeViewModel.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C38D926E2E4B92AF00C569E9 /* Setting */ = {
@@ -358,6 +368,7 @@
 		C3A07BCB2DBBCED10057D3C3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C37E18072E617A42000B4E5B /* Home */,
 				C38D92792E4B949100C569E9 /* Shared */,
 				C38D92762E4B93CE00C569E9 /* Journal */,
 				C38D92752E4B93CA00C569E9 /* Chart */,
@@ -487,6 +498,7 @@
 				58D670792BD01F2400F581E2 /* UIAlertAction+Extension.swift in Sources */,
 				586F22AB2A339261004C7410 /* JournalEntryCreationStep.swift in Sources */,
 				586F228C2A33861C004C7410 /* ReboundJournalApp.swift in Sources */,
+				C37E18092E617A53000B4E5B /* HomeViewModel.swift in Sources */,
 				C37782F52DB4E65700BE2CF2 /* Array+Extension.swift in Sources */,
 				C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */,
 				C345BA722E50DB4C00F93049 /* TargetList.swift in Sources */,
