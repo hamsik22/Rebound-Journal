@@ -27,7 +27,7 @@ struct TargetList: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
-                            ForEach(0..<dummys.count, id: \.self) { num in
+                            ForEach(0..<subGoals.count, id: \.self) { num in
                                 GeometryReader { cardGeo in
                                     let midX = cardGeo.frame(in: .global).midX
                                     let screenMidX = geo.size.width / 2
