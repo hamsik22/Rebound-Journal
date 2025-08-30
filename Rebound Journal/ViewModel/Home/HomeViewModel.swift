@@ -10,5 +10,23 @@ import Foundation
 @MainActor
 final class HomeViewModel: ObservableObject {
     
+    func getGoalInfo(targets: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
+        
+        return generateTargetInfo(targets: targets, journals: journals)
+    }
     
+    private func generateTargetInfo(targets: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
+        
+        var result: [GoalInfo] = []
+        
+        for target in targets {
+            let count = journals.filter { $0.subGoal == target.goalText }.count
+            if let goalText = target.goalText {
+                let info = GoalInfo(title: goalText, count: count)
+                result.append(info)
+            }
+        }
+        
+        return result
+    }
 }
