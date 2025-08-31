@@ -40,7 +40,7 @@ struct HomeView: View {
             VStack {
                 topTrailingButton
                 if hasGoals {
-                    TargetList(viewModel: viewModel)
+                    GoalList(viewModel: viewModel)
                 } else {
                     Spacer()
                     Text("슈팅이 빗맞아도 괜찮아요.\n 리바운드로 실패를 기회로 바꾸면 되니까요.")

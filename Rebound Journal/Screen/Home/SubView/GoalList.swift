@@ -8,21 +8,21 @@
 import SwiftUI
 import SwiftData
 
-struct TargetList: View {
+struct GoalList: View {
     
     @Query private var subGoals: [SubGoalData]
     @Query private var journals: [JournalData]
     @ObservedObject var viewModel: HomeViewModel
     
-    @State private var activeTarget: [String: Int]?
-    @State private var currentItem: Int = 0
+    @State private var activeGoal: [String: Int]?
+    @State private var currentGoal: Int = 0
     
     let dummys = [["미루지 말고 해보자": 2], ["살을 빼고 싶다": 1], ["개발을 잘하고 싶다": 0], ["힘이 세졌으면 좋겠다": 3], ["취업하기" : 3]]
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                let data = viewModel.getGoalInfo(targets: subGoals, journals: journals)
+                let data = viewModel.fetchGoalInfo(goals: subGoals, journals: journals)
                 VStack(spacing: 16) {
                     
                     goalStatusText
@@ -39,12 +39,12 @@ struct TargetList: View {
                                     Color.clear
                                         .onAppear {
                                             if distance < 50 {
-                                                currentItem = num
+                                                currentGoal = num
                                             }
                                         }
                                         .onChange(of: distance) { _, newValue in
                                             if newValue < 50 {
-                                                currentItem = num
+                                                currentGoal = num
                                             }
                                         }
                                     
@@ -60,9 +60,9 @@ struct TargetList: View {
                     HStack(spacing: 6) {
                         ForEach(0..<data.count, id: \.self) { index in
                             Circle()
-                                .fill(index == currentItem ? Color.white : Color.white.opacity(0.3))
+                                .fill(index == currentGoal ? Color.white : Color.white.opacity(0.3))
                                 .frame(width: 8, height:  8)
-                                .animation(.easeInOut(duration: 0.2), value: currentItem)
+                                .animation(.easeInOut(duration: 0.2), value: currentGoal)
                         }
                     }
                 }
@@ -120,6 +120,6 @@ struct TargetList: View {
 }
 
 #Preview {
-    TargetList(viewModel: HomeViewModel())
+    GoalList(viewModel: HomeViewModel())
 }
 

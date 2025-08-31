@@ -29,7 +29,7 @@
 		9C5A70EA2BD201D0004B6F30 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */; };
 		C32530D42E63B886000A2E55 /* GoalInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32530D32E63B886000A2E55 /* GoalInfo.swift */; };
 		C3423FD02DD8F385000F2E4D /* SubGoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */; };
-		C345BA722E50DB4C00F93049 /* TargetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA712E50DB4C00F93049 /* TargetList.swift */; };
+		C345BA722E50DB4C00F93049 /* GoalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA712E50DB4C00F93049 /* GoalList.swift */; };
 		C345BA782E54523B00F93049 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA772E54523B00F93049 /* HomeView.swift */; };
 		C345BA7A2E545A8900F93049 /* JournalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345BA792E545A8900F93049 /* JournalList.swift */; };
 		C37782F32DB4E3C600BE2CF2 /* JournalSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */; };
@@ -85,7 +85,7 @@
 		9C5A70E92BD201D0004B6F30 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		C32530D32E63B886000A2E55 /* GoalInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInfo.swift; sourceTree = "<group>"; };
 		C3423FCF2DD8F385000F2E4D /* SubGoalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubGoalData.swift; sourceTree = "<group>"; };
-		C345BA712E50DB4C00F93049 /* TargetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetList.swift; sourceTree = "<group>"; };
+		C345BA712E50DB4C00F93049 /* GoalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalList.swift; sourceTree = "<group>"; };
 		C345BA772E54523B00F93049 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		C345BA792E545A8900F93049 /* JournalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalList.swift; sourceTree = "<group>"; };
 		C37782F22DB4E3C600BE2CF2 /* JournalSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalSummary.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		C345BA702E50DB3E00F93049 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
-				C345BA712E50DB4C00F93049 /* TargetList.swift */,
+				C345BA712E50DB4C00F93049 /* GoalList.swift */,
 				C345BA792E545A8900F93049 /* JournalList.swift */,
 			);
 			path = SubView;
@@ -512,7 +512,7 @@
 				C37E18092E617A53000B4E5B /* HomeViewModel.swift in Sources */,
 				C37782F52DB4E65700BE2CF2 /* Array+Extension.swift in Sources */,
 				C3A07BE12DBBCEE20057D3C3 /* StepControlView.swift in Sources */,
-				C345BA722E50DB4C00F93049 /* TargetList.swift in Sources */,
+				C345BA722E50DB4C00F93049 /* GoalList.swift in Sources */,
 				C32530D42E63B886000A2E55 /* GoalInfo.swift in Sources */,
 				58D670712BD01C0F00F581E2 /* Calendar+Extension.swift in Sources */,
 			);

@@ -16,7 +16,7 @@ struct JournalList: View {
     
     var body: some View {
         ScrollView {
-            let data = viewModel.getReboundJournalInfo(journals: journals)
+            let data = viewModel.fetchReboundedJournalInfo(journals: journals)
             LazyVStack {
                 ForEach(data) { journal in
                     Group {

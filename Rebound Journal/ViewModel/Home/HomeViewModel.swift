@@ -10,12 +10,15 @@ import Foundation
 @MainActor
 final class HomeViewModel: ObservableObject {
     
-    func getGoalInfo(targets: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
-        
-        return generateTargetInfo(targets: targets, journals: journals)
+    func fetchGoalInfo(goals: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
+        return generateTargetInfo(goals: goals, journals: journals)
     }
     
-    func getReboundJournalInfo(journals: [JournalData]) -> [JournalData] {
+    func fetchReboundedJournalInfo(journals: [JournalData]) -> [JournalData] {
+        return generateReboundedJournalInfo(journals: journals)
+    }
+    
+    private func generateReboundedJournalInfo(journals: [JournalData]) -> [JournalData] {
         var result: [JournalData] = []
         for journal in journals {
             if let goalType = journal.isGoalIn, goalType == false {
@@ -25,13 +28,13 @@ final class HomeViewModel: ObservableObject {
         return result
     }
     
-    private func generateTargetInfo(targets: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
+    private func generateTargetInfo(goals: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
         
         var result: [GoalInfo] = []
         
-        for target in targets {
-            let count = journals.filter { $0.subGoal == target.goalText }.count
-            if let goalText = target.goalText {
+        for goal in goals {
+            let count = journals.filter { $0.subGoal == goal.goalText }.count
+            if let goalText = goal.goalText {
                 let info = GoalInfo(title: goalText, count: count)
                 result.append(info)
             }
