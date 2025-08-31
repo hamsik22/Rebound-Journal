@@ -65,7 +65,7 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 if hasJournals {
                     bottomHeader
-                    JournalList()
+                    JournalList(viewModel: viewModel)
                 }
             }
             

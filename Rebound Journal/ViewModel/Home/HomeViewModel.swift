@@ -15,6 +15,16 @@ final class HomeViewModel: ObservableObject {
         return generateTargetInfo(targets: targets, journals: journals)
     }
     
+    func getReboundJournalInfo(journals: [JournalData]) -> [JournalData] {
+        var result: [JournalData] = []
+        for journal in journals {
+            if let goalType = journal.isGoalIn, goalType == false {
+                result.append(journal)
+            }
+        }
+        return result
+    }
+    
     private func generateTargetInfo(targets: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
         
         var result: [GoalInfo] = []
