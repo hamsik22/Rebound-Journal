@@ -142,3 +142,16 @@ struct StepControlView: View {
         .padding()
     }
 }
+
+#Preview("저장하기") {
+    VStack(spacing: 20) {
+        StepControlView(
+            hasBackButton: true,
+            canGoNext: true,
+            onPrevious: { print("Previous tapped") },
+            onNext: { print("Next tapped") },
+            nextButtonText: "저장하기"
+        )
+        .padding()
+    }
+}

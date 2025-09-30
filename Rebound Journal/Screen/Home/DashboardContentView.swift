@@ -195,7 +195,7 @@ struct DashboardContentView: View {
                     .frame(height: 60)
                     .bold()
                     .background(.tint)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.text)
                     .clipShape(RoundedRectangle(cornerRadius: 90))
             }
         }
