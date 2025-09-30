@@ -88,7 +88,7 @@ struct StepControlView: View {
 								.frame(maxWidth: .infinity)
                 .padding()
                 .background(canGoNext ? Color.accentColor : .disabledButtonBackground)
-                .foregroundColor(canGoNext ? .white : .disabledButtonText)
+                .foregroundColor(canGoNext ? .text : .disabledButtonText)
                 .cornerRadius(90)
         }
         .disabled(!canGoNext)
