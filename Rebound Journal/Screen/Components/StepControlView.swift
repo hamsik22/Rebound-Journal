@@ -24,9 +24,9 @@ struct StepControlView: View {
     let onNext: () -> Void
     let nextButtonText: String
     let previousButtonText: String
-
+    
     private let constants = Constants.SystemText()
-
+    
     // MARK: - Initializer
     init(
         hasBackButton: Bool = false,
@@ -43,7 +43,7 @@ struct StepControlView: View {
         self.nextButtonText = nextButtonText ?? constants.nextButton
         self.previousButtonText = previousButtonText ?? constants.previousButton
     }
-
+    
     // MARK: - Body
     var body: some View {
         GeometryReader { geometry in
@@ -52,40 +52,40 @@ struct StepControlView: View {
                     previousButton
                         .frame(width: (geometry.size.width - 16) / 3)
                 }
-
+                
                 nextButton
                     .frame(width: hasBackButton ? (geometry.size.width - 16) * 2 / 3 : geometry.size.width)
             }
         }
         .frame(height: 50) // 버튼 높이 고정
     }
-
+    
     var previousButton: some View {
         Button {
             onPrevious?()
         } label: {
-						Text(previousButtonText)
-								.font(.system(size: 18, weight: .bold))
+            Text(previousButtonText)
+                .font(.system(size: 18, weight: .bold))
                 .padding()
-								.frame(maxWidth: .infinity)
-								.foregroundColor(.backButtonText)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(.backButtonText)
                 .background(Color.clear)
                 .overlay(
                     RoundedRectangle(cornerRadius: 90)
-												.stroke(.backButtonBorder, lineWidth: 2)
+                        .stroke(.backButtonBorder, lineWidth: 2)
                 )
         }
     }
-
+    
     var nextButton: some View {
         Button {
             if canGoNext {
                 onNext()
             }
         } label: {
-						Text(nextButtonText)
+            Text(nextButtonText)
                 .font(.system(size: 18, weight: .bold))
-								.frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity)
                 .padding()
                 .background(canGoNext ? Color.accentColor : .disabledButtonBackground)
                 .foregroundColor(canGoNext ? .text : .disabledButtonText)
@@ -98,47 +98,47 @@ struct StepControlView: View {
 
 // MARK: - Preview
 #Preview("Both Buttons - Enabled") {
-   VStack(spacing: 20) {
-       StepControlView(
-           hasBackButton: true,
-           canGoNext: true,
-           onPrevious: { print("Previous tapped") },
-           onNext: { print("Next tapped") }
-       )
-       .padding()
-   }
+    VStack(spacing: 20) {
+        StepControlView(
+            hasBackButton: true,
+            canGoNext: true,
+            onPrevious: { print("Previous tapped") },
+            onNext: { print("Next tapped") }
+        )
+        .padding()
+    }
 }
 
 #Preview("Both Buttons - Disabled Next") {
-   VStack(spacing: 20) {
-       StepControlView(
-           hasBackButton: true,
-           canGoNext: false,
-           onPrevious: { print("Previous tapped") },
-           onNext: { print("Next tapped") }
-       )
-       .padding()
-   }
+    VStack(spacing: 20) {
+        StepControlView(
+            hasBackButton: true,
+            canGoNext: false,
+            onPrevious: { print("Previous tapped") },
+            onNext: { print("Next tapped") }
+        )
+        .padding()
+    }
 }
 
 #Preview("Next Button Only - Enabled") {
-   VStack(spacing: 20) {
-       StepControlView(
-           hasBackButton: false,
-           canGoNext: true,
-           onNext: { print("Next tapped") }
-       )
-       .padding()
-   }
+    VStack(spacing: 20) {
+        StepControlView(
+            hasBackButton: false,
+            canGoNext: true,
+            onNext: { print("Next tapped") }
+        )
+        .padding()
+    }
 }
 
 #Preview("Next Button Only - Disabled") {
-   VStack(spacing: 20) {
-       StepControlView(
-           hasBackButton: false,
-           canGoNext: false,
-           onNext: { print("Next tapped") }
-       )
-       .padding()
-   }
+    VStack(spacing: 20) {
+        StepControlView(
+            hasBackButton: false,
+            canGoNext: false,
+            onNext: { print("Next tapped") }
+        )
+        .padding()
+    }
 }
