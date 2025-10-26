@@ -13,10 +13,10 @@ struct CreateTargetView: View {
     @Environment(\.modelContext)private var modelContext
     @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: JournalCreatorViewModel
-    @Binding var currentStep: ReboundProcessStep
     @FocusState private var isTextEditorFocused: Bool
     // UI State
     @State var targetText: String = ""
+    @Binding var path: NavigationPath
     
     var body: some View {
         // 전체
@@ -79,23 +79,10 @@ struct CreateTargetView: View {
                 hasBackButton: true,
                 canGoNext: true,  // 건너뛰기도 가능하도록 항상 활성화
                 onPrevious: {
-                    currentStep = .review
+                    onPreviousTapped()
                 },
                 onNext: {
-                    if targetText.isEmpty {
-                        // 건너뛰기: 목표를 저장하지 않고 다음 단계로
-                        viewModel.subGoal = nil
-                        currentStep = .selectSubGoal
-                        viewModel.saveJournal(context: modelContext)
-                        manager.fullScreenMode = nil
-                    } else {
-                        // 저장하기: 목표를 저장하고 다음 단계로
-                        viewModel.subGoal = targetText
-                        currentStep = .selectSubGoal
-                        viewModel.saveJournal(context: modelContext)
-                        viewModel.saveSubGoal(context: modelContext)
-                        manager.fullScreenMode = nil
-                    }
+                    onNextTapped()
                 },
                 nextButtonText: targetText.isEmpty ? "건너뛰기" : "저장하기"
             )
@@ -104,11 +91,34 @@ struct CreateTargetView: View {
         .onAppear { isTextEditorFocused = true }
         .onTapGesture { isTextEditorFocused = false }
     }
+    
+    private func onPreviousTapped() {
+        path.removeLast()
+    }
+    
+    private func onNextTapped() {
+        if targetText.isEmpty {
+            // 건너뛰기: 목표를 저장하지 않고 다음 단계로
+            viewModel.subGoal = nil
+            //                        currentStep = .selectSubGoal
+            path.append(JournalCreationState.selectSubGoal)
+            viewModel.saveJournal(context: modelContext)
+            manager.fullScreenMode = nil
+        } else {
+            // 저장하기: 목표를 저장하고 다음 단계로
+            viewModel.subGoal = targetText
+            //                        currentStep = .selectSubGoal
+            path.append(JournalCreationState.selectSubGoal)
+            viewModel.saveJournal(context: modelContext)
+            viewModel.saveSubGoal(context: modelContext)
+            manager.fullScreenMode = nil
+        }
+    }
 }
 
 #Preview("!targetText.isEmpty") {
-    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
+    CreateTargetView(viewModel: JournalCreatorViewModel(), path: .constant(NavigationPath()))
 }
 #Preview("targetText.isEmpty") {
-    CreateTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
+    CreateTargetView(viewModel: JournalCreatorViewModel(), path: .constant(NavigationPath()))
 }

@@ -15,8 +15,9 @@ struct EmotionInputView: View {
     // UI State
     @State private var sliderValue: Double = 0.5
     var canGoNext: Bool {
-        viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)}
-    @Binding var currentStep: ReboundProcessStep
+        viewModel.emotionValue != nil && (viewModel.emotionText != [] && viewModel.emotionText != nil)
+    }
+    @Binding var path: NavigationPath
     // etc
     var text = Constants.ContentText()
     
@@ -36,15 +37,21 @@ struct EmotionInputView: View {
                 hasBackButton: true,
                 canGoNext: canGoNext,
                 onPrevious: {
-                    currentStep = .shoot
+                  onPreviousTapped()
                 },
                 onNext: {
-                    currentStep = .review
+                    onNextTapped()
                 },
                 nextButtonText: "다음으로"
             )
             .padding()
         }
+    }
+    private func onPreviousTapped() {
+        path.removeLast()
+    }
+    private func onNextTapped() {
+        path.append(JournalCreationState.review)
     }
 }
 
@@ -54,7 +61,7 @@ struct EmotionInputView: View {
         vm.goalType = true
         return vm
     }()
-    EmotionInputView(viewModel: viewModel, currentStep: .constant(.createSubGoal))
+    EmotionInputView(viewModel: viewModel, path: .constant(NavigationPath()))
 }
 
 #Preview("EmotionInputView: Rebound") {
@@ -63,5 +70,5 @@ struct EmotionInputView: View {
         vm.goalType = false
         return vm
     }()
-    EmotionInputView(viewModel: viewModel, currentStep: .constant(.createSubGoal))
+    EmotionInputView(viewModel: viewModel, path: .constant(NavigationPath()))
 }

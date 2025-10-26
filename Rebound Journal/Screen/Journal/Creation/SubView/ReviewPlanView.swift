@@ -22,10 +22,10 @@ struct ReviewPlanView: View {
     @FocusState private var currentField: Field?
     @State var reviewText: String = ""
     @State var planText: String = ""
-    @Binding var currentStep: ReboundProcessStep
     var canSave: Bool { return !reviewText.isEmpty && !planText.isEmpty }
     var isReviewed: Bool {!reviewText.isEmpty || currentField == .review}
     var isPlaned: Bool {!planText.isEmpty || currentField == .plan}
+    @Binding var path: NavigationPath
     
     // etc
     let text = Constants.ContentText()
@@ -35,12 +35,12 @@ struct ReviewPlanView: View {
         VStack(alignment: .leading) {
             Text(viewModel.emotionText?.first ?? "감정태그")
                 .font(.system(size: 16))
-								.foregroundStyle(.black)
+                .foregroundStyle(.black)
                 .padding(.horizontal, 10)
-								.padding(.vertical, 12)
+                .padding(.vertical, 12)
                 .background {
                     Capsule()
-												.fill(.unselectedTagBackground)
+                        .fill(.unselectedTagBackground)
                 }
             
             // Reviewing Shoot
@@ -98,16 +98,10 @@ struct ReviewPlanView: View {
                 hasBackButton: true,
                 canGoNext: canSave,
                 onPrevious: {
-                    currentStep = .emotion
+                    onPreviousTapped()
                 },
                 onNext: {
-                    if viewModel.subGoal != nil {
-                        viewModel.saveJournal(context: modelContext)
-                        currentStep = .selectSubGoal
-                        manager.fullScreenMode = nil
-                    }
-                    else { currentStep = .createSubGoal }
-                    
+                    onNextTapped()
                 },
                 nextButtonText: (viewModel.subGoal != nil) ? systemText.saveButton : systemText.nextButton
             )
@@ -121,6 +115,23 @@ struct ReviewPlanView: View {
         }
         .padding()
     }
+    
+    private func onPreviousTapped() {
+        path.removeLast()
+    }
+    
+    private func onNextTapped() {
+        if viewModel.subGoal != nil {
+            viewModel.saveJournal(context: modelContext)
+            //            currentStep = .selectSubGoal
+            path.append(JournalCreationState.selectSubGoal)
+            manager.fullScreenMode = nil
+        }
+        else {
+            //            currentStep = .createSubGoal
+            path.append(JournalCreationState.createSubGoal)
+        }
+    }
 }
 
 #Preview {
@@ -132,5 +143,5 @@ struct ReviewPlanView: View {
         vm.emotionText = ["기분이 좋은"]
         return vm
     }()
-    ReviewPlanView(viewModel: mockViewModel, currentStep: .constant(.review))
+    ReviewPlanView(viewModel: mockViewModel, path: .constant(NavigationPath()))
 }
