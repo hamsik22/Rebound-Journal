@@ -101,5 +101,5 @@ struct SelectTargetView: View {
 }
 
 #Preview {
-    SelectTargetView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal), subGoals: [], path: .constant(NavigationPath()))
+    SelectTargetView(viewModel: JournalCreatorViewModel(), subGoals: [], path: .constant(NavigationPath()))
 }

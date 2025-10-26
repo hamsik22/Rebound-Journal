@@ -41,7 +41,7 @@ struct JounrnalCreator: View {
                             EmotionInputView(viewModel: viewModel, path: $path)
                                 .navigationBarBackButtonHidden()
                         case .review:
-                            ReviewPlanView(viewModel: viewModel, currentStep: $currentStep, path: $path)
+                            ReviewPlanView(viewModel: viewModel, path: $path)
                                 .navigationBarBackButtonHidden()
                         }
                     }
