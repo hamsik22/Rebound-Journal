@@ -137,7 +137,6 @@ struct ReviewPlanView: View {
     let mockViewModel = {
         let vm = JournalCreatorViewModel()
         vm.goalType = true
-        vm.currentStep = .review
         vm.emotionValue = 1
         vm.emotionText = ["기분이 좋은"]
         return vm

@@ -20,7 +20,6 @@ struct DashboardContentView: View {
     @Query private var subGoals: [SubGoalData]
     @State private var isSettingsSheetPresented = false
     @State private var isHistorySheetPresented = false
-    @State private var journalCreatorStep: ReboundProcessStep = .createSubGoal
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -66,7 +65,6 @@ struct DashboardContentView: View {
             // 중복되지 않는 CoreData를 SwiftData로 옮기는 함수
             manager.convertDupicateDataToSwiftData(nsContext: context, modelContext: modelContext)
             // 작은 목표 유무에 따라 슛 생성 화면 상태값 수정
-            journalCreatorStep = subGoals.isEmpty ? .shoot : .selectSubGoal
             
         }
         .sheet(isPresented: $isSettingsSheetPresented) {
