@@ -121,14 +121,13 @@ struct ReviewPlanView: View {
     }
     
     private func onNextTapped() {
+        // 선택된 목표가 있을 시
         if viewModel.subGoal != nil {
             viewModel.saveJournal(context: modelContext)
-            //            currentStep = .selectSubGoal
-            path.append(JournalCreationState.selectSubGoal)
             manager.fullScreenMode = nil
         }
+        // 목표가 없을 시
         else {
-            //            currentStep = .createSubGoal
             path.append(JournalCreationState.createSubGoal)
         }
     }

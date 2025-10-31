@@ -14,7 +14,6 @@ struct JounrnalCreator: View {
     @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: JournalCreatorViewModel
     // UI State
-    @Binding var currentStep: ReboundProcessStep
     @State private var showAlert: Bool = false
     @Query private var subGoals: [SubGoalData]
     @State private var path = NavigationPath()
@@ -25,7 +24,7 @@ struct JounrnalCreator: View {
                 manager.fullScreenMode = nil
             }, hasAlert: true)
             NavigationStack(path: $path) {
-                SelectTargetView(viewModel: viewModel, subGoals: subGoals, path: $path)
+                    startingView()
                     .navigationDestination(for: JournalCreationState.self) { value in
                         switch value {
                         case .createSubGoal:
@@ -48,6 +47,15 @@ struct JounrnalCreator: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func startingView() -> some View {
+        if subGoals.isEmpty {
+            SelectShootTypeView(viewModel: viewModel, path: $path)
+        } else {
+            SelectTargetView(viewModel: viewModel, subGoals: subGoals, path: $path)
+        }
+    }
 }
 
 enum JournalCreationState: Hashable {
@@ -59,6 +67,6 @@ enum JournalCreationState: Hashable {
 }
 
 #Preview {
-    JounrnalCreator(viewModel: JournalCreatorViewModel(), currentStep: .constant(.createSubGoal))
+    JounrnalCreator(viewModel: JournalCreatorViewModel())
         .environmentObject(DataManager())
 }

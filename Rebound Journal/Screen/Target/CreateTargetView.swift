@@ -100,14 +100,10 @@ struct CreateTargetView: View {
         if targetText.isEmpty {
             // 건너뛰기: 목표를 저장하지 않고 다음 단계로
             viewModel.subGoal = nil
-            //                        currentStep = .selectSubGoal
             path.append(JournalCreationState.selectSubGoal)
-            viewModel.saveJournal(context: modelContext)
-            manager.fullScreenMode = nil
         } else {
             // 저장하기: 목표를 저장하고 다음 단계로
             viewModel.subGoal = targetText
-            //                        currentStep = .selectSubGoal
             path.append(JournalCreationState.selectSubGoal)
             viewModel.saveJournal(context: modelContext)
             viewModel.saveSubGoal(context: modelContext)

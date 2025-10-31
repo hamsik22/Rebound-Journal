@@ -38,7 +38,7 @@ struct DashboardContentView: View {
         .fullScreenCover(item: $manager.fullScreenMode) { type in
             switch type {
             case .entryCreator:
-                JounrnalCreator(viewModel: journalCreatorViewModel, currentStep: $journalCreatorStep)
+                JounrnalCreator(viewModel: journalCreatorViewModel)
                     .environmentObject(manager)
             case .readJournalView:
                 // TODO: 기록 상세화면
