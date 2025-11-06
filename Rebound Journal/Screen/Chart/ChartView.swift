@@ -92,9 +92,8 @@ extension ChartView {
                 }
                 
                 Spacer()
-                
-                customChartLegend(circleColor: .goalInChart, text: "골인")
-                customChartLegend(circleColor: .reboundChart, text: "리바운드")
+                customChartLegend(circleColor: Color.Bg.goalInChart, text: "골인")
+                customChartLegend(circleColor: Color.Bg.reboundChart, text: "리바운드")
             }
             
             Chart {
@@ -103,7 +102,7 @@ extension ChartView {
                         x: .value("Date", item.date.dayLabel),
                         y: .value("Count", item.count)
                     )
-                    .foregroundStyle(item.isGoalIn ? Color.goalInChart : Color.reboundChart)
+                    .foregroundStyle(item.isGoalIn ? Color.blue : Color.black)
                 }
             }
             .chartLegend(.hidden)
@@ -147,7 +146,7 @@ extension ChartView {
                     .padding()
                     .frame(height: 80)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(Color.default)
+                    .foregroundStyle(Color.Text.primaryBlack)
                     .background(Color.clear)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -171,7 +170,7 @@ extension ChartView {
                 .padding()
                 .frame(height: 80)
                 .frame(maxWidth: .infinity)
-                .foregroundStyle(Color.default)
+                .foregroundStyle(.black)
                 .background(Color.clear)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
@@ -193,14 +192,14 @@ extension ChartView {
                     .opacity(0.5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 100)
-                    .background(.journalDetail)
+                    .background(Color.Bg.shootLogDetail)
                     .cornerRadius(10)
             } else {
-                ForEach(viewModel.groupedJournals, id: \.key) { group in
+                ForEach(Array(viewModel.groupedJournals.enumerated()), id: \.offset) { _, group in
                     VStack(alignment: .leading, spacing: 10) {
                         Text(group.key)
                             .font(.title3.bold())
-                            .foregroundStyle(.description)
+                            .foregroundStyle(Color.Text.primaryBlack)
                             .padding(.leading, 5)
                         
                         ForEach(group.value) { item in
@@ -214,7 +213,7 @@ extension ChartView {
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(.journalDetail)
+                            .background(Color.Bg.shootLogDetail)
                             .cornerRadius(10)
                         }
                     }
@@ -254,3 +253,4 @@ extension ChartView {
 #Preview {
     ChartView(viewModel: ChartViewModel())
 }
+

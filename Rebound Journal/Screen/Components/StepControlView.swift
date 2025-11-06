@@ -68,11 +68,11 @@ struct StepControlView: View {
                 .font(.system(size: 18, weight: .bold))
                 .padding()
                 .frame(maxWidth: .infinity)
-                .foregroundColor(.backButtonText)
+                .foregroundColor(Color.Text.backButton)
                 .background(Color.clear)
                 .overlay(
                     RoundedRectangle(cornerRadius: 90)
-                        .stroke(.backButtonBorder, lineWidth: 2)
+                        .stroke(Color.Border.backButton, lineWidth: 2)
                 )
         }
     }
@@ -87,8 +87,8 @@ struct StepControlView: View {
                 .font(.system(size: 18, weight: .bold))
                 .frame(maxWidth: .infinity)
                 .padding()
-                .background(canGoNext ? Color.accentColor : .disabledButtonBackground)
-                .foregroundColor(canGoNext ? .text : .disabledButtonText)
+                .background(canGoNext ? Color.accentColor : Color.Bg.nextButtonDisabled)
+                .foregroundColor(canGoNext ? Color.Text.nextButton : Color.Text.nextButtonDisabled)
                 .cornerRadius(90)
         }
         .disabled(!canGoNext)

@@ -19,7 +19,7 @@ struct SelectShootTypeView: View {
     var body: some View {
         VStack {
             ShootCreationHeader(title: text.shootTypeTitle,
-                                description: text.shootTypeDescription)
+                                subTitle: text.shootTypeDescription)
             Spacer()
             HStack {
                 // 골인 버튼
@@ -37,7 +37,7 @@ struct SelectShootTypeView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == true ? Color.accentColor : .shootTypeButtonBorder, lineWidth: 1)
+                                .stroke(viewModel.goalType == true ? Color.Border.selectedShootType : Color.Border.unSelectedShootType, lineWidth: 1)
                         )
                 }
                 Spacer(minLength: 30)
@@ -57,7 +57,7 @@ struct SelectShootTypeView: View {
                         )
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(viewModel.goalType == false ? Color.accentColor : Color.shootTypeButtonBorder, lineWidth: 1)
+                                .stroke(viewModel.goalType == false ? Color.Border.selectedShootType : Color.Border.unSelectedShootType, lineWidth: 1)
                         )
                 }
             }

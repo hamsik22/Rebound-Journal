@@ -82,7 +82,7 @@ struct JournalList: View {
         }
         .frame(maxWidth: .infinity)
         .padding()
-        .background(Color.cellColor)
+        .background(Color.Bg.shootLogDetail)
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .padding(.bottom, 20)
     }

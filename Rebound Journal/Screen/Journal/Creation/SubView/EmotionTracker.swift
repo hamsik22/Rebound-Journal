@@ -44,7 +44,7 @@ struct EmotionTracker: View {
                         Text(text.sliderGuide)
                             .frame(maxWidth: .infinity)
                             .multilineTextAlignment(.center)
-                            .foregroundStyle(.description)
+                            .foregroundStyle(Color.Text.secondary)
                             .bold()
                             .padding()
                     } else if !isSliderEditing {

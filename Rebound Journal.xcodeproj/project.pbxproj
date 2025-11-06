@@ -149,17 +149,17 @@
 		586F228A2A33861C004C7410 /* Rebound Journal */ = {
 			isa = PBXGroup;
 			children = (
-				58FE87B22E37A04E00B91E3C /* Rebound Journal.entitlements */,
-				C3A07BCB2DBBCED10057D3C3 /* ViewModel */,
+				586F229F2A338990004C7410 /* AppConfig.swift */,
+				589DCCAF2D04B887003F86E5 /* AppDelegate.swift */,
+				586F228F2A33861D004C7410 /* Assets.xcassets */,
+				58D6707A2BD0275600F581E2 /* Constants.swift */,
 				58D6706B2BD01BA800F581E2 /* Extensions */,
 				586F22992A338793004C7410 /* Model */,
-				589D5F412A3EDBD100DB3CCF /* Screen */,
-				589DCCAF2D04B887003F86E5 /* AppDelegate.swift */,
-				586F229F2A338990004C7410 /* AppConfig.swift */,
-				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
-				58D6707A2BD0275600F581E2 /* Constants.swift */,
-				586F228F2A33861D004C7410 /* Assets.xcassets */,
 				586F22912A33861D004C7410 /* Preview Content */,
+				58FE87B22E37A04E00B91E3C /* Rebound Journal.entitlements */,
+				586F228B2A33861C004C7410 /* ReboundJournalApp.swift */,
+				589D5F412A3EDBD100DB3CCF /* Screen */,
+				C3A07BCB2DBBCED10057D3C3 /* ViewModel */,
 			);
 			path = "Rebound Journal";
 			sourceTree = "<group>";
@@ -651,7 +651,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rebound Journal/Preview Content\"";
-				DEVELOPMENT_TEAM = QGAQ3AY3R3;
+				DEVELOPMENT_TEAM = UF3R52LYV7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rebound-Journal-Info.plist";
@@ -691,7 +691,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rebound Journal/Preview Content\"";
-				DEVELOPMENT_TEAM = QGAQ3AY3R3;
+				DEVELOPMENT_TEAM = UF3R52LYV7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Rebound-Journal-Info.plist";

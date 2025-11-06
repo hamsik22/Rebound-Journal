@@ -85,15 +85,15 @@ struct GoalList: View {
     
     /// 목표 리스트 셀
     private func goalCell(_ data: GoalInfo) -> some View {
-        var highlightColor: Color = .gray
+        var highlightColor: Color = Color.Bg.goalFreqLow
         
         switch data.count {
         case 0..<3:
-            highlightColor = .goalFreqLow
+            highlightColor = Color.Bg.goalFreqLow
         case 3..<8:
-            highlightColor = .goalFreqMid
+            highlightColor = Color.Bg.goalFreqLow
         case 8...:
-            highlightColor = .goalFreqHigh
+            highlightColor = Color.Bg.goalFreqLow
         default:
             break
         }
@@ -102,7 +102,7 @@ struct GoalList: View {
             
             Text(data.title)
                 .lineLimit(1)
-                .foregroundStyle(.dashboardTitle)
+                .foregroundStyle(Color.Text.goalListTitle)
                 .font(.system(size: 18))
                 .padding(.bottom, 10)
                 .minimumScaleFactor(0.7)
@@ -110,7 +110,7 @@ struct GoalList: View {
                 Spacer()
                 Text("\(data.count)번")
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundStyle(.dashboardTitle)
+                    .foregroundStyle(Color.Text.goalListCount)
             }
         }
         .padding()

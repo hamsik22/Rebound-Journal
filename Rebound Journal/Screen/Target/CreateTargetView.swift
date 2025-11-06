@@ -55,7 +55,7 @@ struct CreateTargetView: View {
                         }
                     Text("\(targetText.count)/30")
                         .font(.system(size: 12))
-                        .foregroundStyle(.description)
+                        .foregroundStyle(Color.Text.secondary)
                         .padding(.horizontal, 5)
                 }
                 .frame(height: 65)

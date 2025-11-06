@@ -10,7 +10,7 @@ import SwiftUI
 struct ShootCreationHeader: View {
     // Content
     let title: String?
-    var description: String? = nil
+    var subTitle: String? = nil
     var image: ImageResource? = nil
     
     var body: some View {
@@ -24,12 +24,12 @@ struct ShootCreationHeader: View {
                     .font(.system(size: 25))
                     .fontWeight(.semibold)
                     .padding(.bottom, 3)
-                    .foregroundStyle(.default)
+                    .foregroundStyle(Color.Text.shootCreationHeaderTitle)
                 
-                if let description = description {
-                    Text(description)
+                if let subTitle = subTitle {
+                    Text(subTitle)
                         .font(.system(size: 18))
-                        .foregroundStyle(.description)
+                        .foregroundStyle(Color.Text.shootCreationHeaderSubtitle)
                 }
             }
         }
@@ -37,7 +37,7 @@ struct ShootCreationHeader: View {
 }
 
 #Preview("SelectShootType") {
-    ShootCreationHeader(title: "어떤 슛을 남겨볼까요?", description: "슛의 종류를 선택해 보세요.")
+    ShootCreationHeader(title: "어떤 슛을 남겨볼까요?", subTitle: "슛의 종류를 선택해 보세요.")
 }
 #Preview("EmotionInput-GoalIn") {
     ShootCreationHeader(title: Constants.ContentText().EmotionInPutGoalIn,

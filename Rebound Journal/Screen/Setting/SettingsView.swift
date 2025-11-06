@@ -54,7 +54,7 @@ struct SettingsView: View {
         HStack {
 						Text(title)
 								.font(.system(size: 18, weight: .medium))
-								.foregroundStyle(.default)
+                                .foregroundStyle(Color.Text.primaryBlack)
             Spacer()
         }.foregroundColor(Color("TextColor"))
     }

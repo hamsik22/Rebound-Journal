@@ -40,7 +40,7 @@ struct ReviewPlanView: View {
 								.padding(.vertical, 12)
                 .background {
                     Capsule()
-												.fill(.unselectedTagBackground)
+                        .fill(Color.Bg.selectedTagInReviewPlanView)
                 }
             
             // Reviewing Shoot
@@ -49,7 +49,7 @@ struct ReviewPlanView: View {
                     .font(.system(size: 25))
                     .fontWeight(.semibold)
                     .padding(.bottom, 3)
-                    .foregroundStyle(currentField == .review ? .default : .gray)
+                    .foregroundStyle(currentField == .review ? Color.Text.primaryBlack : Color.Text.secondary)
                 TextEditor(text: $reviewText)
                     .onChange(of: reviewText) { _, newValue in
                         viewModel.reviewText = newValue
@@ -74,7 +74,7 @@ struct ReviewPlanView: View {
                     .font(.system(size: 25))
                     .fontWeight(.semibold)
                     .padding(.bottom, 3)
-                    .foregroundStyle(currentField == .plan ? .default : .gray)
+                    .foregroundStyle(currentField == .plan ? Color.Text.primaryBlack : Color.Text.secondary)
                 TextEditor(text: $planText)
                     .onChange(of: planText) { _, newValue in
                         viewModel.nextPlanText = newValue
