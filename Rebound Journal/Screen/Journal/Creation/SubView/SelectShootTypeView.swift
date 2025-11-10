@@ -12,9 +12,9 @@ struct SelectShootTypeView: View {
     @ObservedObject var viewModel: JournalCreatorViewModel
     // UI State
     var isTypeSelected: Bool {viewModel.goalType == nil ? true : false}
-    @Binding var currentStep: ReboundProcessStep
     // etc
     var text = Constants.ContentText()
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
@@ -66,8 +66,7 @@ struct SelectShootTypeView: View {
                 hasBackButton: false,
                 canGoNext: viewModel.goalType != nil,
                 onNext: {
-                    debugPrint("다음 화면으로 이동")
-                    currentStep = .emotion
+                    onNextTapped()
                 },
                 nextButtonText: "다음으로"
             )
@@ -75,9 +74,11 @@ struct SelectShootTypeView: View {
         }
         .padding()
     }
-}
-
-extension SelectShootTypeView {
+    
+    private func onNextTapped() {
+        debugPrint("다음 화면으로 이동")
+        path.append(JournalCreationState.emotion)
+    }
     
     // 타입 비활성화를 위한 함수
     private func toggleSelection(type: Bool?) {
@@ -117,5 +118,5 @@ extension SelectShootTypeView {
 }
 
 #Preview("SelectShootTypeView") {
-    SelectShootTypeView(viewModel: JournalCreatorViewModel(), currentStep: .constant(.selectSubGoal))
+    SelectShootTypeView(viewModel: JournalCreatorViewModel(), path: .constant(NavigationPath()))
 }
