@@ -29,7 +29,7 @@ struct ReboundJournalApp: App {
     
     var body: some Scene {
         WindowGroup {
-            DashboardContentView()
+            HomeView()
                 .environmentObject(manager)
                 .environment(\.managedObjectContext, manager.container.viewContext)
                 .modelContainer(sharedModelContainer)
