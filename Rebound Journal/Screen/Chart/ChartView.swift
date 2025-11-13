@@ -9,6 +9,9 @@ import SwiftUI
 import Charts
 import SwiftData
 
+// TODO: 골인, 리바운드 글자색 변경
+// TODO: 그래프 날짜형식 변경
+// TODO: 글자 글꼴 확인(볼드체 등등)
 struct ChartView: View {
     
     @EnvironmentObject var manager: DataManager
@@ -25,16 +28,12 @@ struct ChartView: View {
                 ModalHeaderBar(title: "통계") {
                     manager.fullScreenMode = nil
                 }
-                // 연속 일수
-                streakText
                 // 슛 현황
                 totalShoot(data: viewModel.journalSummaries
 )
                 // 차트
                 chart
                     .frame(height: proxy.size.height * 0.3)
-                // 슛 기록
-                shootLog
             }
         }
         .onAppear {

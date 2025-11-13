@@ -10,19 +10,48 @@ import SwiftData
 
 struct HomeView: View {
     
+    @EnvironmentObject var manager: DataManager
+    @ObservedObject var journalCreatorViewModel = JournalCreatorViewModel()
     @StateObject var viewModel = HomeViewModel()
+    @ObservedObject var chartViewModel = ChartViewModel()
     
     @Query private var subGoals: [SubGoalData]
     @Query private var journals: [JournalData]
     
     private var hasGoals: Bool { !subGoals.isEmpty }
     private var hasJournals: Bool { !journals.isEmpty }
+    @State private var isSettingsSheetPresented = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 topView(geometry)
                 bottomView(geometry)
+            }
+            .fullScreenCover(item: $manager.fullScreenMode) { type in
+                switch type {
+                case .entryCreator:
+                    JounrnalCreator(viewModel: journalCreatorViewModel)
+                        .environmentObject(manager)
+                case .readJournalView:
+                    // TODO: 기록 상세화면
+                    Text("기록 상세화면")
+                case .reboundCreator:
+                    // TODO: 리바운드 화면
+                    Text("리바운드 화면")
+                case .passcodeView:
+                    PasscodeView()
+                        .environmentObject(manager)
+                case .setupPasscodeView:
+                    PasscodeView(setupMode: true)
+                        .environmentObject(manager)
+                case .chartView:
+                    ChartView(viewModel: chartViewModel)
+                        .environmentObject(manager)
+                }
+            }
+            .sheet(isPresented: $isSettingsSheetPresented) {
+                SettingsView() // 모달로 표시될 View
             }
         }
     }
@@ -88,6 +117,7 @@ struct HomeView: View {
             // 전체기록 버튼
             Button {
                 print("전체기록 보기")
+                manager.fullScreenMode = .readJournalView
             } label: {
                 Image(systemName: "clock.arrow.trianglehead.counterclockwise.rotate.90")
                     .resizable()
@@ -100,6 +130,7 @@ struct HomeView: View {
             // 통계화면 버튼
             Button {
                 print("통계화면 보기")
+                manager.fullScreenMode = .chartView
             } label: {
                 Image(systemName: "chart.bar.xaxis")
                     .resizable()
@@ -111,6 +142,7 @@ struct HomeView: View {
             // 설정화면 버튼
             Button {
                 print("설정화면 보기")
+                isSettingsSheetPresented.toggle()
             } label: {
                 Image(systemName: "gearshape.fill")
                     .resizable()
@@ -135,6 +167,7 @@ struct HomeView: View {
     private var bottomButton: some View {
         Button {
             print("슛-쏘기 클릭")
+            manager.fullScreenMode = .entryCreator
         } label: {
             Text("슛-쏘기")
                 .frame(maxWidth: .infinity)
@@ -152,6 +185,8 @@ struct HomeView: View {
 }
 
 #Preview {
+    @Previewable @StateObject var manager = DataManager()
     HomeView()
+        .environmentObject(manager)
 }
 
