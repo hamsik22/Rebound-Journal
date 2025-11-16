@@ -10,6 +10,7 @@ import SwiftData
 
 struct JournalList: View {
     
+    @EnvironmentObject var manager: DataManager
     @ObservedObject var viewModel: HomeViewModel
     
     @Query private var journals: [JournalData]
@@ -22,6 +23,10 @@ struct JournalList: View {
                     Group {
                         targetInfo(target: journal.subGoal, type: journal.isGoalIn)
                         journalInfo(journal: journal.emotionText, description: journal.nextPlan, date: journal.date)
+                    }
+                    .onTapGesture {
+                        viewModel.selectedRebound = journal
+                        manager.fullScreenMode = .reboundCreator
                     }
                 }
             }

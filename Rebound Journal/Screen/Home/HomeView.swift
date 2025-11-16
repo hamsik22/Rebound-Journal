@@ -34,11 +34,10 @@ struct HomeView: View {
                     JounrnalCreator(viewModel: journalCreatorViewModel)
                         .environmentObject(manager)
                 case .readJournalView:
-                    // TODO: 기록 상세화면
-                    Text("기록 상세화면")
+                    AllJournalList()
+                        .environmentObject(manager)
                 case .reboundCreator:
-                    // TODO: 리바운드 화면
-                    Text("리바운드 화면")
+                    Text(viewModel.selectedRebound?.subGoal ?? "Loading")
                 case .passcodeView:
                     PasscodeView()
                         .environmentObject(manager)
@@ -81,6 +80,7 @@ struct HomeView: View {
             }
         }
     }
+    
     @ViewBuilder
     private func bottomView(_ geometry: GeometryProxy) -> some View {
         ZStack {
@@ -95,6 +95,7 @@ struct HomeView: View {
                 if hasJournals {
                     bottomHeader
                     JournalList(viewModel: viewModel)
+                        .environmentObject(manager)
                 }
             }
             

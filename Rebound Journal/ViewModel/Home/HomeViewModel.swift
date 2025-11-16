@@ -10,6 +10,8 @@ import Foundation
 @MainActor
 final class HomeViewModel: ObservableObject {
     
+    @Published var selectedRebound: JournalData? = nil
+    
     func fetchGoalInfo(goals: [SubGoalData], journals: [JournalData]) -> [GoalInfo] {
         return generateTargetInfo(goals: goals, journals: journals)
     }
