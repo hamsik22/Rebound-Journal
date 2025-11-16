@@ -37,7 +37,8 @@ struct HomeView: View {
                     AllJournalList()
                         .environmentObject(manager)
                 case .reboundCreator:
-                    Text(viewModel.selectedRebound?.subGoal ?? "Loading")
+                    JournalDetail(journal: viewModel.selectedRebound)
+                        .environmentObject(manager)
                 case .passcodeView:
                     PasscodeView()
                         .environmentObject(manager)
